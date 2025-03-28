@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SchoolDiary</string>
+    <string name="login_fragment"> Здесь будет какой-то логин</string>
+    <string name="login_button">Войти</string>
+    <string name="schedule_fragment">Здесь будет какое-то расписание</string>
+    <string name="schedule_title"> Расписание</string>
+    <string name="statistic_title">Статистика</string>
+    <string name="statistic_fragment">Здесь будет какая-то статистика</string>
+    <string name="details_fragment">Здесь будут какие-то подробности</string>
+    <string name="details_button">Детали</string>
+
 </resources>
