@@ -9,7 +9,7 @@
         app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/loginFragment"
-            android:name="com.schooldiary.LoginFragment"
+            android:name="com.schooldiary.fragment.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/fragment_login">
             <action
@@ -24,7 +24,7 @@
         app:startDestination="@id/scheduleFragment">
         <fragment
             android:id="@+id/scheduleFragment"
-            android:name="com.schooldiary.ScheduleFragment"
+            android:name="com.schooldiary.fragment.ScheduleFragment"
             android:label="fragment_schedule"
             tools:layout="@layout/fragment_schedule">
             <action
@@ -33,12 +33,12 @@
         </fragment>
         <fragment
             android:id="@+id/statisticsFragment"
-            android:name="com.schooldiary.StatisticsFragment"
+            android:name="com.schooldiary.fragment.StatisticsFragment"
             android:label="fragment_statistics"
             tools:layout="@layout/fragment_statistics" />
         <fragment
             android:id="@+id/detailsFragment"
-            android:name="com.schooldiary.DetailsFragment"
+            android:name="com.schooldiary.fragment.DetailsFragment"
             android:label="fragment_details"
             tools:layout="@layout/fragment_details" />
 
