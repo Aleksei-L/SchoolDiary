@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,42 +15,54 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.schooldiary.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
-		val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-		setSupportActionBar(toolbar)
-		val navHostFragment = supportFragmentManager
-			.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-		val navController = navHostFragment.navController
-		val topLevelDestinations = setOf(R.id.loginFragment, R.id.scheduleFragment)
+    private lateinit var binding: ActivityMainBinding
 
-		val appBarConfiguration = AppBarConfiguration(topLevelDestinations)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
+        setContentView(binding.root)
 
-		toolbar.setupWithNavController(navController, appBarConfiguration)
-		val bottomNavView = findViewById<BottomNavigationView>(R.id.bottom_nav)
-		bottomNavView.setupWithNavController(navController)
-		navController.addOnDestinationChangedListener { _, destination, _ ->
-			if (destination.id == R.id.loginFragment) {
-				bottomNavView.visibility = View.GONE
-			} else {
-				bottomNavView.visibility = View.VISIBLE
-			}
-		}
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
 
-	}
 
-	override fun onCreateOptionsMenu(menu: Menu): Boolean {
-		menuInflater.inflate(R.menu.menu, menu)
-		return super.onCreateOptionsMenu(menu)
-	}
+        setSupportActionBar(binding.toolbar)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.loginFragment, R.id.scheduleFragment))
 
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		val navController = findNavController(R.id.nav_host_fragment)
-		return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-	}
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+
+        binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.loginFragment) {
+                binding.bottomNav.visibility = View.GONE
+            } else {
+                binding.bottomNav.visibility = View.VISIBLE
+            }
+        }
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
+    }
 }
 
