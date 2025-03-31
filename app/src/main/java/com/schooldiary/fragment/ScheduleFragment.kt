@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.schooldiary.databinding.FragmentScheduleBinding
@@ -25,5 +24,10 @@ class ScheduleFragment : Fragment() {
                 .navigate(R.id.action_scheduleFragment_to_detailsFragment)
         }
         return view
+    }
+
+    override fun onDestroyView() {
+        _binding=null
+        super.onDestroyView()
     }
 }
