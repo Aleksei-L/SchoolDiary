@@ -30,6 +30,9 @@
             <action
                 android:id="@+id/action_scheduleFragment_to_detailsFragment"
                 app:destination="@id/detailsFragment" />
+            <action
+                android:id="@+id/action_scheduleFragment_to_loginFragment"
+                app:destination="@id/loginFragment" />
         </fragment>
         <fragment
             android:id="@+id/statisticsFragment"
@@ -41,6 +44,11 @@
             android:name="com.schooldiary.fragment.DetailsFragment"
             android:label="fragment_details"
             tools:layout="@layout/fragment_details" />
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.schooldiary.fragment.LoginFragment"
+            android:label="login_details"
+            tools:layout="@layout/fragment_login" />
 
     </navigation>
 
