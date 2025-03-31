@@ -7,16 +7,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.schooldiary.databinding.FragmentScheduleBinding
 import com.schooldiary.R
 
 class ScheduleFragment : Fragment() {
+    private var _binding: FragmentScheduleBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_schedule, container, false)
-        val detailsButton = view.findViewById<Button>(R.id.details_button)
-        detailsButton.setOnClickListener {
+        _binding = FragmentScheduleBinding.inflate(inflater, container, false)
+        val view = binding.root
+        binding.detailsButton.setOnClickListener {
             view.findNavController()
                 .navigate(R.id.action_scheduleFragment_to_detailsFragment)
         }
