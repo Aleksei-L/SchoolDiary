@@ -10,24 +10,22 @@ import com.schooldiary.databinding.FragmentScheduleBinding
 import com.schooldiary.R
 
 class ScheduleFragment : Fragment() {
-    private var _binding: FragmentScheduleBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentScheduleBinding? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentScheduleBinding.inflate(inflater, container, false)
-        val view = binding.root
-        binding.detailsButton.setOnClickListener {
-            view.findNavController()
-                .navigate(R.id.action_scheduleFragment_to_detailsFragment)
+        binding = FragmentScheduleBinding.inflate(inflater, container, false)
+        val view =
+            binding?.root ?: throw Exception("Fragment view not created yet or already destroyed")
+        binding?.detailsButton?.setOnClickListener {
+            view.findNavController().navigate(R.id.action_scheduleFragment_to_detailsFragment)
         }
         return view
     }
 
     override fun onDestroyView() {
-        _binding=null
+        binding = null
         super.onDestroyView()
     }
 }

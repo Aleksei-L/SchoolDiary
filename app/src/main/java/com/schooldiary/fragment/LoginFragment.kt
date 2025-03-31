@@ -11,28 +11,26 @@ import com.schooldiary.databinding.FragmentLoginBinding
 import com.schooldiary.R
 
 class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentLoginBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
-        binding.loginButton.setOnClickListener {
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val view =
+            binding?.root ?: throw Exception("Fragment view not created yet or already destroyed")
+        binding?.loginButton?.setOnClickListener {
             view.findNavController().navigate(
                 R.id.action_loginFragment_to_scheduleFragment,
                 null,
-                NavOptions.Builder()
-                    .setPopUpTo(R.id.auth_flow, true)
-                    .build()
+                NavOptions.Builder().setPopUpTo(R.id.auth_flow, true).build()
             )
         }
         return view
     }
 
     override fun onDestroyView() {
-        _binding = null
+        binding = null
         super.onDestroyView()
     }
 
