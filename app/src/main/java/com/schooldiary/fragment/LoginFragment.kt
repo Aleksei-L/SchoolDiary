@@ -8,25 +8,28 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import com.schooldiary.databinding.FragmentLoginBinding
 import com.schooldiary.R
 import TemporaryData.UserBD
 import TemporaryData.TemporaryUserStorage
-
+import com.schooldiary.databinding.FragmentLoginBinding
+import com.schooldiary.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
     private var binding: FragmentLoginBinding? = null
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         val view =
             binding?.root ?: throw Exception("Fragment view not created yet or already destroyed")
-        binding?.loginButton?.setOnClickListener {
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
+        binding?.loginButton?.setOnClickListener {
             val editLogin = binding?.userLogin?.text.toString().trim()
             val editPassword = binding?.userPassword?.text.toString().trim()
 
@@ -35,6 +38,7 @@ class LoginFragment : Fragment() {
 
             val cur_user = UserBD(editLogin, editPassword)
             if (TemporaryUserStorage.all_user_data.any { it.login == cur_user.login && it.password == cur_user.password }) {
+              viewModel.login(binding?.login?.text.toString(), binding?.password?.text.toString())
                 view.findNavController().navigate(
                     R.id.action_loginFragment_to_scheduleFragment,
                     null,
@@ -45,6 +49,7 @@ class LoginFragment : Fragment() {
                     Toast.makeText(requireContext(), "Логин или пароль некорректен", Toast.LENGTH_SHORT).show()
                 }
         }
+
         return view
     }
 

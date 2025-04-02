@@ -49,7 +49,6 @@
             android:name="com.schooldiary.fragment.LoginFragment"
             android:label="login_details"
             tools:layout="@layout/fragment_login" />
-
     </navigation>
 
 </navigation>

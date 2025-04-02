@@ -53,6 +53,9 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
 
+    //livedata
+    implementation(libs.androidx.lifecycle)
+
     // Compose библиотеки
     implementation(platform(libs.compose.bom))
     androidTestImplementation(platform(libs.compose.bom))
