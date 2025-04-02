@@ -49,6 +49,9 @@
             android:name="com.schooldiary.fragment.LoginFragment"
             android:label="login_details"
             tools:layout="@layout/fragment_login" />
+        <action
+            android:id="@+id/action_global_auth_flow"
+            app:destination="@id/auth_flow" />
     </navigation>
 
 </navigation>

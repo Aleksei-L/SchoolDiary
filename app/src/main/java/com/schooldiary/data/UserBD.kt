@@ -1,9 +1,8 @@
-package TemporaryData
+package com.schooldiary.data
 
 // Временный класс для имитации БД
 
-class UserBD(val login: String, val password: String) {
-}
+class UserBD(val login: String, val password: String)
 
 object TemporaryUserStorage {
     val all_user_data = listOf(

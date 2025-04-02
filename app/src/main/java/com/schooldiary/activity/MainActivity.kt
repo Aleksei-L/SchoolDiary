@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -15,7 +16,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.schooldiary.R
 import com.schooldiary.databinding.ActivityMainBinding
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -73,10 +73,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        val navController = findNavController(R.id.nav_host_fragment)
-        val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFlow, true).build()
-        navController.navigate(
-            R.id.action_global_auth_flow, null, navOptions
-        )
+        AlertDialog.Builder(this)
+            .setTitle("Внимание!")
+            .setMessage("Вы уверены, что хотите выйти?")
+            .setPositiveButton("Да") { _, _ ->
+                val navController = findNavController(R.id.nav_host_fragment)
+                val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFlow, true).build()
+                navController.navigate(
+                    R.id.action_global_auth_flow, null, navOptions
+                )
+                //findNavController(R.id.nav_host_fragment).navigate(R.id.action_scheduleFragment_to_loginFragment)
+            }
+            .setNegativeButton("Нет") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+
     }
 }

@@ -9,5 +9,6 @@
     <string name="details_fragment">Здесь будут какие-то подробности</string>
     <string name="details_button">Детали</string>
     <string name="exit">Выход</string>
-
+    <string name="password_hint">Пароль</string>
+    <string name="login_hint">Логин</string>
 </resources>

@@ -53,7 +53,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
 
-    //livedata
+    // Livedata
     implementation(libs.androidx.lifecycle)
 
     // Compose библиотеки
