@@ -8,5 +8,6 @@
     <string name="statistic_fragment">Здесь будет какая-то статистика</string>
     <string name="details_fragment">Здесь будут какие-то подробности</string>
     <string name="details_button">Детали</string>
+    <string name="exit">Выход</string>
 
 </resources>

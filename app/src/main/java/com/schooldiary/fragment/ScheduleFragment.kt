@@ -14,7 +14,7 @@ class ScheduleFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
         val view =
             binding?.root ?: throw Exception("Fragment view not created yet or already destroyed")
