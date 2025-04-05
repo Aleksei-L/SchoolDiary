@@ -14,6 +14,7 @@ composeBom = "2025.03.01"
 composeActivity = "1.10.1"
 composeLifecycle = "2.8.7"
 livedata = "2.8.7"
+retrofit = "2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +35,8 @@ compose-activity = { group = "androidx.activity", name = "activity-compose", ver
 compose-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "composeLifecycle" }
 compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "livedata" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-json-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
