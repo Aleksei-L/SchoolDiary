@@ -70,4 +70,8 @@ dependencies {
     implementation(libs.compose.activity)
     implementation(libs.compose.lifecycle)
     implementation(libs.compose.livedata)
+
+    // Работа с сетью и JSON
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.json.converter)
 }
