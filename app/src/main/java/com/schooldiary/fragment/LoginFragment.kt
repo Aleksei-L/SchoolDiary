@@ -1,5 +1,6 @@
 package com.schooldiary.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,17 +42,23 @@ class LoginFragment : Fragment() {
                 viewModel.login(editLogin, editPassword)
         }
 
+        val sharedPref =
+            activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
+
         viewModel.loginStatus.observe(viewLifecycleOwner) { hasLoginSuccess ->
             if (hasLoginSuccess) {
-                findNavController().navigate(
-                    R.id.action_loginFragment_to_scheduleFragment,
-                    null,
-                    NavOptions.Builder().setPopUpTo(R.id.auth_flow, true).build()
-                )
+                sharedPref
+                    ?.edit()
+                    ?.putBoolean(getString(R.string.sp_login_state), true)
+                    ?.apply()
+                loginUser()
             } else {
                 Toast.makeText(context, "Логин или пароль некорректен", Toast.LENGTH_SHORT).show()
             }
         }
+
+        if (sharedPref != null && sharedPref.getBoolean(getString(R.string.sp_login_state), false))
+            loginUser()
 
         return binding.root
     }
@@ -59,5 +66,13 @@ class LoginFragment : Fragment() {
     override fun onDestroyView() {
         nullableBinding = null
         super.onDestroyView()
+    }
+
+    private fun loginUser() {
+        findNavController().navigate(
+            R.id.action_loginFragment_to_scheduleFragment,
+            null,
+            NavOptions.Builder().setPopUpTo(R.id.auth_flow, true).build()
+        )
     }
 }
