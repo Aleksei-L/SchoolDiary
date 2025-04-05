@@ -25,8 +25,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -55,6 +54,12 @@ dependencies {
 
     // Livedata
     implementation(libs.androidx.lifecycle)
+
+    // Recycler
+    implementation(libs.androidx.recycler)
+
+    // CardView
+    implementation(libs.androidx.cardview)
 
     // Compose библиотеки
     implementation(platform(libs.compose.bom))
