@@ -10,10 +10,10 @@ import com.schooldiary.data.ScheduleItems
 
 class ScheduleAdapter(private val items: List<ScheduleItems>) :
     RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+    private var onClick: (() -> Unit)? = null
 
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val day: TextView = itemView.findViewById(R.id.day)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -25,7 +25,14 @@ class ScheduleAdapter(private val items: List<ScheduleItems>) :
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val item = items[position]
         holder.day.text = item.day
+        holder.itemView.setOnClickListener {
+            onClick?.let { it() }
+        }
     }
 
     override fun getItemCount() = items.size
+
+    fun setOnClickListener(action: () -> Unit) {
+        onClick = action
+    }
 }

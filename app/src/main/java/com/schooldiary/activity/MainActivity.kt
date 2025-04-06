@@ -96,10 +96,10 @@ class MainActivity : AppCompatActivity() {
     private fun changeBottomBarAndToolbarMenuVisibility() {
         if (navController.currentDestination?.id == R.id.loginFragment) {
             binding.bottomNav.visibility = View.GONE
-            binding.toolbar.menu.findItem(R.id.exit)?.isVisible = false
+            binding.toolbar.visibility = View.GONE
         } else {
             binding.bottomNav.visibility = View.VISIBLE
-            binding.toolbar.menu.findItem(R.id.exit)?.isVisible = true
+            binding.toolbar.visibility = View.VISIBLE
         }
     }
 }
