@@ -37,8 +37,8 @@ class ScheduleFragment : Fragment() {
             findNavController().navigate(R.id.action_scheduleFragment_to_detailsFragment)
         }
 
-        binding.scheduleList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+        binding.rvSchedule.apply {
+            layoutManager = LinearLayoutManager(context)
             adapter = scheduleAdapter
         }
 

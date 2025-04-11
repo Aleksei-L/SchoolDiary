@@ -4,16 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
 import com.schooldiary.data.ScheduleItems
 
-class ScheduleAdapter(private val items: List<ScheduleItems>) :
-    RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+class ScheduleAdapter(
+    private val items: List<ScheduleItems>
+) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
     private var onClick: (() -> Unit)? = null
 
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val day: TextView = itemView.findViewById(R.id.day)
+        val title: TextView = itemView.findViewById(R.id.header_title)
+        val lessons: RecyclerView = itemView.findViewById(R.id.rv_lessons)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -23,10 +26,20 @@ class ScheduleAdapter(private val items: List<ScheduleItems>) :
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        val item = items[position]
-        holder.day.text = item.day
+        //val item = items[position]
+        holder.title.text = "Понедельник 01.04"
         holder.itemView.setOnClickListener {
             onClick?.let { it() }
+        }
+        holder.lessons.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = LessonAdapter(
+                3,
+                "1. Литература",
+                true,
+                "08:00 - 08:45",
+                onClick!!
+            )
         }
     }
 

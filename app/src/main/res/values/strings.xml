@@ -16,4 +16,5 @@
     <!-- Работа с Shared Preferences -->
     <string name="shared_pref">com.schooldiary.shared_preferences</string>
     <string name="sp_login_state">HAS_LOGIN_SUCCESS</string>
+    <string name="move_to_details">Дневник</string>
 </resources>
