@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/scheduleFragment"
-        android:icon="@android:drawable/ic_menu_day"
+        android:icon="@drawable/ic_schedule"
         android:title="@string/schedule_title" />
     <item
         android:id="@+id/statisticsFragment"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@drawable/ic_stats"
         android:title="@string/statistic_title"/>
 </menu>

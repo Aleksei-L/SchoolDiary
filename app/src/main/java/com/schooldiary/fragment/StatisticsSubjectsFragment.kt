@@ -6,23 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.schooldiary.adapter.LessonAdapter
-import com.schooldiary.databinding.FragmentDetailsBinding
+import com.schooldiary.adapter.ReportAdapter
+import com.schooldiary.databinding.FragmentStatisticsSubjectsBinding
 
-class DetailsFragment : Fragment() {
-    private var nullableBinding: FragmentDetailsBinding? = null
+class StatisticsSubjectsFragment : Fragment() {
+    private var nullableBinding: FragmentStatisticsSubjectsBinding? = null
     private val binding
         get() = nullableBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        nullableBinding = FragmentDetailsBinding.inflate(inflater, container, false)
+        nullableBinding = FragmentStatisticsSubjectsBinding.inflate(inflater, container, false)
 
-        binding.detailsDayTitle.text = "Понедельник 31.03.25"
-
-        binding.rvLessons.apply {
-            adapter = LessonAdapter(listOf(Any(), Any(), Any(), Any(), Any()))
+        binding.rvReport.apply {
+            adapter = ReportAdapter()
             layoutManager = LinearLayoutManager(context)
         }
 

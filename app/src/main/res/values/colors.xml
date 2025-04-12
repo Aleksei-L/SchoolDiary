@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="main_blue">#2C6FB9</color>
     <color name="light_blue">#87B1DF</color>
+
+    <!-- Цвета оценок -->
+    <color name="mark_green">#77D147</color>
+    <color name="mark_yellow">#F3A342</color>
 </resources>

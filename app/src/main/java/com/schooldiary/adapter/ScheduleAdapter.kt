@@ -16,7 +16,7 @@ class ScheduleAdapter(
 
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.header_title)
-        val lessons: RecyclerView = itemView.findViewById(R.id.rv_lessons)
+        val lessons: RecyclerView = itemView.findViewById(R.id.rv_preview_lessons)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
@@ -33,8 +33,8 @@ class ScheduleAdapter(
         }
         holder.lessons.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = LessonAdapter(
-                3,
+            adapter = LessonPreviewAdapter(
+                7,
                 "1. Литература",
                 true,
                 "08:00 - 08:45",
