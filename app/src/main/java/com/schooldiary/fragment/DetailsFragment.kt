@@ -22,7 +22,7 @@ class DetailsFragment : Fragment() {
         binding.detailsDayTitle.text = "Понедельник 31.03.25"
 
         binding.rvLessons.apply {
-            adapter = LessonAdapter(listOf(Any(), Any(), Any(), Any(), Any()))
+            adapter = LessonAdapter(listOf(Any(), Any(), Any(), Any(), Any()), context)
             layoutManager = LinearLayoutManager(context)
         }
 
