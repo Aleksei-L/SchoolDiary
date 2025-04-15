@@ -11,4 +11,12 @@
     <color name="mark_yellow">#F3A342</color>
     <color name="mark_red">#DF5252</color>
     <color name="mark_neutral">#67A3D3</color>
+    <!-- Primary Colors -->
+    <color name="md3_primary">#2C6FB9</color> <!-- Ваш синий -->
+    <color name="md3_primary_container">#FFFFFF</color>
+    <color name="md3_on_primary_container">#2C6FB9</color>
+
+    <!-- Secondary Colors -->
+    <color name="md3_secondary_container">#2C6FB9</color>
+    <color name="md3_on_secondary_container">#FFFFFF</color>
 </resources>

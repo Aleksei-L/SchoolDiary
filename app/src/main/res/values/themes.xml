@@ -1,25 +1,44 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Base.Theme.SchoolDiary" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Базовая тема с Material 3 -->
+    <style name="Base.Theme.SchoolDiary" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/md3_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/md3_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/md3_on_primary_container</item>
+
+        <!-- Secondary Colors (для BottomNavigationView) -->
+        <item name="colorSecondaryContainer">@color/md3_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/md3_on_secondary_container</item>
+
+        <!-- Toolbar -->
+        <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
+
+        <!-- Кнопки -->
         <item name="materialButtonStyle">@style/MyButtonStyle</item>
+
+        <!-- TabLayout -->
+        <item name="tabStyle">@style/MyTabLayoutStyle</item>
     </style>
 
+    <!-- Основная тема -->
     <style name="Theme.SchoolDiary" parent="Base.Theme.SchoolDiary" />
 
-    <style name="MyButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">#2C6FB9</item>
-        <item name="android:textColor">#FFFFFF</item>
+    <!-- Стиль кнопки -->
+    <style name="MyButtonStyle" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/md3_primary</item>
+        <item name="android:textColor">@color/white</item>
         <item name="cornerRadius">100dp</item>
     </style>
 
-    <style name="MyTabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
+    <!-- Стиль TabLayout -->
+    <style name="MyTabLayoutStyle" parent="Widget.Material3.TabLayout">
         <item name="tabTextAppearance">@style/MyTabTextStyle</item>
     </style>
 
-    <style name="MyTabTextStyle" parent="TextAppearance.Design.Tab">
+    <!-- Стиль текста вкладок -->
+    <style name="MyTabTextStyle" parent="TextAppearance.Material3.TitleSmall">
         <item name="textAllCaps">false</item>
-        <item name="android:textSize">32sp</item>
+        <item name="android:textSize">14sp</item> <!-- Уменьшенный размер для Material 3 -->
     </style>
 </resources>

@@ -25,7 +25,7 @@
         <fragment
             android:id="@+id/scheduleFragment"
             android:name="com.schooldiary.fragment.ScheduleFragment"
-            android:label="fragment_schedule"
+            android:label="Расписание"
             tools:layout="@layout/fragment_schedule">
             <action
                 android:id="@+id/action_scheduleFragment_to_detailsFragment"
@@ -37,12 +37,12 @@
         <fragment
             android:id="@+id/statisticsFragment"
             android:name="com.schooldiary.fragment.StatisticsFragment"
-            android:label="fragment_statistics"
+            android:label="Статистика"
             tools:layout="@layout/fragment_statistics" />
         <fragment
             android:id="@+id/detailsFragment"
             android:name="com.schooldiary.fragment.DetailsFragment"
-            android:label="fragment_details"
+            android:label="Подробности"
             tools:layout="@layout/fragment_details" />
         <fragment
             android:id="@+id/loginFragment"
