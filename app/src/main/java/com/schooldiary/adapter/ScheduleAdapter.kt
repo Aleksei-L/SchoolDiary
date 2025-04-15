@@ -7,12 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
-import com.schooldiary.data.ScheduleItems
+import com.schooldiary.data.ScheduleResponse
 
 class ScheduleAdapter(
-    private val items: List<ScheduleItems>
+    private val items: ScheduleResponse
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
-    private var onClick: (() -> Unit)? = null
+    private var onClick: ((Int) -> Unit)? = null
 
     class ScheduleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.header_title)
@@ -26,18 +26,16 @@ class ScheduleAdapter(
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        //val item = items[position]
-        holder.title.text = "Понедельник 01.04"
+        val item = items[position]
+        holder.title.text = item.weekDayName
         holder.itemView.setOnClickListener {
-            onClick?.let { it() }
+            onClick?.let { it(position) }
         }
         holder.lessons.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = LessonPreviewAdapter(
-                7,
-                "1. Литература",
-                true,
-                "08:00 - 08:45",
+                item.lessons,
+                position,
                 onClick!!
             )
         }
@@ -45,7 +43,7 @@ class ScheduleAdapter(
 
     override fun getItemCount() = items.size
 
-    fun setOnClickListener(action: () -> Unit) {
+    fun setOnClickListener(action: (Int) -> Unit) {
         onClick = action
     }
 }

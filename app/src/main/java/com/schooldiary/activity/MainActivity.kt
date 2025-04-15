@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
@@ -74,10 +75,9 @@ class MainActivity : AppCompatActivity() {
             .setTitle("Внимание!")
             .setMessage("Вы уверены, что хотите выйти?")
             .setPositiveButton("Да") { _, _ ->
-                sharedPref
-                    .edit()
-                    .putBoolean(getString(R.string.sp_login_state), false)
-                    .apply()
+                sharedPref.edit {
+                    putBoolean(getString(R.string.sp_login_state), false)
+                }
                 val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFlow, true).build()
                 navController.navigate(
                     R.id.action_global_auth_flow,

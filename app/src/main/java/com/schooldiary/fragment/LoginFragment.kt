@@ -6,31 +6,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.schooldiary.R
 import com.schooldiary.databinding.FragmentLoginBinding
 import com.schooldiary.repository.Repository
 import com.schooldiary.repository.RetrofitObject.retrofitService
-import com.schooldiary.viewmodel.LoginViewModel
-import com.schooldiary.viewmodel.LoginViewModelFactory
+import com.schooldiary.viewmodel.MainViewModel
+import com.schooldiary.viewmodel.MainViewModelFactory
 
 class LoginFragment : Fragment() {
     private var nullableBinding: FragmentLoginBinding? = null
     private val binding
         get() = nullableBinding!!
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: MainViewModel by activityViewModels {
+        MainViewModelFactory(Repository(retrofitService))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         nullableBinding = FragmentLoginBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(
-            this,
-            LoginViewModelFactory(Repository(retrofitService))
-        )[LoginViewModel::class.java]
 
         binding.loginButton.setOnClickListener {
             val editLogin = binding.login.text.toString().trim()
@@ -47,18 +46,18 @@ class LoginFragment : Fragment() {
 
         viewModel.loginStatus.observe(viewLifecycleOwner) { hasLoginSuccess ->
             if (hasLoginSuccess) {
-                sharedPref
-                    ?.edit()
-                    ?.putBoolean(getString(R.string.sp_login_state), true)
-                    ?.apply()
+                sharedPref?.edit {
+                    putBoolean(getString(R.string.sp_login_state), true)
+                }
                 loginUser()
             } else {
                 Toast.makeText(context, "Логин или пароль некорректен", Toast.LENGTH_SHORT).show()
             }
         }
 
-        if (sharedPref != null && sharedPref.getBoolean(getString(R.string.sp_login_state), false))
-            loginUser()
+        // TODO реализовать нормальную схему автологина
+        /*if (sharedPref != null && sharedPref.getBoolean(getString(R.string.sp_login_state), false))
+            loginUser()*/
 
         return binding.root
     }

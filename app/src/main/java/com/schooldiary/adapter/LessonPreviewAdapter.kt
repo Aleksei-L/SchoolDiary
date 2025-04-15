@@ -7,13 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
+import com.schooldiary.data.Lesson
 
 class LessonPreviewAdapter(
-    private val lessonCounter: Int,
-    private val title: String,
-    private val hasHomework: Boolean,
-    private val time: String,
-    private val onClick: () -> Unit
+    private val items: List<Lesson>,
+    private val parentPosition: Int,
+    private val onClick: (Int) -> Unit
 ) : RecyclerView.Adapter<LessonPreviewAdapter.LessonPreviewViewHolder>() {
     class LessonPreviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lessonTitle: TextView = itemView.findViewById(R.id.lesson_title)
@@ -28,11 +27,13 @@ class LessonPreviewAdapter(
     }
 
     override fun onBindViewHolder(holder: LessonPreviewViewHolder, position: Int) {
-        holder.lessonTitle.text = title
-        holder.homeworkMarker.visibility = if (hasHomework) View.VISIBLE else View.INVISIBLE
-        holder.lessonTime.text = time
-        holder.itemView.setOnClickListener { onClick() }
+        val item = items[position]
+        holder.lessonTitle.text = item.subjectName
+        holder.homeworkMarker.visibility =
+            if (item.homework.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+        holder.lessonTime.text = "${item.startTime.dropLast(3)} - ${item.endTime.dropLast(3)}"
+        holder.itemView.setOnClickListener { onClick(parentPosition) }
     }
 
-    override fun getItemCount() = lessonCounter
+    override fun getItemCount() = items.size
 }

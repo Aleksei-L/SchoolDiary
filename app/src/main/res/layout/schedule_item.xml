@@ -27,15 +27,6 @@
                 android:layout_weight="1"
                 android:textColor="@color/white" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center"
-                android:layout_marginEnd="8dp"
-                android:text="@string/move_to_details"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
