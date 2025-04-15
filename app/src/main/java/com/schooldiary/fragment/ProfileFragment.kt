@@ -17,6 +17,8 @@ class ProfileFragment : Fragment() {
     ): View {
         nullableBinding = FragmentProfileBinding.inflate(inflater, container, false)
 
+
+
         return binding.root
     }
 

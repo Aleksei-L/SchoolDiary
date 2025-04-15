@@ -3,8 +3,24 @@
     <string name="login_button">Войти</string>
     <string name="schedule_title"> Расписание</string>
     <string name="statistic_title">Статистика</string>
+    <string name="profile_title">Профиль</string>
     <string name="exit">Выход</string>
     <string name="homework">Домашнее задание:</string>
+
+    <!-- Profile Fragment -->
+    <string name="Info">Информация</string>
+    <string name="CClass">Класс:</string>
+    <string name="CGender">Пол:</string>
+    <string name="CBirth">Дата рождения:</string>
+    <string name="CAge">Возраст:</string>
+
+    <!-- Profile Fragment Изменяемые поля -->
+    <string name="UserName">Васин Александр Семенович</string>
+    <string name="Class">9В</string>
+    <string name="Gender">Мужской</string>
+    <string name="Birth">14.05.2010</string>
+    <string name="Age">14 лет</string>
+
 
     <!-- Работа с Shared Preferences -->
     <string name="shared_pref">com.schooldiary.shared_preferences</string>
