@@ -1,5 +1,6 @@
 package com.schooldiary.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,7 @@ class ScheduleFragment : Fragment() {
     ): View {
         nullableBinding = FragmentScheduleBinding.inflate(inflater, container, false)
 
-        viewModel.schedule.observe(viewLifecycleOwner) {
+        viewModel.scheduleData.observe(viewLifecycleOwner) {
             val scheduleAdapter = ScheduleAdapter(it)
             scheduleAdapter.setOnClickListener { position ->
                 viewModel.dayForDetails = position
@@ -42,7 +43,11 @@ class ScheduleFragment : Fragment() {
             }
         }
 
-        viewModel.getScheduleByClassId()
+        val sharedPref =
+            activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
+
+        sharedPref?.getString(getString(R.string.sp_class_id), "")
+            ?.let { viewModel.getScheduleByClassId(it) }
 
         return binding.root
     }

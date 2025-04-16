@@ -85,19 +85,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/separator" />
 
-        <!-- TODO сделать красивую карточку для оценки -->
-        <TextView
-            android:id="@+id/mark"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:gravity="center"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homework_tip"
-            tools:text="5"
-            tools:textColor="@color/mark_green" />
-
         <TextView
             android:id="@+id/details_homework"
             android:layout_width="0dp"
@@ -105,11 +92,11 @@
             android:layout_marginStart="8dp"
             android:gravity="start"
             android:paddingBottom="16dp"
-            android:textColor="@color/black"
             android:text="№318-325, 340, 343\nПодготовиться к контрольной работе по теме: “Тема контрольно работы бла-бла-бла”"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/homework_tip"
-            app:layout_constraintEnd_toStartOf="@id/mark" />
+            app:layout_constraintTop_toBottomOf="@id/homework_tip" />
 
         <!-- TODO это было не нужно, но пригодится когда будем делать bottom sheet-->
         <!--<EditText

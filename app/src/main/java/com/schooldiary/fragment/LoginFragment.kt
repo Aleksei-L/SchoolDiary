@@ -44,10 +44,11 @@ class LoginFragment : Fragment() {
         val sharedPref =
             activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
 
-        viewModel.loginStatus.observe(viewLifecycleOwner) { hasLoginSuccess ->
-            if (hasLoginSuccess) {
+        viewModel.loginData.observe(viewLifecycleOwner) {
+            if (it.message == "Пользователь успешно аутентифицирован") {
                 sharedPref?.edit {
                     putBoolean(getString(R.string.sp_login_state), true)
+                    putString(getString(R.string.sp_class_id), it.classId)
                 }
                 loginUser()
             } else {
@@ -55,9 +56,8 @@ class LoginFragment : Fragment() {
             }
         }
 
-        // TODO реализовать нормальную схему автологина
-        /*if (sharedPref != null && sharedPref.getBoolean(getString(R.string.sp_login_state), false))
-            loginUser()*/
+        if (sharedPref != null && sharedPref.getBoolean(getString(R.string.sp_login_state), false))
+            loginUser()
 
         return binding.root
     }

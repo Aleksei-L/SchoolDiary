@@ -27,12 +27,12 @@ class DetailsFragment : Fragment() {
     ): View {
         nullableBinding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-        val item = viewModel.schedule.value?.get(viewModel.dayForDetails)
+        val item = viewModel.scheduleData.value?.get(viewModel.dayForDetails)
 
         binding.detailsDayTitle.text = "${item?.weekDayName} 31.03.2025" //TODO
 
         binding.rvLessons.apply {
-            adapter = LessonAdapter(item?.lessons, context)
+            adapter = LessonAdapter(item?.lessons)
             layoutManager = LinearLayoutManager(context)
         }
 
