@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.schooldiary.activity.MainActivity
 import com.schooldiary.adapter.LessonAdapter
 import com.schooldiary.databinding.FragmentDetailsBinding
-import com.schooldiary.repository.Repository
-import com.schooldiary.repository.RetrofitObject.retrofitService
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
 
@@ -19,7 +18,7 @@ class DetailsFragment : Fragment() {
     private val binding
         get() = nullableBinding!!
     private val viewModel: MainViewModel by activityViewModels {
-        MainViewModelFactory(Repository(retrofitService))
+        MainViewModelFactory((activity as MainActivity).repository)
     }
 
     override fun onCreateView(

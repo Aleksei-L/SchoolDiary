@@ -12,9 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.schooldiary.R
+import com.schooldiary.activity.MainActivity
 import com.schooldiary.databinding.FragmentLoginBinding
-import com.schooldiary.repository.Repository
-import com.schooldiary.repository.RetrofitObject.retrofitService
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
 
@@ -23,7 +22,7 @@ class LoginFragment : Fragment() {
     private val binding
         get() = nullableBinding!!
     private val viewModel: MainViewModel by activityViewModels {
-        MainViewModelFactory(Repository(retrofitService))
+        MainViewModelFactory((activity as MainActivity).repository)
     }
 
     override fun onCreateView(
@@ -49,6 +48,7 @@ class LoginFragment : Fragment() {
                 sharedPref?.edit {
                     putBoolean(getString(R.string.sp_login_state), true)
                     putString(getString(R.string.sp_class_id), it.classId)
+                    putString(getString(R.string.sp_user_id), it.userId)
                 }
                 loginUser()
             } else {

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
-import com.schooldiary.data.ScheduleResponse
+import com.schooldiary.data.schedule.ScheduleResponse
 
 class ScheduleAdapter(
     private val items: ScheduleResponse

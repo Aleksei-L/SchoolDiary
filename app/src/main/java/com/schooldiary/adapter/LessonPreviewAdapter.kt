@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
-import com.schooldiary.data.Lesson
+import com.schooldiary.data.schedule.Lesson
 
 class LessonPreviewAdapter(
     private val items: List<Lesson>,

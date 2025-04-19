@@ -1,4 +1,4 @@
-package com.schooldiary.data
+package com.schooldiary.data.schedule
 
 data class Lesson(
     val endTime: String,

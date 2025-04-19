@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.schooldiary.data.LoginResponse
-import com.schooldiary.data.ScheduleResponse
-import com.schooldiary.data.User
+import com.schooldiary.data.grade.GradeResponse
+import com.schooldiary.data.login.LoginResponse
+import com.schooldiary.data.login.User
+import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.repository.Repository
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,9 @@ class MainViewModel(
     private val mScheduleData = MutableLiveData<ScheduleResponse>()
     val scheduleData: LiveData<ScheduleResponse> = mScheduleData
 
+    private val mGradesData = MutableLiveData<GradeResponse>()
+    val gradesData: LiveData<GradeResponse> = mGradesData
+
     var dayForDetails = -1
 
     fun login(login: String, password: String) = viewModelScope.launch {
@@ -30,5 +34,10 @@ class MainViewModel(
     fun getScheduleByClassId(classId: String) = viewModelScope.launch {
         val scheduleResponse = repository.getScheduleByClassId(classId)
         scheduleResponse?.let { mScheduleData.postValue(it) }
+    }
+
+    fun getAllGradesForUser(userId: String) = viewModelScope.launch {
+        val gradeResponse = repository.getAllGradesForUser(userId)
+        gradeResponse?.let { mGradesData.postValue(it) }
     }
 }

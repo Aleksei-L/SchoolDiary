@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
+import com.schooldiary.data.grade.Grade
 
-class ReportCardAdapter : RecyclerView.Adapter<ReportCardAdapter.ReportCardViewHolder>() {
+class ReportCardAdapter(
+    private val items: List<Grade>
+) : RecyclerView.Adapter<ReportCardAdapter.ReportCardViewHolder>() {
     class ReportCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dayOfMonth: TextView = itemView.findViewById(R.id.day_of_month)
         val mark: TextView = itemView.findViewById(R.id.mark)
@@ -20,9 +23,23 @@ class ReportCardAdapter : RecyclerView.Adapter<ReportCardAdapter.ReportCardViewH
     }
 
     override fun onBindViewHolder(holder: ReportCardViewHolder, position: Int) {
-        holder.dayOfMonth.text = "12.12"
-        holder.mark.text = "4"
+        val item = items[position]
+        val day = item.data.subSequence(8, 10)
+        val month = item.data.subSequence(5, 7)
+        holder.dayOfMonth.text = "$day.$month"
+        holder.mark.prepareForShowMark(item.value)
     }
 
-    override fun getItemCount() = 20 //TODO
+    override fun getItemCount() = items.size
+
+    private fun TextView.prepareForShowMark(mark: Int) {
+        this.text = mark.toString()
+        when (mark) {
+            2 -> this.setTextColor(context.getColor(R.color.mark_red))
+            3 -> this.setTextColor(context.getColor(R.color.mark_yellow))
+            4 -> this.setTextColor(context.getColor(R.color.mark_dark_green))
+            5 -> this.setTextColor(context.getColor(R.color.mark_green))
+            else -> this.setTextColor(context.getColor(R.color.mark_neutral))
+        }
+    }
 }

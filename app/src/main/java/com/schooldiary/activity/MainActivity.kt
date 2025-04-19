@@ -15,10 +15,13 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.schooldiary.R
 import com.schooldiary.databinding.ActivityMainBinding
+import com.schooldiary.repository.Repository
+import com.schooldiary.repository.RetrofitObject.retrofitService
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    val repository = Repository(retrofitService)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

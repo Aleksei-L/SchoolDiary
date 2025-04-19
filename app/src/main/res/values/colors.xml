@@ -7,10 +7,10 @@
 
     <!-- Цвета оценок -->
     <color name="mark_dark_green">#5F9841</color>
-    <color name="mark_green">#70DF33</color>
+    <color name="mark_green">#9DE675</color>
     <color name="mark_yellow">#F3A342</color>
     <color name="mark_red">#DF5252</color>
-    <color name="mark_neutral">#67A3D3</color>
+    <color name="mark_neutral">#87B1DF</color>
     <!-- Primary Colors -->
     <color name="md3_primary">#2C6FB9</color> <!-- Ваш синий -->
     <color name="md3_primary_container">#FFFFFF</color>

@@ -1,4 +1,4 @@
-package com.schooldiary.data
+package com.schooldiary.data.login
 
 import com.google.gson.annotations.SerializedName
 
