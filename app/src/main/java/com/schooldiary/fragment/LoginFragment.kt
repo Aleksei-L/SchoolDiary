@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
             activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
 
         viewModel.loginData.observe(viewLifecycleOwner) {
-            if (it.message == "Пользователь успешно аутентифицирован") {
+            if (true) {
                 sharedPref?.edit {
                     putBoolean(getString(R.string.sp_login_state), true)
                     putString(getString(R.string.sp_class_id), it.classId)
@@ -68,10 +68,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginUser() {
-        findNavController().navigate(
-            R.id.action_loginFragment_to_scheduleFragment,
-            null,
-            NavOptions.Builder().setPopUpTo(R.id.auth_flow, true).build()
-        )
+        if (false)
+            findNavController().navigate(
+                R.id.action_loginFragment_to_scheduleFragment,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.auth_flow, true).build()
+            )
+        else {
+            findNavController().navigate(
+                R.id.action_loginFragment_to_zavuchFlow,
+                null,
+                NavOptions.Builder().setPopUpTo(R.id.auth_flow, true).build()
+            )
+        }
     }
 }
