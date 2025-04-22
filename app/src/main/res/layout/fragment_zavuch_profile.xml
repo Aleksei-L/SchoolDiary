@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#2C6FB9"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragment.ZavuchProfileFragment">
 
     <View
         android:id="@+id/circleProfile"
@@ -16,7 +17,7 @@
         android:background="@drawable/circle_profile"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +67,7 @@
         android:layout_marginTop="20dp"
         android:textSize="24sp"
         android:textColor="#000000"
-        android:text="@string/UserName"
+        android:text="@string/Zavuch_Name"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +108,7 @@
         android:layout_marginTop="22dp"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:text="@string/CClass"
+        android:text="@string/C_Role"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
@@ -120,7 +121,7 @@
         android:layout_marginTop="58dp"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:text="@string/CGender"
+        android:text="@string/C_Zavuch_Gender"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
@@ -133,7 +134,7 @@
         android:layout_marginTop="94dp"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:text="@string/CBirth"
+        android:text="@string/C_Zavuch_Birth"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
@@ -146,7 +147,7 @@
         android:layout_marginTop="130dp"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:text="@string/CAge"
+        android:text="@string/C_Zavuch_Age"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
@@ -157,7 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="22dp"
-        android:text="@string/Class"
+        android:text="@string/Role"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/CClass"
@@ -169,7 +170,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="58dp"
-        android:text="@string/Gender"
+        android:text="@string/Zavuch_Gender"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/CGender"
@@ -181,7 +182,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="94dp"
-        android:text="@string/Birth"
+        android:text="@string/Zavuch_Birth"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/CBirth"
@@ -193,7 +194,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="130dp"
-        android:text="@string/Age"
+        android:text="@string/Zavuch_Age"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/CAge"

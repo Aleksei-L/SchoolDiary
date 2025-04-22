@@ -40,11 +40,16 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.loginFragment, R.id.scheduleFragment))
+            AppBarConfiguration(
+                setOf(
+                    R.id.loginFragment,
+                    R.id.scheduleFragment,
+                    R.id.zavuchScheduleFragment
+                )
+            )
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
-        binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, _, _ ->
             changeBottomBarAndToolbarMenuVisibility()
@@ -56,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         if (this::navController.isInitialized)
             changeBottomBarAndToolbarMenuVisibility()
         return super.onCreateOptionsMenu(menu)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -66,7 +72,18 @@ class MainActivity : AppCompatActivity() {
         if (navController.currentDestination?.id == R.id.loginFragment) {
             binding.bottomNav.visibility = View.GONE
             binding.toolbar.visibility = View.GONE
+
         } else {
+
+            if (navController.currentDestination?.parent?.id == R.id.zavuchFlow) {
+                binding.bottomNav.menu.clear()
+                binding.bottomNav.inflateMenu(R.menu.zavuch_bottom)
+                binding.bottomNav.setupWithNavController(navController)
+            } else {
+                binding.bottomNav.menu.clear()
+                binding.bottomNav.inflateMenu(R.menu.bottom_menu)
+                binding.bottomNav.setupWithNavController(navController)
+            }
             binding.bottomNav.visibility = View.VISIBLE
             binding.toolbar.visibility = View.VISIBLE
         }

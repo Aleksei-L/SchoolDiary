@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="my_items">
+        <item>@string/Class_C</item>
+        <item>@string/item1</item>
+        <item>@string/item2</item>
+        <item>@string/item3</item>
+        <item>@string/item4</item>
+        <item>@string/item5</item>
+        <item>@string/item6</item>
+        <item>@string/item7</item>
+        <item>@string/item8</item>
+    </string-array>
+</resources>
