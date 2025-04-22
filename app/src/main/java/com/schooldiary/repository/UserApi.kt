@@ -16,9 +16,10 @@ interface UserApi {
         @Body userData: User
     ): LoginResponse
 
-    @GET("Schedules/ByClassId/{classId}")
+    @GET("Schedules/ByClassId/{classId}/{weekId}")
     suspend fun getScheduleByClassId(
-        @Path("classId") classId: String
+        @Path("classId") classId: String,
+        @Path("weekId") weekId: String
     ): ScheduleResponse
 
     @GET("Student/userId/{id}")

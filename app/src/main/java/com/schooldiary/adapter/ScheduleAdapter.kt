@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
-import com.schooldiary.data.schedule.ScheduleResponse
+import com.schooldiary.data.schedule.Schedule
 
 class ScheduleAdapter(
-    private val items: ScheduleResponse
+    private val items: List<Schedule>
 ) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
     private var onClick: ((Int) -> Unit)? = null
 
@@ -27,7 +27,8 @@ class ScheduleAdapter(
 
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val item = items[position]
-        holder.title.text = item.weekDayName
+
+        holder.title.text = item.weekDayName //TODO добавить число
         holder.itemView.setOnClickListener {
             onClick?.let { it(position) }
         }

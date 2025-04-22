@@ -15,6 +15,7 @@ import com.schooldiary.adapter.ScheduleAdapter
 import com.schooldiary.databinding.FragmentScheduleBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
+import java.time.LocalDateTime
 
 class ScheduleFragment : Fragment() {
     private var nullableBinding: FragmentScheduleBinding? = null
@@ -29,8 +30,40 @@ class ScheduleFragment : Fragment() {
     ): View {
         nullableBinding = FragmentScheduleBinding.inflate(inflater, container, false)
 
+        binding.pastWeekButton.setOnClickListener {
+            viewModel.minusWeekId()
+        }
+
+        binding.nextWeekButton.setOnClickListener {
+            viewModel.plusWeekId()
+        }
+
+        val sharedPref =
+            activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
+
+        viewModel.weekNumber.observe(viewLifecycleOwner) {
+            sharedPref?.getString(getString(R.string.sp_class_id), "")
+                ?.let { viewModel.getScheduleByClassId(it) }
+        }
+
         viewModel.scheduleData.observe(viewLifecycleOwner) {
-            val scheduleAdapter = ScheduleAdapter(it)
+            val item = it[0]
+            val startDate = LocalDateTime.parse(item.startDate)
+            val endDate = LocalDateTime.parse(item.endDate)
+
+            val startDay =
+                "${if (startDate.dayOfMonth.toString().length == 1) "0" + startDate.dayOfMonth.toString() else startDate.dayOfMonth}"
+            val endDay =
+                "${if (endDate.dayOfMonth.toString().length == 1) "0" + endDate.dayOfMonth.toString() else endDate.dayOfMonth}"
+            val startMonth =
+                "${if (startDate.monthValue.toString().length == 1) "0" + startDate.monthValue.toString() else startDate.monthValue}"
+            val endMonth =
+                "${if (endDate.monthValue.toString().length == 1) "0" + endDate.monthValue.toString() else endDate.monthValue}"
+
+            binding.weekInterval.text =
+                "$startDay.$startMonth.${startDate.year} - $endDay.$endMonth.${endDate.year}"
+
+            val scheduleAdapter = ScheduleAdapter(item.schedule)
             scheduleAdapter.setOnClickListener { position ->
                 viewModel.dayForDetails = position
                 findNavController().navigate(R.id.action_scheduleFragment_to_detailsFragment)
@@ -41,9 +74,6 @@ class ScheduleFragment : Fragment() {
                 adapter = scheduleAdapter
             }
         }
-
-        val sharedPref =
-            activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
 
         sharedPref?.getString(getString(R.string.sp_class_id), "")
             ?.let { viewModel.getScheduleByClassId(it) }

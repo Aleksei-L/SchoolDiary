@@ -10,6 +10,9 @@ import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.repository.Repository
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.temporal.WeekFields
+import java.util.Locale
 
 class MainViewModel(
     private val repository: Repository
@@ -25,14 +28,19 @@ class MainViewModel(
 
     var dayForDetails = -1
 
+    private val mWeekNumber = MutableLiveData(
+        LocalDate.now().get(WeekFields.of(Locale.UK).weekOfYear()) + 17
+    )
+    val weekNumber: LiveData<Int> = mWeekNumber
+
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
         val loginResponse = repository.loginUser(userData)
-        mLoginData.postValue(loginResponse ?: LoginResponse("", "", ""))
+        mLoginData.postValue(loginResponse ?: LoginResponse("", "", "", listOf()))
     }
 
     fun getScheduleByClassId(classId: String) = viewModelScope.launch {
-        val scheduleResponse = repository.getScheduleByClassId(classId)
+        val scheduleResponse = repository.getScheduleByClassId(classId, weekNumber.value.toString())
         scheduleResponse?.let { mScheduleData.postValue(it) }
     }
 
@@ -40,4 +48,8 @@ class MainViewModel(
         val gradeResponse = repository.getAllGradesForUser(userId)
         gradeResponse?.let { mGradesData.postValue(it) }
     }
+
+    fun plusWeekId() = mWeekNumber.postValue(mWeekNumber.value!! + 1)
+
+    fun minusWeekId() = mWeekNumber.postValue(mWeekNumber.value!! - 1)
 }

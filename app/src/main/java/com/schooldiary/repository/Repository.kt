@@ -24,14 +24,17 @@ class Repository(
             }
         }
 
-    suspend fun getScheduleByClassId(classId: String): ScheduleResponse? =
+    suspend fun getScheduleByClassId(classId: String, weekId: String): ScheduleResponse? =
         withContext(Dispatchers.IO) {
             try {
-                val response = api.getScheduleByClassId(classId)
+                val response = api.getScheduleByClassId(classId, weekId)
                 Log.i(this@Repository.javaClass.name, "Response from server: $response")
                 return@withContext response
             } catch (e: Exception) {
-                Log.e(this@Repository.javaClass.name, "Can't load schedule for $classId class")
+                Log.e(
+                    this@Repository.javaClass.name,
+                    "Can't load schedule for $classId class and $weekId week"
+                )
                 Log.e(this@Repository.javaClass.name, e.stackTraceToString())
                 return@withContext null
             }
