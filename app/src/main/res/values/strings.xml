@@ -30,4 +30,6 @@
     <string name="move_to_details">Дневник</string>
     <string name="tab_subjects_marks">Табель успеваемости</string>
     <string name="tab_common_marks">Итоговые оценки</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
