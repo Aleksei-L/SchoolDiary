@@ -46,7 +46,6 @@ class ProfileFragment : Fragment() {
                     null,
                     navOptions
                 )
-                //findNavController(R.id.nav_host_fragment).navigate(R.id.action_scheduleFragment_to_loginFragment)
             }
             .setNegativeButton("Нет") { dialog, _ ->
                 dialog.dismiss()

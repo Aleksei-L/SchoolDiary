@@ -4,9 +4,11 @@ import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
+import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.translate.TranslateUserToStudentResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -22,6 +24,12 @@ interface UserApi {
         @Path("weekId") weekId: String
     ): ScheduleResponse
 
+    @GET("Schedules/ByTeacher/{userId}/{weekId}")
+    suspend fun getScheduleForTeacher(
+        @Path("userId") userId: String,
+        @Path("weekId") weekId: String
+    ): ScheduleResponse
+
     @GET("Student/userId/{id}")
     suspend fun translateUserIdToStudentId(
         @Path("id") userId: String
@@ -31,4 +39,9 @@ interface UserApi {
     suspend fun getStudentGrades(
         @Path("StudentId") studentId: String
     ): GradeResponse
+
+    @PATCH("Lesson/UpdateHomeworkByLessonId")
+    suspend fun updateHomework(
+        @Body homeworkData: UpdateHomework
+    )
 }

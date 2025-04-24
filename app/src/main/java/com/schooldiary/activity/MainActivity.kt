@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     val repository = Repository(retrofitService)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -80,7 +79,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 R.menu.bottom_menu
             }
-
             if (currentMenuRes != newMenuRes) {
                 binding.bottomNav.menu.clear()
                 binding.bottomNav.inflateMenu(newMenuRes)

@@ -13,11 +13,10 @@ import androidx.navigation.findNavController
 import com.schooldiary.R
 import com.schooldiary.databinding.FragmentZavuchProfileBinding
 
-
 class ZavuchProfileFragment : Fragment() {
-
     private var nullableBinding: FragmentZavuchProfileBinding? = null
-    private val binding get() = nullableBinding!!
+    private val binding
+        get() = nullableBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,13 +41,12 @@ class ZavuchProfileFragment : Fragment() {
                 sharedPref.edit {
                     putBoolean(getString(R.string.sp_login_state), false)
                 }
-                val navOptions = NavOptions.Builder().setPopUpTo(R.id.zavuchFlow, true).build()
+                val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFlow, true).build()
                 binding.root.findNavController().navigate(
                     R.id.action_global_auth_flow2,
                     null,
                     navOptions
                 )
-                //findNavController(R.id.nav_host_fragment).navigate(R.id.action_scheduleFragment_to_loginFragment)
             }
             .setNegativeButton("Нет") { dialog, _ ->
                 dialog.dismiss()

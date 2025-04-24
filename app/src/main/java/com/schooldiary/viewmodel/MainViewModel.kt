@@ -1,5 +1,6 @@
 package com.schooldiary.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
+import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.repository.Repository
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -35,14 +37,24 @@ class MainViewModel(
 
     lateinit var userRole: UserRole
 
+    var lessonIdForUpdateHomework: String? = null
+
+    var currentHomeworkForEdit: String = ""
+
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
         val loginResponse = repository.loginUser(userData)
         mLoginData.postValue(loginResponse ?: LoginResponse("", "", "", listOf()))
     }
 
-    fun getScheduleByClassId(classId: String) = viewModelScope.launch {
-        val scheduleResponse = repository.getScheduleByClassId(classId, weekNumber.value.toString())
+    fun getScheduleForStudent(classId: String) = viewModelScope.launch {
+        val scheduleResponse =
+            repository.getScheduleForStudent(classId, weekNumber.value.toString())
+        scheduleResponse?.let { mScheduleData.postValue(it) }
+    }
+
+    fun getScheduleForTeacher(userId: String) = viewModelScope.launch {
+        val scheduleResponse = repository.getScheduleForTeacher(userId, weekNumber.value.toString())
         scheduleResponse?.let { mScheduleData.postValue(it) }
     }
 
@@ -54,4 +66,13 @@ class MainViewModel(
     fun plusWeekId() = mWeekNumber.postValue(mWeekNumber.value!! + 1)
 
     fun minusWeekId() = mWeekNumber.postValue(mWeekNumber.value!! - 1)
+
+    fun updateHomework(newHomework: String) = viewModelScope.launch {
+        if (lessonIdForUpdateHomework == null) {
+            Log.e(this.javaClass.name, "Field lessonIdForUpdateHomework is null")
+            return@launch
+        }
+        val homeworkData = UpdateHomework(lessonIdForUpdateHomework!!, newHomework)
+        repository.updateHomeworkByLessonId(homeworkData)
+    }
 }

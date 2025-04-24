@@ -15,6 +15,7 @@ import com.schooldiary.adapter.ScheduleAdapter
 import com.schooldiary.databinding.FragmentScheduleBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
+import com.schooldiary.viewmodel.UserRole
 import java.time.LocalDateTime
 
 class ScheduleFragment : Fragment() {
@@ -42,8 +43,13 @@ class ScheduleFragment : Fragment() {
             activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
 
         viewModel.weekNumber.observe(viewLifecycleOwner) {
-            sharedPref?.getString(getString(R.string.sp_class_id), "")
-                ?.let { viewModel.getScheduleByClassId(it) }
+            if (viewModel.userRole == UserRole.STUDENT) {
+                sharedPref?.getString(getString(R.string.sp_class_id), "")
+                    ?.let { viewModel.getScheduleForStudent(it) }
+            } else {
+                sharedPref?.getString(getString(R.string.sp_user_id), "")
+                    ?.let { viewModel.getScheduleForTeacher(it) }
+            }
         }
 
         viewModel.scheduleData.observe(viewLifecycleOwner) {
@@ -75,8 +81,13 @@ class ScheduleFragment : Fragment() {
             }
         }
 
-        sharedPref?.getString(getString(R.string.sp_class_id), "")
-            ?.let { viewModel.getScheduleByClassId(it) }
+        if (viewModel.userRole == UserRole.STUDENT) {
+            sharedPref?.getString(getString(R.string.sp_class_id), "")
+                ?.let { viewModel.getScheduleForStudent(it) }
+        } else {
+            sharedPref?.getString(getString(R.string.sp_user_id), "")
+                ?.let { viewModel.getScheduleForTeacher(it) }
+        }
 
         return binding.root
     }

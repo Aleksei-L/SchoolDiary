@@ -12,6 +12,7 @@ import com.schooldiary.adapter.LessonAdapter
 import com.schooldiary.databinding.FragmentDetailsBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
+import com.schooldiary.viewmodel.UserRole
 import java.time.LocalDateTime
 
 class DetailsFragment : Fragment() {
@@ -40,7 +41,14 @@ class DetailsFragment : Fragment() {
             "${item?.schedule?.get(viewModel.dayForDetails)?.weekDayName} $day.$month.$year"
 
         binding.rvLessons.apply {
-            adapter = LessonAdapter(item?.schedule?.get(viewModel.dayForDetails)?.lessons)
+            adapter = LessonAdapter(
+                item?.schedule?.get(viewModel.dayForDetails)?.lessons,
+                viewModel.userRole == UserRole.TEACHER,
+                parentFragmentManager
+            ) { lessonId, homework ->
+                viewModel.lessonIdForUpdateHomework = lessonId
+                viewModel.currentHomeworkForEdit = homework
+            }
             layoutManager = LinearLayoutManager(context)
         }
 
