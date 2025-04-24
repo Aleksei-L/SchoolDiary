@@ -64,32 +64,33 @@
     <fragment
         android:id="@+id/zavuchScheduleFragment"
         android:name="com.schooldiary.fragment.ZavuchScheduleFragment"
-        android:label="fragment_zavuch_schedule"
+        android:label="Расписание"
         tools:layout="@layout/fragment_zavuch_schedule" >
         <action
             android:id="@+id/action_zavuchScheduleFragment_to_zavuchProfileFragment"
             app:destination="@id/zavuchProfileFragment" />
-        <action
-            android:id="@+id/action_zavuchScheduleFragment_to_zavuchDetailsFragment"
-            app:destination="@id/zavuchDetailsFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_auth_flow2"
         app:destination="@id/auth_flow" />
     <fragment
-        android:id="@+id/zavuchDetailsFragment"
-        android:name="com.schooldiary.fragment.ZavuchDetailsFragment"
-        android:label="fragment_zavuch_details"
-        tools:layout="@layout/fragment_zavuch_details" />
+        android:id="@+id/zavuchAddAccountFragment"
+        android:name="com.schooldiary.fragment.ZavuchAddAccountFragmen"
+        android:label="Добавление/Редактирование аккаунта"
+        tools:layout="@layout/fragment_zavuch_add_account" />
     <fragment
         android:id="@+id/zavuchProfileFragment"
         android:name="com.schooldiary.fragment.ZavuchProfileFragment"
-        android:label="fragment_zavuch_profile"
+        android:label="Профиль"
         tools:layout="@layout/fragment_zavuch_profile" />
     <fragment
-        android:id="@+id/zavuchStatisticFragment"
-        android:name="com.schooldiary.fragment.ZavuchStatisticFragment"
-        android:label="fragment_zavuch_statistic"
-        tools:layout="@layout/fragment_zavuch_statistic" />
+        android:id="@+id/zavuchAccountListFragment"
+        android:name="com.schooldiary.fragment.ZavuchAccountsListFragment"
+        android:label="Аккаунты"
+        tools:layout="@layout/fragment_zavuch_accountslist" >
+        <action
+            android:id="@+id/action_zavuchAccountListFragment_to_zavuchAddAccountFragment"
+            app:destination="@id/zavuchAddAccountFragment" />
+    </fragment>
 </navigation>
 </navigation>
