@@ -76,6 +76,7 @@
     <string name="sp_login_state">HAS_LOGIN_SUCCESS</string>
     <string name="sp_class_id">CLASS_ID</string>
     <string name="sp_user_id">USER_ID</string>
+    <string name="sp_user_role">USER_ROLE</string>
 
     <string name="move_to_details">Дневник</string>
     <string name="tab_subjects_marks">Табель успеваемости</string>

@@ -52,7 +52,6 @@ class ZavuchScheduleFragment : Fragment() {
             findNavController().navigate(R.id.action_zavuchScheduleFragment_to_zavuchDetailsFragment)
         }
     }
-
     override fun onDestroyView() {
         nullableBinding = null
         super.onDestroyView()

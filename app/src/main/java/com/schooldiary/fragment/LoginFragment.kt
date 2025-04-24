@@ -16,6 +16,7 @@ import com.schooldiary.activity.MainActivity
 import com.schooldiary.databinding.FragmentLoginBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
+import com.schooldiary.viewmodel.UserRole
 
 class LoginFragment : Fragment() {
     private var nullableBinding: FragmentLoginBinding? = null
@@ -44,11 +45,17 @@ class LoginFragment : Fragment() {
             activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
 
         viewModel.loginData.observe(viewLifecycleOwner) {
-            if (true) {
+            if (it.message == "Пользователь успешно аутентифицирован") {
+                when {
+                    it.roles.contains("Завуч") -> viewModel.userRole = UserRole.ZAVUCH
+                    it.roles.contains("Учитель") -> viewModel.userRole = UserRole.TEACHER
+                    else -> viewModel.userRole = UserRole.STUDENT
+                }
                 sharedPref?.edit {
                     putBoolean(getString(R.string.sp_login_state), true)
                     putString(getString(R.string.sp_class_id), it.classId)
                     putString(getString(R.string.sp_user_id), it.userId)
+                    putString(getString(R.string.sp_user_role), viewModel.userRole.name)
                 }
                 loginUser()
             } else {
@@ -56,8 +63,18 @@ class LoginFragment : Fragment() {
             }
         }
 
-        if (sharedPref != null && sharedPref.getBoolean(getString(R.string.sp_login_state), false))
+        if (sharedPref != null && sharedPref.getBoolean(
+                getString(R.string.sp_login_state),
+                false
+            )
+        ) {
+            viewModel.userRole = when (sharedPref.getString(getString(R.string.sp_user_role), "")) {
+                "ZAVUCH" -> UserRole.ZAVUCH
+                "TEACHER" -> UserRole.TEACHER
+                else -> UserRole.STUDENT
+            }
             loginUser()
+        }
 
         return binding.root
     }
@@ -68,13 +85,13 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginUser() {
-        if (false)
+        if (viewModel.userRole != UserRole.ZAVUCH) {
             findNavController().navigate(
                 R.id.action_loginFragment_to_scheduleFragment,
                 null,
                 NavOptions.Builder().setPopUpTo(R.id.auth_flow, true).build()
             )
-        else {
+        } else {
             findNavController().navigate(
                 R.id.action_loginFragment_to_zavuchFlow,
                 null,
