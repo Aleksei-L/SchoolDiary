@@ -7,6 +7,43 @@
     <string name="exit">Выход</string>
     <string name="homework">Домашнее задание:</string>
 
+    <!-- Дни недели -->
+    <string name="Monday">Понедельник</string>
+    <string name="Tuesday">Вторник</string>
+    <string name="Wednesday">Среда</string>
+    <string name="Thursday">Четверг</string>
+    <string name="Friday">Пятница</string>
+    <string name="Saturday">Суббота</string>
+    <string name="Sunday">Воскресенье</string>
+
+    <!-- Zavuch schedule Fragment -->
+    <string name="Plus">+</string>
+    <string name="Schedule">Расписание</string>
+    <string name="Class_C">Класс</string>
+    <string name="item1">1А</string>
+    <string name="item2">1Б</string>
+    <string name="item3">2А</string>
+    <string name="item4">2Б</string>
+    <string name="item5">3А</string>
+    <string name="item6">3Б</string>
+    <string name="item7">4А</string>
+    <string name="item8">4Б</string>
+
+    <string name="Lesson_Schedule_Z">1. Русский язык</string>
+    <string name="Time_Schudule_Z">8:00-8:45</string>
+    <string name="Name_Schudule_Z">Смирнова Татья Игоревна</string>
+    <string name="Office_Schudule_Z">927к</string>
+
+    <!-- Zavuch statistic Fragment -->
+    <string name="Account">Аккаунты</string>
+    <string name="Teacher_Statistic">Учитель</string>
+    <string name="Student_Statistic">Учащийся</string>
+
+    <string name="Name_Statistic1">Волкова Ольга Петровна</string>
+    <string name="Name_Statistic2">Черепанов Юрий Андреевич</string>
+    <string name="Class_Statistic1">4Б</string>
+    <string name="Class_Statistic2">4Б</string>
+
     <!-- Profile Fragment -->
     <string name="Info">Информация</string>
     <string name="CClass">Класс:</string>
@@ -20,6 +57,19 @@
     <string name="Gender">Мужской</string>
     <string name="Birth">14.05.2010</string>
     <string name="Age">14 лет</string>
+
+    <!-- Zavuch Profile Fragment -->
+    <string name="C_Role">Роль:</string>
+    <string name="C_Zavuch_Gender">Пол:</string>
+    <string name="C_Zavuch_Birth">Дата рождения:</string>
+    <string name="C_Zavuch_Age">Возраст:</string>
+
+    <!-- Zavuch Profile Fragment Изменяемые поля -->
+    <string name="Zavuch_Name">Смирнова Галина Петровна</string>
+    <string name="Role">Завуч</string>
+    <string name="Zavuch_Gender">Женский</string>
+    <string name="Zavuch_Birth">14.05.2000</string>
+    <string name="Zavuch_Age">24 года</string>
 
     <!-- Работа с Shared Preferences -->
     <string name="shared_pref">com.schooldiary.shared_preferences</string>

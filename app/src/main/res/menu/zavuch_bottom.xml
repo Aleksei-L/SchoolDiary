@@ -6,9 +6,9 @@
         android:title="@string/schedule_title" />
     <item
         android:id="@+id/zavuchProfileFragment"
-        android:icon="@drawable/ic_diary"
+        android:icon="@drawable/user"
         android:title="@string/profile_title" />
     <item
         android:id="@+id/zavuchStatisticFragment"
-        android:icon="@drawable/ic_homework_marker"
+        android:icon="@drawable/people"
         android:title="@string/statistic_title" /></menu>

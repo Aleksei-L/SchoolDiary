@@ -40,13 +40,17 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.loginFragment, R.id.scheduleFragment, R.id.zavuchScheduleFragment
-            )
-        )
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
+        val appBarConfiguration =
+            AppBarConfiguration(
+                setOf(
+                    R.id.loginFragment,
+                    R.id.scheduleFragment,
+                    R.id.zavuchScheduleFragment
+                )
+            )
+
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         navController.addOnDestinationChangedListener { _, _, _ ->
             changeBottomBarAndToolbarMenuVisibility()
         }
@@ -83,7 +87,6 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNav.setupWithNavController(navController)
                 currentMenuRes = newMenuRes
             }
-
             binding.bottomNav.visibility = View.VISIBLE
             binding.toolbar.visibility = View.VISIBLE
         }

@@ -1,20 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2C6FB9"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".fragment.ZavuchScheduleFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/Schedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/Schedule"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/whiteBloc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/whiteBloc"
+        android:layout_width="0dp"
+        android:layout_height="640dp"
+        android:background="@drawable/primary_bloc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
 
     <Button
         android:id="@+id/toDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="to Details">
-    </Button>
+        android:layout_width="97dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#0BB2D1"
+        android:text="to Details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <Spinner
+        android:id="@+id/my_spinner"
+        android:layout_width="350dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/spinner_background"
+        android:entries="@array/my_items"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/whiteBloc" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/group_container2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_spinner">
+
+        <View
+            android:id="@+id/whiteBloc1"
+            android:layout_width="0dp"
+            android:layout_height="260dp"
+            android:background="@drawable/spinner_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+        />
+
+        <TextView
+            android:id="@+id/day_week"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:background="@drawable/day_week"
+            android:gravity="center"
+            android:text="@string/Monday"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/whiteBloc1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/group_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/day_week">
+
+            <View
+                android:id="@+id/LessonBloc"
+                android:layout_width="365dp"
+                android:layout_height="75dp"
+                android:background="@drawable/typing_bloc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="330dp"
+                android:layout_height="1dp"
+                android:background="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/LessonBloc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/LessonBloc"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/Name_Schudule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp"
+                android:text="@string/Name_Schudule_Z"
+                app:layout_constraintBottom_toBottomOf="@+id/LessonBloc"
+                app:layout_constraintStart_toStartOf="@+id/LessonBloc" />
+
+            <TextView
+                android:id="@+id/Lesson_Schedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/Lesson_Schedule_Z"
+                app:layout_constraintStart_toStartOf="@+id/LessonBloc"
+                app:layout_constraintTop_toTopOf="@+id/LessonBloc" />
+
+            <TextView
+                android:id="@+id/Time_Schudule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:text="@string/Time_Schudule_Z"
+                app:layout_constraintEnd_toEndOf="@+id/LessonBloc"
+                app:layout_constraintTop_toTopOf="@+id/LessonBloc" />
+
+            <TextView
+                android:id="@+id/Office_Schudule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="16sp"
+                android:text="@string/Office_Schudule_Z"
+                app:layout_constraintBottom_toBottomOf="@+id/LessonBloc"
+                app:layout_constraintEnd_toEndOf="@+id/LessonBloc" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/New_Lesson"
+            android:layout_width="365dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/typing_bloc"
+            android:text="@string/Plus"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/whiteBloc1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
