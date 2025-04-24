@@ -7,7 +7,7 @@
     android:background="#2C6FB9"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".fragment.ZavuchStatisticFragment">
+    tools:context=".fragment.ZavuchAccountsListFragment">
 
     <View
         android:id="@+id/BackgroundBloc"
@@ -40,14 +40,14 @@
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/spinner_background"
-        android:inputType="text"
         android:hint="Введите ФИО"
+        android:inputType="text"
         android:paddingStart="4dp"
         app:layout_constraintEnd_toEndOf="@+id/BackgroundBloc"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/BackgroundBloc"
         app:layout_constraintTop_toTopOf="@+id/BackgroundBloc" />
 
@@ -190,6 +190,17 @@
             app:layout_constraintEnd_toEndOf="@+id/LessonBloc" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/addAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@android:drawable/ic_menu_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toEndOf="@+id/search_name"
+        app:layout_constraintTop_toTopOf="@+id/BackgroundBloc" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

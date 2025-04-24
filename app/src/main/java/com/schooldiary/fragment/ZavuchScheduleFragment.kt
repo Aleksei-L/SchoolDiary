@@ -22,9 +22,6 @@ class ZavuchScheduleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         nullableBinding = FragmentZavuchScheduleBinding.inflate(inflater, container, false)
-        binding.toDetails.setOnClickListener {
-            findNavController().navigate(R.id.action_zavuchScheduleFragment_to_zavuchDetailsFragment)
-        }
         return binding.root
     }
 
@@ -48,9 +45,7 @@ class ZavuchScheduleFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        binding.toDetails.setOnClickListener {
-            findNavController().navigate(R.id.action_zavuchScheduleFragment_to_zavuchDetailsFragment)
-        }
+
     }
     override fun onDestroyView() {
         nullableBinding = null

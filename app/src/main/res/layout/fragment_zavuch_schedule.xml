@@ -35,17 +35,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1" />
 
-    <Button
-        android:id="@+id/toDetails"
-        android:layout_width="97dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="4dp"
-        android:backgroundTint="#0BB2D1"
-        android:text="to Details"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/my_spinner"
