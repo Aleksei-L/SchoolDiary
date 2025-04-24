@@ -33,6 +33,8 @@ class MainViewModel(
     )
     val weekNumber: LiveData<Int> = mWeekNumber
 
+    lateinit var userRole: UserRole
+
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
         val loginResponse = repository.loginUser(userData)

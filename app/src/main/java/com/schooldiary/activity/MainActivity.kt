@@ -72,9 +72,7 @@ class MainActivity : AppCompatActivity() {
         if (navController.currentDestination?.id == R.id.loginFragment) {
             binding.bottomNav.visibility = View.GONE
             binding.toolbar.visibility = View.GONE
-
         } else {
-
             if (navController.currentDestination?.parent?.id == R.id.zavuchFlow) {
                 binding.bottomNav.menu.clear()
                 binding.bottomNav.inflateMenu(R.menu.zavuch_bottom)
