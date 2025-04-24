@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     val repository = Repository(retrofitService)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -39,17 +40,12 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        val appBarConfiguration =
-            AppBarConfiguration(
-                setOf(
-                    R.id.loginFragment,
-                    R.id.scheduleFragment,
-                    R.id.zavuchScheduleFragment
-                )
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.loginFragment, R.id.scheduleFragment, R.id.zavuchScheduleFragment
             )
-
+        )
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-
 
         navController.addOnDestinationChangedListener { _, _, _ ->
             changeBottomBarAndToolbarMenuVisibility()
@@ -58,8 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        if (this::navController.isInitialized)
-            changeBottomBarAndToolbarMenuVisibility()
+        if (this::navController.isInitialized) changeBottomBarAndToolbarMenuVisibility()
         return super.onCreateOptionsMenu(menu)
 
     }
@@ -68,20 +63,27 @@ class MainActivity : AppCompatActivity() {
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
+    private var currentMenuRes: Int? = null
+
     private fun changeBottomBarAndToolbarMenuVisibility() {
         if (navController.currentDestination?.id == R.id.loginFragment) {
             binding.bottomNav.visibility = View.GONE
             binding.toolbar.visibility = View.GONE
+            currentMenuRes = null
         } else {
-            if (navController.currentDestination?.parent?.id == R.id.zavuchFlow) {
-                binding.bottomNav.menu.clear()
-                binding.bottomNav.inflateMenu(R.menu.zavuch_bottom)
-                binding.bottomNav.setupWithNavController(navController)
+            val newMenuRes = if (navController.currentDestination?.parent?.id == R.id.zavuchFlow) {
+                R.menu.zavuch_bottom
             } else {
-                binding.bottomNav.menu.clear()
-                binding.bottomNav.inflateMenu(R.menu.bottom_menu)
-                binding.bottomNav.setupWithNavController(navController)
+                R.menu.bottom_menu
             }
+
+            if (currentMenuRes != newMenuRes) {
+                binding.bottomNav.menu.clear()
+                binding.bottomNav.inflateMenu(newMenuRes)
+                binding.bottomNav.setupWithNavController(navController)
+                currentMenuRes = newMenuRes
+            }
+
             binding.bottomNav.visibility = View.VISIBLE
             binding.toolbar.visibility = View.VISIBLE
         }
