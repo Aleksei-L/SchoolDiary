@@ -1,60 +1,64 @@
 package com.schooldiary.fragment
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.edit
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import com.schooldiary.R
+import com.schooldiary.databinding.FragmentZavuchProfileBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ZavuchProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ZavuchProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var nullableBinding: FragmentZavuchProfileBinding? = null
+    private val binding get() = nullableBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_zavuch_profile, container, false)
+    ): View {
+        nullableBinding = FragmentZavuchProfileBinding.inflate(inflater, container, false)
+        binding.exitLogout.setOnClickListener {
+            logout()
+        }
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ZavuchProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ZavuchProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun logout() {
+        val sharedPref = requireContext().getSharedPreferences(
+            getString(R.string.shared_pref),
+            Context.MODE_PRIVATE
+        )
+        AlertDialog.Builder(requireContext())
+            .setTitle("Внимание!")
+            .setMessage("Вы уверены, что хотите выйти?")
+            .setPositiveButton("Да") { _, _ ->
+                sharedPref.edit {
+                    putBoolean(getString(R.string.sp_login_state), false)
                 }
+                val navOptions = NavOptions.Builder().setPopUpTo(R.id.zavuchFlow, true).build()
+                binding.root.findNavController().navigate(
+                    R.id.action_global_auth_flow2,
+                    null,
+                    navOptions
+                )
+                //findNavController(R.id.nav_host_fragment).navigate(R.id.action_scheduleFragment_to_loginFragment)
             }
+            .setNegativeButton("Нет") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    override fun onDestroyView() {
+        nullableBinding = null
+        super.onDestroyView()
     }
 }
