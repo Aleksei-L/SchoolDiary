@@ -26,8 +26,7 @@ class ZavuchProfileFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         nullableBinding = FragmentZavuchProfileBinding.inflate(inflater, container, false)
         binding.exitLogout.setOnClickListener {
@@ -38,13 +37,10 @@ class ZavuchProfileFragment : Fragment() {
 
     private fun logout() {
         val sharedPref = requireContext().getSharedPreferences(
-            getString(R.string.shared_pref),
-            Context.MODE_PRIVATE
+            getString(R.string.shared_pref), Context.MODE_PRIVATE
         )
-        AlertDialog.Builder(requireContext())
-            .setTitle("Внимание!")
-            .setMessage("Вы уверены, что хотите выйти?")
-            .setPositiveButton("Да") { _, _ ->
+        AlertDialog.Builder(requireContext()).setTitle("Внимание!")
+            .setMessage("Вы уверены, что хотите выйти?").setPositiveButton("Да") { _, _ ->
 
                 sharedPref.edit {
                     putBoolean(getString(R.string.sp_login_state), false)
@@ -52,16 +48,11 @@ class ZavuchProfileFragment : Fragment() {
                 viewModel.clearMessage()
                 val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFlow, true).build()
                 binding.root.findNavController().navigate(
-                    R.id.action_global_auth_flow2,
-                    null,
-                    navOptions
+                    R.id.action_global_auth_flow2, null, navOptions
                 )
-            }
-            .setNegativeButton("Нет") { dialog, _ ->
+            }.setNegativeButton("Нет") { dialog, _ ->
                 dialog.dismiss()
-            }
-            .create()
-            .show()
+            }.create().show()
     }
 
     override fun onDestroyView() {
