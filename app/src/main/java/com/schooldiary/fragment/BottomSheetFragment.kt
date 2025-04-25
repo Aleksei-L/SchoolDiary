@@ -13,8 +13,7 @@ import com.schooldiary.viewmodel.MainViewModelFactory
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
     private var nullableBinding: BottomSheetBinding? = null
-    private val binding
-        get() = nullableBinding!!
+    private val binding get() = nullableBinding!!
     private val viewModel: MainViewModel by activityViewModels {
         MainViewModelFactory((activity as MainActivity).repository)
     }
@@ -28,12 +27,15 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.updateHomework.setOnClickListener {
             val newHomework = binding.detailsHomeworkEditable.text.toString().trim()
-
             viewModel.updateHomework(newHomework)
-
             dismiss()
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        nullableBinding = null
+        super.onDestroyView()
     }
 }

@@ -22,7 +22,7 @@ class DetailsFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels {
         MainViewModelFactory((activity as MainActivity).repository)
     }
-
+    private var lessonAdapter: LessonAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -40,16 +40,28 @@ class DetailsFragment : Fragment() {
         binding.detailsDayTitle.text =
             "${item?.schedule?.get(viewModel.dayForDetails)?.weekDayName} $day.$month.$year"
 
+
+        lessonAdapter = LessonAdapter(
+            item?.schedule?.get(viewModel.dayForDetails)?.lessons,
+            viewModel.userRole == UserRole.TEACHER,
+            parentFragmentManager
+        ) { lessonId, homework ->
+            viewModel.lessonIdForUpdateHomework = lessonId
+            viewModel.currentHomeworkForEdit = homework
+        }
+
         binding.rvLessons.apply {
-            adapter = LessonAdapter(
-                item?.schedule?.get(viewModel.dayForDetails)?.lessons,
-                viewModel.userRole == UserRole.TEACHER,
-                parentFragmentManager
-            ) { lessonId, homework ->
-                viewModel.lessonIdForUpdateHomework = lessonId
-                viewModel.currentHomeworkForEdit = homework
-            }
+            adapter = lessonAdapter
             layoutManager = LinearLayoutManager(context)
+        }
+
+        viewModel.homeworkUpdated.observe(viewLifecycleOwner) { updated ->
+            if (updated) {
+                viewModel.lessonIdForUpdateHomework?.let { lessonId ->
+                    lessonAdapter?.updateHomework(lessonId, viewModel.currentHomeworkForEdit)
+                }
+                viewModel.homeworkUpdated.value = false
+            }
         }
 
         return binding.root
@@ -57,6 +69,7 @@ class DetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         nullableBinding = null
+        lessonAdapter = null
         super.onDestroyView()
     }
 }

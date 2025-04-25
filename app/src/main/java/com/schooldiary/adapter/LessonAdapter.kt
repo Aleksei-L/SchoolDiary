@@ -12,7 +12,7 @@ import com.schooldiary.data.schedule.Lesson
 import com.schooldiary.fragment.BottomSheetFragment
 
 class LessonAdapter(
-    private val items: List<Lesson>?,
+    private var items: List<Lesson>?,
     private val isUserTeacher: Boolean,
     private val fragmentManager: FragmentManager,
     private val onLessonClick: (String, String) -> Unit
@@ -27,8 +27,7 @@ class LessonAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.lesson_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.lesson_item, parent, false)
         return LessonViewHolder(view)
     }
 
@@ -43,8 +42,7 @@ class LessonAdapter(
 
         if (isUserTeacher) {
             holder.teacherHomework.visibility = View.VISIBLE
-            if (holder.homework.text.isEmpty())
-                holder.homework.text = "Домашнее задание не задано"
+            if (holder.homework.text.isEmpty()) holder.homework.text = "Домашнее задание не задано"
             holder.teacherHomework.setOnClickListener {
                 onLessonClick(item.lessonId, item.homework)
                 val bottomSheet = BottomSheetFragment()
@@ -54,4 +52,17 @@ class LessonAdapter(
     }
 
     override fun getItemCount() = items?.size ?: 0
+
+    fun updateHomework(lessonId: String, newHomework: String) {
+        items = items?.map { lesson ->
+            if (lesson.lessonId == lessonId) {
+                lesson.copy(
+                    homework = newHomework, teacherName = lesson.teacherName ?: ""
+                )
+            } else {
+                lesson
+            }
+        }
+        notifyDataSetChanged()
+    }
 }

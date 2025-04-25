@@ -40,16 +40,14 @@ class MainViewModel(
     var lessonIdForUpdateHomework: String? = null
 
     var currentHomeworkForEdit: String = ""
+    val homeworkUpdated = MutableLiveData<Boolean>(false)
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
         val loginResponse = repository.loginUser(userData)
         mLoginData.postValue(
             loginResponse ?: LoginResponse(
-                "Логин или пароль некорректен",
-                "",
-                "",
-                listOf()
+                "Логин или пароль некорректен", "", "", listOf()
             )
         )
     }
@@ -81,6 +79,8 @@ class MainViewModel(
         }
         val homeworkData = UpdateHomework(lessonIdForUpdateHomework!!, newHomework)
         repository.updateHomeworkByLessonId(homeworkData)
+        currentHomeworkForEdit = newHomework
+        homeworkUpdated.postValue(true)
     }
 
     fun clearMessage() = viewModelScope.launch {
