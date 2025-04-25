@@ -8,15 +8,22 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.schooldiary.R
+import com.schooldiary.activity.MainActivity
 import com.schooldiary.databinding.FragmentZavuchProfileBinding
+import com.schooldiary.viewmodel.MainViewModel
+import com.schooldiary.viewmodel.MainViewModelFactory
 
 class ZavuchProfileFragment : Fragment() {
     private var nullableBinding: FragmentZavuchProfileBinding? = null
     private val binding
         get() = nullableBinding!!
+    private val viewModel: MainViewModel by activityViewModels {
+        MainViewModelFactory((activity as MainActivity).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +45,11 @@ class ZavuchProfileFragment : Fragment() {
             .setTitle("Внимание!")
             .setMessage("Вы уверены, что хотите выйти?")
             .setPositiveButton("Да") { _, _ ->
+
                 sharedPref.edit {
                     putBoolean(getString(R.string.sp_login_state), false)
                 }
+                viewModel.clearMessage()
                 val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFlow, true).build()
                 binding.root.findNavController().navigate(
                     R.id.action_global_auth_flow2,
