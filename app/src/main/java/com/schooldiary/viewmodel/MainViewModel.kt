@@ -44,7 +44,14 @@ class MainViewModel(
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
         val loginResponse = repository.loginUser(userData)
-        mLoginData.postValue(loginResponse ?: LoginResponse("", "", "", listOf()))
+        mLoginData.postValue(
+            loginResponse ?: LoginResponse(
+                "Логин или пароль некорректен",
+                "",
+                "",
+                listOf()
+            )
+        )
     }
 
     fun getScheduleForStudent(classId: String) = viewModelScope.launch {
@@ -74,5 +81,9 @@ class MainViewModel(
         }
         val homeworkData = UpdateHomework(lessonIdForUpdateHomework!!, newHomework)
         repository.updateHomeworkByLessonId(homeworkData)
+    }
+
+    fun clearMessage() = viewModelScope.launch {
+        mLoginData.postValue(LoginResponse("", "", "", listOf()))
     }
 }

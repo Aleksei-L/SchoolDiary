@@ -21,7 +21,7 @@
                 android:id="@+id/action_loginFragment_to_zavuchFlow"
                 app:destination="@id/zavuchFlow"
                 app:popUpTo="@id/auth_flow"
-                app:popUpToInclusive="true"/>
+                app:popUpToInclusive="true" />
         </fragment>
     </navigation>
     <navigation
@@ -57,40 +57,39 @@
             android:id="@+id/action_global_auth_flow"
             app:destination="@id/auth_flow" />
     </navigation>
-<navigation
-    android:id="@+id/zavuchFlow"
-    app:startDestination="@id/zavuchScheduleFragment"
-    >
-    <fragment
-        android:id="@+id/zavuchScheduleFragment"
-        android:name="com.schooldiary.fragment.ZavuchScheduleFragment"
-        android:label="Расписание"
-        tools:layout="@layout/fragment_zavuch_schedule" >
+    <navigation
+        android:id="@+id/zavuchFlow"
+        app:startDestination="@id/zavuchScheduleFragment">
+        <fragment
+            android:id="@+id/zavuchScheduleFragment"
+            android:name="com.schooldiary.fragment.ZavuchScheduleFragment"
+            android:label="Расписание"
+            tools:layout="@layout/fragment_zavuch_schedule">
+            <action
+                android:id="@+id/action_zavuchScheduleFragment_to_zavuchProfileFragment"
+                app:destination="@id/zavuchProfileFragment" />
+        </fragment>
         <action
-            android:id="@+id/action_zavuchScheduleFragment_to_zavuchProfileFragment"
-            app:destination="@id/zavuchProfileFragment" />
-    </fragment>
-    <action
-        android:id="@+id/action_global_auth_flow2"
-        app:destination="@id/auth_flow" />
-    <fragment
-        android:id="@+id/zavuchAddAccountFragment"
-        android:name="com.schooldiary.fragment.ZavuchAddAccountFragmen"
-        android:label="Добавление/Редактирование аккаунта"
-        tools:layout="@layout/fragment_zavuch_add_account" />
-    <fragment
-        android:id="@+id/zavuchProfileFragment"
-        android:name="com.schooldiary.fragment.ZavuchProfileFragment"
-        android:label="Профиль"
-        tools:layout="@layout/fragment_zavuch_profile" />
-    <fragment
-        android:id="@+id/zavuchAccountListFragment"
-        android:name="com.schooldiary.fragment.ZavuchAccountsListFragment"
-        android:label="Аккаунты"
-        tools:layout="@layout/fragment_zavuch_accountslist" >
-        <action
-            android:id="@+id/action_zavuchAccountListFragment_to_zavuchAddAccountFragment"
-            app:destination="@id/zavuchAddAccountFragment" />
-    </fragment>
-</navigation>
+            android:id="@+id/action_global_auth_flow2"
+            app:destination="@id/auth_flow" />
+        <fragment
+            android:id="@+id/zavuchAddAccountFragment"
+            android:name="com.schooldiary.fragment.ZavuchAddAccountFragmen"
+            android:label="Добавление/Редактирование аккаунта"
+            tools:layout="@layout/fragment_zavuch_add_account" />
+        <fragment
+            android:id="@+id/zavuchProfileFragment"
+            android:name="com.schooldiary.fragment.ZavuchProfileFragment"
+            android:label="Профиль"
+            tools:layout="@layout/fragment_zavuch_profile" />
+        <fragment
+            android:id="@+id/zavuchAccountListFragment"
+            android:name="com.schooldiary.fragment.ZavuchAccountsListFragment"
+            android:label="Аккаунты"
+            tools:layout="@layout/fragment_zavuch_accountslist">
+            <action
+                android:id="@+id/action_zavuchAccountListFragment_to_zavuchAddAccountFragment"
+                app:destination="@id/zavuchAddAccountFragment" />
+        </fragment>
+    </navigation>
 </navigation>
