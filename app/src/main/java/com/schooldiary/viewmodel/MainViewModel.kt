@@ -10,6 +10,8 @@ import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.repository.Repository
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -28,6 +30,13 @@ class MainViewModel(
     private val mGradesData = MutableLiveData<GradeResponse>()
     val gradesData: LiveData<GradeResponse> = mGradesData
 
+    private val mStudentInfo = MutableLiveData<StudentInfoResponse>()
+    val studentInfo: LiveData<StudentInfoResponse> = mStudentInfo
+
+    private val mTeacherInfo = MutableLiveData<TeacherInfoResponse>()
+    val teacherInfo: LiveData<TeacherInfoResponse> = mTeacherInfo
+
+
     var dayForDetails = -1
 
     private val mWeekNumber = MutableLiveData(
@@ -41,6 +50,7 @@ class MainViewModel(
 
     var currentHomeworkForEdit: String = ""
     val homeworkUpdated = MutableLiveData<Boolean>(false)
+
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -85,5 +95,12 @@ class MainViewModel(
 
     fun clearMessage() = viewModelScope.launch {
         mLoginData.postValue(LoginResponse("", "", "", listOf()))
+    }
+
+    fun getStudentInfo(userId: String) = viewModelScope.launch {
+        val studentInfoResponse = repository.getStudentInfo(userId)
+        studentInfoResponse?.let {
+            mStudentInfo.postValue(it)
+        }
     }
 }
