@@ -46,17 +46,15 @@
 
     <!-- Profile Fragment -->
     <string name="Info">Информация</string>
-    <string name="CClass">Класс:</string>
-    <string name="CGender">Пол:</string>
-    <string name="CBirth">Дата рождения:</string>
-    <string name="CAge">Возраст:</string>
+    <string name="RRole">Роль:</string>
+    <string name="EEmail">e-mail:</string>
+    <string name="CCLass">Класс:</string>
 
     <!-- Profile Fragment Изменяемые поля -->
-    <string name="UserName">Васин Александр Семенович</string>
-    <string name="Class">9В</string>
-    <string name="Gender">Мужской</string>
-    <string name="Birth">14.05.2010</string>
-    <string name="Age">14 лет</string>
+    <string name="UserName"> </string>
+    <string name="Role"> </string>
+    <string name="Email"> </string>
+    <string name="Class"> </string>
 
     <!-- Zavuch Profile Fragment -->
     <string name="C_Role">Роль:</string>
@@ -66,7 +64,7 @@
 
     <!-- Zavuch Profile Fragment Изменяемые поля -->
     <string name="Zavuch_Name">Смирнова Галина Петровна</string>
-    <string name="Role">Завуч</string>
+    <string name="Role2">Завуч</string>
     <string name="Zavuch_Gender">Женский</string>
     <string name="Zavuch_Birth">14.05.2000</string>
     <string name="Zavuch_Age">24 года</string>

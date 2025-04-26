@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <TextView
-        android:id="@+id/CClass"
+        android:id="@+id/Role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/CGender"
+        android:id="@+id/Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -125,7 +125,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/CBirth"
+        android:id="@+id/Class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -151,19 +151,19 @@
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/userClass"
+        android:id="@+id/userRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="22dp"
-        android:text="@string/Role"
+        android:text="@string/Role2"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/CClass"
+        app:layout_constraintStart_toEndOf="@+id/Role"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/userGender"
+        android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -171,11 +171,11 @@
         android:text="@string/Zavuch_Gender"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/CGender"
+        app:layout_constraintStart_toEndOf="@+id/Email"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/userBirth"
+        android:id="@+id/className"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -183,7 +183,7 @@
         android:text="@string/Zavuch_Birth"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/CBirth"
+        app:layout_constraintStart_toEndOf="@+id/Class"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView

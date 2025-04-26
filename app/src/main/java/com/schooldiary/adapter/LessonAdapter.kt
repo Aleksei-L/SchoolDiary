@@ -24,6 +24,7 @@ class LessonAdapter(
         val roomNumber: TextView = itemView.findViewById(R.id.room_number)
         val homework: TextView = itemView.findViewById(R.id.details_homework)
         val teacherHomework: ImageView = itemView.findViewById(R.id.teacher_homework_button)
+        val lessonsDetail:TextView=itemView.findViewById(R.id.details_homework)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
@@ -43,7 +44,7 @@ class LessonAdapter(
         if (isUserTeacher) {
             holder.teacherHomework.visibility = View.VISIBLE
             if (holder.homework.text.isEmpty()) holder.homework.text = "Домашнее задание не задано"
-            holder.teacherHomework.setOnClickListener {
+            holder.lessonsDetail.setOnClickListener {
                 onLessonClick(item.lessonId, item.homework)
                 val bottomSheet = BottomSheetFragment()
                 bottomSheet.show(fragmentManager, bottomSheet.tag)

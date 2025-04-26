@@ -6,6 +6,7 @@ import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.studentinfo.StudentInfoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -87,4 +88,22 @@ class Repository(
                 Log.e(this@Repository.javaClass.name, e.stackTraceToString())
             }
         }
+
+    suspend fun getStudentInfo(userId: String): StudentInfoResponse? =
+        withContext(Dispatchers.IO) {
+            try {
+                val translate = api.translateUserIdToStudentId(userId)
+                if (translate.isNotEmpty()) {
+                    val response = api.getStudentInfo(translate[0].studentId)
+                    return@withContext response
+                }
+                throw Exception()
+            } catch (e: Exception) {
+
+                Log.e(this@Repository.javaClass.name, "Can't load info for $userId user")
+                Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+                return@withContext null
+            }
+        }
 }
+

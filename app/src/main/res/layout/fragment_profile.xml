@@ -100,59 +100,48 @@
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
     <TextView
-        android:id="@+id/CClass"
+        android:id="@+id/Role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="22dp"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:text="@string/CClass"
+        android:text="@string/RRole"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/CGender"
+        android:id="@+id/Email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="58dp"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:text="@string/CGender"
+        android:text="@string/EEmail"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/CBirth"
+        android:id="@+id/Class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="94dp"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:text="@string/CBirth"
+        android:text="@string/CCLass"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
-    <TextView
-        android:id="@+id/CAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="130dp"
-        android:textSize="16sp"
-        android:textColor="#000000"
-        android:text="@string/CAge"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Information" />
+
 
     <TextView
-        android:id="@+id/userClass"
+        android:id="@+id/userRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -160,44 +149,33 @@
         android:text="@string/Class"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/CClass"
+        app:layout_constraintStart_toEndOf="@+id/Role"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/userGender"
+        android:id="@+id/userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="58dp"
-        android:text="@string/Gender"
+        android:text="@string/Email"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/CGender"
+        app:layout_constraintStart_toEndOf="@+id/Email"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
     <TextView
-        android:id="@+id/userBirth"
+        android:id="@+id/className"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="94dp"
-        android:text="@string/Birth"
+        android:text="@string/Class"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/CBirth"
+        app:layout_constraintStart_toEndOf="@+id/Class"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
 
-    <TextView
-        android:id="@+id/userAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="130dp"
-        android:text="@string/Age"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/CAge"
-        app:layout_constraintTop_toBottomOf="@+id/Information" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

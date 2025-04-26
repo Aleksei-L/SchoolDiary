@@ -5,6 +5,7 @@ import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.studentinfo.StudentInfoResponse
 import com.schooldiary.data.translate.TranslateUserToStudentResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -44,4 +45,8 @@ interface UserApi {
     suspend fun updateHomework(
         @Body homeworkData: UpdateHomework
     )
+    @GET("Student/GeneralInfo/{id}")
+    suspend fun getStudentInfo(
+        @Path("id") studentId: String
+    ):StudentInfoResponse
 }
