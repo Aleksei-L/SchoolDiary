@@ -20,14 +20,10 @@
     <string name="Plus">+</string>
     <string name="Schedule">Расписание</string>
     <string name="Class_C">Класс</string>
-    <string name="item1">1А</string>
-    <string name="item2">1Б</string>
-    <string name="item3">2А</string>
-    <string name="item4">2Б</string>
-    <string name="item5">3А</string>
-    <string name="item6">3Б</string>
-    <string name="item7">4А</string>
-    <string name="item8">4Б</string>
+    <string name="item1">8А</string>
+    <string name="item2">8Б</string>
+    <string name="item3">10А</string>
+
 
     <string name="Lesson_Schedule_Z">1. Русский язык</string>
     <string name="Time_Schudule_Z">8:00-8:45</string>

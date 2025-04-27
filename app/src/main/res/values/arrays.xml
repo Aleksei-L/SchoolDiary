@@ -5,10 +5,10 @@
         <item>@string/item1</item>
         <item>@string/item2</item>
         <item>@string/item3</item>
-        <item>@string/item4</item>
-        <item>@string/item5</item>
-        <item>@string/item6</item>
-        <item>@string/item7</item>
-        <item>@string/item8</item>
+    </string-array>
+    <string-array name="roles">
+        <item>Роль</item>
+        <item>Учитель</item>
+        <item>Студент</item>
     </string-array>
 </resources>

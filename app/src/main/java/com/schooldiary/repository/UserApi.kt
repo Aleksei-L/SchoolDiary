@@ -1,5 +1,7 @@
 package com.schooldiary.repository
 
+import com.schooldiary.data.createdata.DataCreatedResponse
+import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
@@ -7,6 +9,8 @@ import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
 import com.schooldiary.data.translate.TranslateUserToStudentResponse
+import com.schooldiary.data.users.UserResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -49,4 +53,13 @@ interface UserApi {
     suspend fun getStudentInfo(
         @Path("id") studentId: String
     ):StudentInfoResponse
+
+    @POST("Users/CreateNewUser")
+    suspend fun createNewUser(
+        @Body data: DataForCreate
+    ): Response<DataCreatedResponse>
+
+    @GET("Users")
+    suspend fun getAllUsers(): Response<UserResponse>
+
 }

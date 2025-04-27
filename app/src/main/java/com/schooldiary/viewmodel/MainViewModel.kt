@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.schooldiary.data.createdata.DataCreatedResponse
+import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
@@ -12,6 +14,7 @@ import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
+import com.schooldiary.data.users.UserResponse
 import com.schooldiary.repository.Repository
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -36,8 +39,12 @@ class MainViewModel(
     private val mTeacherInfo = MutableLiveData<TeacherInfoResponse>()
     val teacherInfo: LiveData<TeacherInfoResponse> = mTeacherInfo
 
+    private val mUsersData = MutableLiveData<UserResponse>()
+    val userData: LiveData<UserResponse> = mUsersData
 
     var dayForDetails = -1
+
+    var userForDetails=-1
 
     private val mWeekNumber = MutableLiveData(
         LocalDate.now().get(WeekFields.of(Locale.UK).weekOfYear()) + 17
@@ -51,6 +58,9 @@ class MainViewModel(
     var currentHomeworkForEdit: String = ""
     val homeworkUpdated = MutableLiveData<Boolean>(false)
 
+
+    private val mDataCreatedResponse = MutableLiveData<DataCreatedResponse>()
+    val dataCreatedResponse: LiveData<DataCreatedResponse> = mDataCreatedResponse
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -103,4 +113,37 @@ class MainViewModel(
             mStudentInfo.postValue(it)
         }
     }
+
+    fun createUser(
+        fio: String,
+        login: String,
+        password: String,
+        email: String,
+        role: String,
+        className: String
+    ) {
+        val nameClass = if (className == "Класс") null else className
+
+        viewModelScope.launch {
+            val roles = listOf(role)
+            val userData = DataForCreate(
+                name = fio,
+                login = login,
+                password = password,
+                email = email,
+                roles = roles,
+                className = nameClass
+            )
+            val createdResponse = repository.createUser(userData)
+            mDataCreatedResponse.postValue(
+                createdResponse
+            )
+        }
+    }
+
+    fun getAllUsers() = viewModelScope.launch {
+        val usersResponse = repository.getAllUsers()
+        usersResponse?.let { mUsersData.postValue(it) }
+    }
+
 }

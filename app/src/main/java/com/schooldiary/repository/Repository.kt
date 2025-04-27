@@ -1,14 +1,18 @@
 package com.schooldiary.repository
 
 import android.util.Log
+import com.schooldiary.data.createdata.DataCreatedResponse
+import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.users.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
 
 class Repository(
     private val api: UserApi
@@ -88,7 +92,6 @@ class Repository(
                 Log.e(this@Repository.javaClass.name, e.stackTraceToString())
             }
         }
-
     suspend fun getStudentInfo(userId: String): StudentInfoResponse? =
         withContext(Dispatchers.IO) {
             try {
@@ -105,5 +108,24 @@ class Repository(
                 return@withContext null
             }
         }
-}
 
+    suspend fun createUser(data: DataForCreate): DataCreatedResponse {
+        return try {
+            val response = api.createNewUser(data)
+            response.body() ?: DataCreatedResponse(
+                "Данные некорректны или пользователь уже существует"
+            )
+        } catch (e: Exception) {
+            DataCreatedResponse("Ошибка связи с сервером")
+        }
+    }
+
+    suspend fun getAllUsers(): UserResponse? =
+        try {
+            val response = api.getAllUsers()
+            response.body()
+        } catch (e: Exception) {
+            null
+        }
+
+}
