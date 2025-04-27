@@ -1,5 +1,6 @@
 package com.schooldiary.activity
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, _, _ ->
             changeBottomBarAndToolbarMenuVisibility()
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -76,10 +78,12 @@ class MainActivity : AppCompatActivity() {
             binding.toolbar.visibility = View.GONE
             currentMenuRes = null
         } else {
-            val newMenuRes = if (navController.currentDestination?.parent?.id == R.id.zavuchFlow) {
-                R.menu.zavuch_bottom
-            } else {
-                R.menu.bottom_menu
+            val shared = getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
+
+            val newMenuRes = when (shared.getString(getString(R.string.sp_user_role), "")) {
+                "ZAVUCH" -> R.menu.zavuch_bottom
+                "TEACHER" -> R.menu.teacher_bottom
+                else -> R.menu.bottom_menu
             }
             if (currentMenuRes != newMenuRes) {
                 binding.bottomNav.menu.clear()

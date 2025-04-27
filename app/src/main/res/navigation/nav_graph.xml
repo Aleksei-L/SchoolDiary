@@ -56,6 +56,11 @@
         <action
             android:id="@+id/action_global_auth_flow"
             app:destination="@id/auth_flow" />
+        <fragment
+            android:id="@+id/teacherJournalFragment"
+            android:name="com.schooldiary.fragment.TeacherJournalFragment"
+            android:label="Журнал"
+            tools:layout="@layout/fragment_teacher_journal" />
     </navigation>
     <navigation
         android:id="@+id/zavuchFlow"
