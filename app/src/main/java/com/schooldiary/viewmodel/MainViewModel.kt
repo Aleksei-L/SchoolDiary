@@ -1,5 +1,7 @@
 package com.schooldiary.viewmodel
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -139,8 +141,13 @@ class MainViewModel(
             )
             val createdResponse = repository.createUser(userData)
             mDataCreatedResponse.postValue(createdResponse)
+            Handler(Looper.getMainLooper()).postDelayed({
+                mDataCreatedResponse.postValue(DataCreatedResponse(""))
+            }, 2000)
         }
     }
+
+
 
     fun getAllUsers() = viewModelScope.launch {
         val usersResponse = repository.getAllUsers()
@@ -150,6 +157,7 @@ class MainViewModel(
     fun deleteUser(userId: String) {
         viewModelScope.launch {
             repository.deleteUser(userId)
+            getAllUsers()
         }
     }
 }

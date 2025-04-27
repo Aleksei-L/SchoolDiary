@@ -77,4 +77,7 @@
     <string name="tab_common_marks">Итоговые оценки</string>
 
     <string name="AccList">Аккаунты</string>
+
+
+    <string name="journal">Журнал</string>
 </resources>
