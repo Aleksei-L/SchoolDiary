@@ -19,9 +19,7 @@ class BottomSheetFragment2 : BottomSheetDialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val position = viewModel.userForDetails
         nullableBinding = BottomSheet2Binding.inflate(inflater, container, false)
@@ -32,8 +30,9 @@ class BottomSheetFragment2 : BottomSheetDialogFragment() {
             binding.emailEditable.text = item.email
             binding.passwordEditable.text = item.password
             binding.loginEditable.text = item.login
-            binding.deleteUser.setOnClickListener{
+            binding.deleteUser.setOnClickListener {
                 viewModel.deleteUser(item.userId)
+                dismiss()
             }
         }
 
