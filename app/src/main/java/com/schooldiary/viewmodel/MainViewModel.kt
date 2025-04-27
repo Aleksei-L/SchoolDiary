@@ -146,4 +146,10 @@ class MainViewModel(
         val usersResponse = repository.getAllUsers()
         usersResponse?.let { mUsersData.postValue(it) }
     }
+
+    fun deleteUser(userId: String) {
+        viewModelScope.launch {
+            repository.deleteUser(userId)
+        }
+    }
 }

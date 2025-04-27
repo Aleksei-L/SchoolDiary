@@ -146,4 +146,14 @@ class Repository(
             null
         }
     }
+    suspend fun deleteUser(userId: String){
+        withContext(Dispatchers.IO){
+            try{
+                api.deleteUser(userId)
+            }
+            catch (e:Exception){
+                Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+            }
+        }
+    }
 }
