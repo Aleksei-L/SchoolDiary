@@ -27,6 +27,7 @@ class ZavuchAddAccountFragment : Fragment() {
     ): View? {
         nullableBinding = FragmentZavuchAddAccountBinding.inflate(inflater, container, false)
 
+
         binding.button.setOnClickListener {
             val editFio = binding.editText1.text.toString().trim()
             val editLogin = binding.editText2.text.toString().trim()
@@ -34,8 +35,6 @@ class ZavuchAddAccountFragment : Fragment() {
             val editEmail = binding.editText4.text.toString().trim()
             val className = binding.spinner2.selectedItem.toString()
             val role = binding.spinner.selectedItem.toString()
-
-
             if (editLogin == "" || editPassword == "" ||
                 editFio == "" || role == "Роль" || editEmail == "" ||
                 (role == "Ученик" && className == "Класс")
@@ -47,6 +46,7 @@ class ZavuchAddAccountFragment : Fragment() {
                 viewModel.createUser(editFio, editLogin, editPassword, editEmail, role, className)
             }
         }
+
         viewModel.dataCreatedResponse.observe(viewLifecycleOwner){
             Toast.makeText(context,it.message,Toast.LENGTH_LONG).show()
         }

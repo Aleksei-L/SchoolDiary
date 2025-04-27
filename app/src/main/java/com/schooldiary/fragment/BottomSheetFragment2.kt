@@ -32,6 +32,9 @@ class BottomSheetFragment2 : BottomSheetDialogFragment() {
             binding.emailEditable.text = item.email
             binding.passwordEditable.text = item.password
             binding.loginEditable.text = item.login
+            binding.deleteUser.setOnClickListener{
+                viewModel.deleteUser(item.userId)
+            }
         }
 
         return binding.root
