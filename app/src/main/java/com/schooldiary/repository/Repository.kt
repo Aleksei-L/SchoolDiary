@@ -9,10 +9,10 @@ import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.users.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
 
 class Repository(
     private val api: UserApi
@@ -92,26 +92,41 @@ class Repository(
                 Log.e(this@Repository.javaClass.name, e.stackTraceToString())
             }
         }
+
     suspend fun getStudentInfo(userId: String): StudentInfoResponse? =
         withContext(Dispatchers.IO) {
             try {
                 val translate = api.translateUserIdToStudentId(userId)
                 if (translate.isNotEmpty()) {
                     val response = api.getStudentInfo(translate[0].studentId)
+                    Log.i(this@Repository.javaClass.name, "Response from server: $response")
                     return@withContext response
                 }
                 throw Exception()
             } catch (e: Exception) {
-
                 Log.e(this@Repository.javaClass.name, "Can't load info for $userId user")
                 Log.e(this@Repository.javaClass.name, e.stackTraceToString())
                 return@withContext null
             }
         }
 
-    suspend fun createUser(data: DataForCreate): DataCreatedResponse {
-        return try {
+    suspend fun getTeacherInfo(userId: String): TeacherInfoResponse? =
+        withContext(Dispatchers.IO) {
+            return@withContext try {
+                val response = api.getTeacherInfo(userId)
+                Log.i(this@Repository.javaClass.name, "Response from server: $response")
+                response
+            } catch (e: Exception) {
+                Log.e(this@Repository.javaClass.name, "Can't load info for $userId teacher")
+                Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+                null
+            }
+        }
+
+    suspend fun createUser(data: DataForCreate): DataCreatedResponse = withContext(Dispatchers.IO) {
+        return@withContext try {
             val response = api.createNewUser(data)
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
             response.body() ?: DataCreatedResponse(
                 "Данные некорректны или пользователь уже существует"
             )
@@ -120,12 +135,15 @@ class Repository(
         }
     }
 
-    suspend fun getAllUsers(): UserResponse? =
-        try {
+    suspend fun getAllUsers(): UserResponse? = withContext(Dispatchers.IO) {
+        return@withContext try {
             val response = api.getAllUsers()
-            response.body()
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+            response
         } catch (e: Exception) {
+            Log.e(this@Repository.javaClass.name, "Can't load info for users")
+            Log.e(this@Repository.javaClass.name, e.stackTraceToString())
             null
         }
-
+    }
 }

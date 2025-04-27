@@ -8,6 +8,7 @@ import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.translate.TranslateUserToStudentResponse
 import com.schooldiary.data.users.UserResponse
 import retrofit2.Response
@@ -49,10 +50,16 @@ interface UserApi {
     suspend fun updateHomework(
         @Body homeworkData: UpdateHomework
     )
+
     @GET("Student/GeneralInfo/{id}")
     suspend fun getStudentInfo(
         @Path("id") studentId: String
-    ):StudentInfoResponse
+    ): StudentInfoResponse
+
+    @GET("Teacher/GeneralInfo/{userId}")
+    suspend fun getTeacherInfo(
+        @Path("userId") userId: String
+    ): TeacherInfoResponse
 
     @POST("Users/CreateNewUser")
     suspend fun createNewUser(
@@ -60,6 +67,5 @@ interface UserApi {
     ): Response<DataCreatedResponse>
 
     @GET("Users")
-    suspend fun getAllUsers(): Response<UserResponse>
-
+    suspend fun getAllUsers(): UserResponse
 }

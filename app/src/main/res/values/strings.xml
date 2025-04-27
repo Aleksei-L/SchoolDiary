@@ -43,7 +43,7 @@
     <!-- Profile Fragment -->
     <string name="Info">Информация</string>
     <string name="RRole">Роль:</string>
-    <string name="EEmail">e-mail:</string>
+    <string name="EEmail">E-mail:</string>
     <string name="CCLass">Класс:</string>
 
     <!-- Profile Fragment Изменяемые поля -->

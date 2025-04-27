@@ -35,10 +35,10 @@ class LoginFragment : Fragment() {
             val editLogin = binding.login.text.toString().trim()
             val editPassword = binding.password.text.toString().trim()
 
-            if (editLogin == "" || editPassword == "") Toast.makeText(
-                context, "Введите логин и пароль", Toast.LENGTH_SHORT
-            ).show()
-            else viewModel.login(editLogin, editPassword)
+            if (editLogin == "" || editPassword == "")
+                Toast.makeText(context, "Введите логин и пароль", Toast.LENGTH_SHORT).show()
+            else
+                viewModel.login(editLogin, editPassword)
         }
 
         val sharedPref =
@@ -63,9 +63,8 @@ class LoginFragment : Fragment() {
             }
         }
 
-        if (sharedPref != null && sharedPref.getBoolean(
-                getString(R.string.sp_login_state), false
-            )
+        if (sharedPref != null &&
+            sharedPref.getBoolean(getString(R.string.sp_login_state), false)
         ) {
             viewModel.userRole = when (sharedPref.getString(getString(R.string.sp_user_role), "")) {
                 "ZAVUCH" -> UserRole.ZAVUCH

@@ -9,4 +9,3 @@ data class User(
     val inActive:Boolean,
     val roles:List<String>
 )
- class UserResponse: ArrayList<User>()

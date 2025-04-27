@@ -44,7 +44,7 @@ class MainViewModel(
 
     var dayForDetails = -1
 
-    var userForDetails=-1
+    var userForDetails = -1
 
     private val mWeekNumber = MutableLiveData(
         LocalDate.now().get(WeekFields.of(Locale.UK).weekOfYear()) + 17
@@ -56,8 +56,8 @@ class MainViewModel(
     var lessonIdForUpdateHomework: String? = null
 
     var currentHomeworkForEdit: String = ""
-    val homeworkUpdated = MutableLiveData<Boolean>(false)
 
+    val homeworkUpdated = MutableLiveData(false)
 
     private val mDataCreatedResponse = MutableLiveData<DataCreatedResponse>()
     val dataCreatedResponse: LiveData<DataCreatedResponse> = mDataCreatedResponse
@@ -109,9 +109,12 @@ class MainViewModel(
 
     fun getStudentInfo(userId: String) = viewModelScope.launch {
         val studentInfoResponse = repository.getStudentInfo(userId)
-        studentInfoResponse?.let {
-            mStudentInfo.postValue(it)
-        }
+        studentInfoResponse?.let { mStudentInfo.postValue(it) }
+    }
+
+    fun getTeacherInfo(userId: String) = viewModelScope.launch {
+        val teacherInfoResponse = repository.getTeacherInfo(userId)
+        teacherInfoResponse?.let { mTeacherInfo.postValue(it) }
     }
 
     fun createUser(
@@ -135,9 +138,7 @@ class MainViewModel(
                 className = nameClass
             )
             val createdResponse = repository.createUser(userData)
-            mDataCreatedResponse.postValue(
-                createdResponse
-            )
+            mDataCreatedResponse.postValue(createdResponse)
         }
     }
 
@@ -145,5 +146,4 @@ class MainViewModel(
         val usersResponse = repository.getAllUsers()
         usersResponse?.let { mUsersData.postValue(it) }
     }
-
 }

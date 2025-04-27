@@ -33,6 +33,7 @@ class ProfileFragment : Fragment() {
         binding.exitLogout.setOnClickListener {
             logout()
         }
+
         val sharedPref =
             activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
 
@@ -52,6 +53,9 @@ class ProfileFragment : Fragment() {
             }
 
             UserRole.TEACHER -> {
+                viewModel.getTeacherInfo(
+                    sharedPref?.getString(getString(R.string.sp_user_id), "") ?: ""
+                )
                 viewModel.teacherInfo.observe(viewLifecycleOwner) {
                     binding.userName.text = it[0].name
                     binding.userEmail.text = it[0].email

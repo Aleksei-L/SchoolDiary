@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        if (this::navController.isInitialized) changeBottomBarAndToolbarMenuVisibility()
+        if (this::navController.isInitialized)
+            changeBottomBarAndToolbarMenuVisibility()
         return super.onCreateOptionsMenu(menu)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
