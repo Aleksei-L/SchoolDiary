@@ -27,14 +27,12 @@ interface UserApi {
 
     @GET("Schedules/ByClassId/{classId}/{weekId}")
     suspend fun getScheduleByClassId(
-        @Path("classId") classId: String,
-        @Path("weekId") weekId: String
+        @Path("classId") classId: String, @Path("weekId") weekId: String
     ): ScheduleResponse
 
     @GET("Schedules/ByTeacher/{userId}/{weekId}")
     suspend fun getScheduleForTeacher(
-        @Path("userId") userId: String,
-        @Path("weekId") weekId: String
+        @Path("userId") userId: String, @Path("weekId") weekId: String
     ): ScheduleResponse
 
     @GET("Student/userId/{id}")

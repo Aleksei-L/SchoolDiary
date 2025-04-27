@@ -22,12 +22,9 @@ class ZavuchAddAccountFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         nullableBinding = FragmentZavuchAddAccountBinding.inflate(inflater, container, false)
-
-
         binding.button.setOnClickListener {
             val editFio = binding.editText1.text.toString().trim()
             val editLogin = binding.editText2.text.toString().trim()
@@ -35,10 +32,7 @@ class ZavuchAddAccountFragment : Fragment() {
             val editEmail = binding.editText4.text.toString().trim()
             val className = binding.spinner2.selectedItem.toString()
             val role = binding.spinner.selectedItem.toString()
-            if (editLogin == "" || editPassword == "" ||
-                editFio == "" || role == "Роль" || editEmail == "" ||
-                (role == "Ученик" && className == "Класс")
-            ) {
+            if (editLogin == "" || editPassword == "" || editFio == "" || role == "Роль" || editEmail == "" || (role == "Ученик" && className == "Класс")) {
                 Toast.makeText(
                     context, "Введите информацию о пользователе!", Toast.LENGTH_SHORT
                 ).show()
@@ -47,15 +41,12 @@ class ZavuchAddAccountFragment : Fragment() {
             }
         }
 
-        viewModel.dataCreatedResponse.observe(viewLifecycleOwner){
-            Toast.makeText(context,it.message,Toast.LENGTH_LONG).show()
+        viewModel.dataCreatedResponse.observe(viewLifecycleOwner) {
+            if (it.message != "") Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
         }
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
                 if (position == 2) {
                     binding.spinner2.visibility = View.VISIBLE
@@ -69,10 +60,6 @@ class ZavuchAddAccountFragment : Fragment() {
                 binding.spinner2.visibility = View.GONE
             }
         }
-
-
         return binding.root
-
     }
-
 }
