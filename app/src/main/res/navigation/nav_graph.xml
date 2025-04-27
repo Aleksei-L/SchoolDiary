@@ -74,7 +74,7 @@
             app:destination="@id/auth_flow" />
         <fragment
             android:id="@+id/zavuchAddAccountFragment"
-            android:name="com.schooldiary.fragment.ZavuchAddAccountFragmen"
+            android:name="com.schooldiary.fragment.ZavuchAddAccountFragment"
             android:label="Добавление/Редактирование аккаунта"
             tools:layout="@layout/fragment_zavuch_add_account" />
         <fragment
