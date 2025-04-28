@@ -23,7 +23,7 @@ interface UserApi {
     @POST("Users/authenticate")
     suspend fun loginUser(
         @Body userData: User
-    ): LoginResponse
+    ): Response<LoginResponse>
 
     @GET("Schedules/ByClassId/{classId}/{weekId}")
     suspend fun getScheduleByClassId(
@@ -72,4 +72,9 @@ interface UserApi {
     suspend fun deleteUser(
         @Path("userId") userId: String
     )
+
+    @GET("Schedules/ByClassName/Correct/{className}/{weekId}")
+    suspend fun getSchedulesForZavuch(
+        @Path("className") className: String, @Path("weekId") weekId: String
+    ): ScheduleResponse
 }
