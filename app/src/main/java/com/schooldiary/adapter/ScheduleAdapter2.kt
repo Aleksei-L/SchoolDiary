@@ -30,7 +30,7 @@ class ScheduleAdapter2(
     override fun onBindViewHolder(holder: ScheduleViewHolder2, position: Int) {
         val item = items[position]
 
-        holder.title.text = item.weekDayName.toString()
+        holder.title.text = item.weekDayName
         holder.lessons.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = LessonPreviewAdapter2(
