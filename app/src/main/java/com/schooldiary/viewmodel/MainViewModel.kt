@@ -9,12 +9,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.grade.ClassAndSubject
 import com.schooldiary.data.grade.GradeResponse
+import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.users.UserResponse
 import com.schooldiary.repository.Repository
@@ -63,6 +66,12 @@ class MainViewModel(
 
     private val mDataCreatedResponse = MutableLiveData<DataCreatedResponse>()
     val dataCreatedResponse: LiveData<DataCreatedResponse> = mDataCreatedResponse
+
+    private val mSubjects = MutableLiveData<SubjectsResponse>()
+    val subjects: LiveData<SubjectsResponse> = mSubjects
+
+    private val mGradesForTeacher = MutableLiveData<GradesForTeacherResponse>()
+    val gradesForTeacher: LiveData<GradesForTeacherResponse> = mGradesForTeacher
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -147,17 +156,23 @@ class MainViewModel(
         }
     }
 
-
-
     fun getAllUsers() = viewModelScope.launch {
         val usersResponse = repository.getAllUsers()
         usersResponse?.let { mUsersData.postValue(it) }
     }
 
-    fun deleteUser(userId: String) {
-        viewModelScope.launch {
-            repository.deleteUser(userId)
-            getAllUsers()
-        }
+    fun deleteUser(userId: String) = viewModelScope.launch {
+        repository.deleteUser(userId)
+    }
+
+    fun getAllSubjects() = viewModelScope.launch {
+        val subjects = repository.getAllSubjects()
+        subjects?.let { mSubjects.postValue(it) }
+    }
+
+    fun getGradesForTeacher(classId: String, subjectId: String) = viewModelScope.launch {
+        val classAndSubject = ClassAndSubject(classId, subjectId)
+        val response = repository.getGradesForTeacher(classAndSubject)
+        response?.let { mGradesForTeacher.postValue(it) }
     }
 }

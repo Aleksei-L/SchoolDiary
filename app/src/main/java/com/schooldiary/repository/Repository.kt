@@ -3,12 +3,15 @@ package com.schooldiary.repository
 import android.util.Log
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.grade.ClassAndSubject
 import com.schooldiary.data.grade.GradeResponse
+import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.users.UserResponse
 import kotlinx.coroutines.Dispatchers
@@ -150,4 +153,32 @@ class Repository(
             }
         }
     }
+
+    suspend fun getAllSubjects(): SubjectsResponse? = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val response = api.getAllSubjects()
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+            response
+        } catch (e: Exception) {
+            Log.e(this@Repository.javaClass.name, "Can't load list of subjects")
+            Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+            null
+        }
+    }
+
+    suspend fun getGradesForTeacher(classAndSubject: ClassAndSubject): GradesForTeacherResponse? =
+        withContext(Dispatchers.IO) {
+            return@withContext try {
+                val response = api.getGradesByClassAndSubject(classAndSubject)
+                Log.i(this@Repository.javaClass.name, "Response from server: $response")
+                response
+            } catch (e: Exception) {
+                Log.e(
+                    this@Repository.javaClass.name,
+                    "Can't load grades for $classAndSubject data"
+                )
+                Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+                null
+            }
+        }
 }
