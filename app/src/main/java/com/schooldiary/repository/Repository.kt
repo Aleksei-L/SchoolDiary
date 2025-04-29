@@ -121,9 +121,6 @@ class Repository(
         return@withContext try {
             val response = api.createNewUser(data)
             Log.i(this@Repository.javaClass.name, "Response from server: $response")
-            response.body() ?: DataCreatedResponse(
-                "Данные некорректны или пользователь уже существует"
-            )
             if (response.isSuccessful) {
                 response.body()
                     ?: DataCreatedResponse("Данные некорректны или пользователь уже существует")
