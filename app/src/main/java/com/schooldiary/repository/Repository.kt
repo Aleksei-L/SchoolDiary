@@ -17,15 +17,15 @@ import kotlinx.coroutines.withContext
 class Repository(
     private val api: UserApi
 ) {
-    suspend fun loginUser(userData: User): LoginResponse? = withContext(Dispatchers.IO) {
-        try {
+    suspend fun loginUser(userData: User): LoginResponse = withContext(Dispatchers.IO) {
+        return@withContext try {
             val response = api.loginUser(userData)
             Log.i(this@Repository.javaClass.name, "Response from server: $response")
-            return@withContext response
+            response.body() ?: LoginResponse("Логин или пароль некорректны", "", "", listOf())
         } catch (e: Exception) {
             Log.e(this@Repository.javaClass.name, "Login for user $userData failed")
             Log.e(this@Repository.javaClass.name, e.stackTraceToString())
-            return@withContext null
+            LoginResponse("Ошибка связи с сервером", "", "", listOf())
         }
     }
 
@@ -150,4 +150,20 @@ class Repository(
             }
         }
     }
+
+    suspend fun getScheduleForZavuch(className: String, weekId: String): ScheduleResponse? =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = api.getSchedulesForZavuch(className, weekId)
+                Log.i(this@Repository.javaClass.name, "Response from server: $response")
+                return@withContext response
+            } catch (e: Exception) {
+                Log.e(
+                    this@Repository.javaClass.name,
+                    "Can't load schedule for $className className and $weekId week"
+                )
+                Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+                return@withContext null
+            }
+        }
 }

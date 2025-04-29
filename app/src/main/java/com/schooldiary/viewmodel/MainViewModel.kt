@@ -67,11 +67,7 @@ class MainViewModel(
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
         val loginResponse = repository.loginUser(userData)
-        mLoginData.postValue(
-            loginResponse ?: LoginResponse(
-                "Логин или пароль некорректен", "", "", listOf()
-            )
-        )
+        mLoginData.postValue(loginResponse)
     }
 
     fun getScheduleForStudent(classId: String) = viewModelScope.launch {
@@ -148,7 +144,6 @@ class MainViewModel(
     }
 
 
-
     fun getAllUsers() = viewModelScope.launch {
         val usersResponse = repository.getAllUsers()
         usersResponse?.let { mUsersData.postValue(it) }
@@ -159,5 +154,11 @@ class MainViewModel(
             repository.deleteUser(userId)
             getAllUsers()
         }
+    }
+
+    fun getScheduleForZavuch(className: String) = viewModelScope.launch {
+        val scheduleResponse =
+            repository.getScheduleForZavuch(className, weekNumber.value.toString())
+        scheduleResponse?.let { mScheduleData.postValue(it) }
     }
 }
