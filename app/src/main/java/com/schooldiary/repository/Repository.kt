@@ -124,6 +124,20 @@ class Repository(
             response.body() ?: DataCreatedResponse(
                 "Данные некорректны или пользователь уже существует"
             )
+            if (response.isSuccessful) {
+                response.body()
+                    ?: DataCreatedResponse("Данные некорректны или пользователь уже существует")
+            } else {
+                when (response.code()) {
+                    400 -> {
+                        val errorBodyText = response.errorBody()?.string()
+                        val cleanError = errorBodyText?.substringAfter("""message":"""")
+                            ?.substringBefore(""""}""")
+                        DataCreatedResponse("${cleanError}")
+                    }
+                    else -> DataCreatedResponse("Ошибка сервера: ${response.code()}")
+                }
+            }
         } catch (e: Exception) {
             DataCreatedResponse("Ошибка связи с сервером")
         }
