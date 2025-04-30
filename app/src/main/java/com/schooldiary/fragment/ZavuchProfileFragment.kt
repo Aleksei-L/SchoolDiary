@@ -32,6 +32,25 @@ class ZavuchProfileFragment : Fragment() {
         binding.exitLogout.setOnClickListener {
             logout()
         }
+        val sharedPref =
+            activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
+        viewModel.getUserInfo(
+            sharedPref?.getString(getString(R.string.sp_user_id), "") ?: ""
+        )
+        binding.userRole.text =
+            if (viewModel.userRole.toString() == "STUDENT") "Ученик" else if (viewModel.userRole.toString() == "TEACHER") "Учитель" else "Завуч"
+        viewModel.userInfo.observe(viewLifecycleOwner) {
+            binding.userName.text = it[0].name
+            binding.userEmail.text = it[0].email
+            if (it[0].className != null) {
+                binding.className.text = it[0].className
+                binding.Class.visibility = View.VISIBLE
+                binding.className.visibility = View.VISIBLE
+            } else {
+                binding.Class.visibility = View.GONE
+                binding.className.visibility = View.GONE
+            }
+        }
         return binding.root
     }
 
