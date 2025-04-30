@@ -16,7 +16,6 @@ import com.schooldiary.activity.MainActivity
 import com.schooldiary.databinding.FragmentProfileBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
-import com.schooldiary.viewmodel.UserRole
 
 class ProfileFragment : Fragment() {
     private var nullableBinding: FragmentProfileBinding? = null
@@ -36,36 +35,22 @@ class ProfileFragment : Fragment() {
 
         val sharedPref =
             activity?.getSharedPreferences(getString(R.string.shared_pref), Context.MODE_PRIVATE)
-
-        when (viewModel.userRole) {
-            UserRole.STUDENT -> {
-                viewModel.getStudentInfo(
-                    sharedPref?.getString(getString(R.string.sp_user_id), "") ?: ""
-                )
-                viewModel.studentInfo.observe(viewLifecycleOwner) {
-                    binding.userName.text = it[0].name
-                    binding.userEmail.text = it[0].email
-                    binding.className.text = it[0].className
-                    binding.userRole.text = "Ученик"
-                }
+        viewModel.getUserInfo(
+            sharedPref?.getString(getString(R.string.sp_user_id), "") ?: ""
+        )
+        binding.userRole.text =
+            if (viewModel.userRole.toString() == "STUDENT") "Ученик" else if (viewModel.userRole.toString() == "TEACHER") "Учитель" else "Завуч"
+        viewModel.userInfo.observe(viewLifecycleOwner) {
+            binding.userName.text = it[0].name
+            binding.userEmail.text = it[0].email
+            if (it[0].className != null) {
+                binding.className.text = it[0].className
                 binding.Class.visibility = View.VISIBLE
                 binding.className.visibility = View.VISIBLE
-            }
-
-            UserRole.TEACHER -> {
-                viewModel.getTeacherInfo(
-                    sharedPref?.getString(getString(R.string.sp_user_id), "") ?: ""
-                )
-                viewModel.teacherInfo.observe(viewLifecycleOwner) {
-                    binding.userName.text = it[0].name
-                    binding.userEmail.text = it[0].email
-                    binding.userRole.text = "Учитель"
-                }
+            } else {
                 binding.Class.visibility = View.GONE
                 binding.className.visibility = View.GONE
             }
-
-            else -> {}
         }
         return binding.root
     }

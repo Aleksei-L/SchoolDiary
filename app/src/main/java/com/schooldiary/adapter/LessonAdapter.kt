@@ -9,13 +9,15 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
 import com.schooldiary.data.schedule.Lesson
+import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.fragment.BottomSheetFragment
 
 class LessonAdapter(
     private var items: List<Lesson>?,
     private val isUserTeacher: Boolean,
     private val fragmentManager: FragmentManager,
-    private val onLessonClick: (String, String) -> Unit
+    private val onLessonClick: (String, String) -> Unit,
+    private val onTeacheHomework: (String)->Unit
 ) : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
     class LessonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lessonTitle: TextView = itemView.findViewById(R.id.details_lesson_title)
@@ -48,6 +50,9 @@ class LessonAdapter(
                 onLessonClick(item.lessonId, item.homework)
                 val bottomSheet = BottomSheetFragment()
                 bottomSheet.show(fragmentManager, bottomSheet.tag)
+            }
+            holder.teacherHomework.setOnClickListener{
+                onTeacheHomework(item.lessonId)
             }
         }
     }

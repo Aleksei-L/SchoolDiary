@@ -5,13 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
 import com.schooldiary.data.schedule.Schedule
+import com.schooldiary.fragment.BottomSheetFragment3
 
 class ScheduleAdapter2(
-    private val items: List<Schedule>
+    private val items: List<Schedule>,
+    private val fragmentManager: FragmentManager
 ) : RecyclerView.Adapter<ScheduleAdapter2.ScheduleViewHolder2>() {
     private var onClick: ((Int) -> Unit)? = null
 
@@ -36,6 +39,11 @@ class ScheduleAdapter2(
             adapter = LessonPreviewAdapter2(
                 item.lessons,
             )
+            holder.addButton.setOnClickListener {
+                val bottomSheet = BottomSheetFragment3()
+                bottomSheet.show(fragmentManager, bottomSheet.tag)
+                onClick?.let { it(position) }
+            }
         }
     }
 

@@ -7,15 +7,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.schooldiary.data.addinglessons.AddLessons
+import com.schooldiary.data.addinglessons.AddLessonsResponse
+import com.schooldiary.data.addinglessons.LessonsForAdding
+import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.editdata.EditData
+import com.schooldiary.data.editdata.EditDataResponse
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
+import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
-import com.schooldiary.data.studentinfo.StudentInfoResponse
-import com.schooldiary.data.teacherInfo.TeacherInfoResponse
+import com.schooldiary.data.studentinfo.UserInfoResponse
+import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.users.UserResponse
 import com.schooldiary.repository.Repository
 import kotlinx.coroutines.launch
@@ -35,11 +42,8 @@ class MainViewModel(
     private val mGradesData = MutableLiveData<GradeResponse>()
     val gradesData: LiveData<GradeResponse> = mGradesData
 
-    private val mStudentInfo = MutableLiveData<StudentInfoResponse>()
-    val studentInfo: LiveData<StudentInfoResponse> = mStudentInfo
-
-    private val mTeacherInfo = MutableLiveData<TeacherInfoResponse>()
-    val teacherInfo: LiveData<TeacherInfoResponse> = mTeacherInfo
+    private val mUserInfo = MutableLiveData<UserInfoResponse>()
+    val userInfo: LiveData<UserInfoResponse> = mUserInfo
 
     private val mUsersData = MutableLiveData<UserResponse>()
     val userData: LiveData<UserResponse> = mUsersData
@@ -47,6 +51,10 @@ class MainViewModel(
     var dayForDetails = -1
 
     var userForDetails = -1
+
+    var userIdForDetails = ""
+
+    var classNameForAdding = ""
 
     private val mWeekNumber = MutableLiveData(
         LocalDate.now().get(WeekFields.of(Locale.UK).weekOfYear()) + 17
@@ -63,6 +71,22 @@ class MainViewModel(
 
     private val mDataCreatedResponse = MutableLiveData<DataCreatedResponse>()
     val dataCreatedResponse: LiveData<DataCreatedResponse> = mDataCreatedResponse
+
+    private val mSubjects = MutableLiveData<SubjectsResponse>()
+    val subjects: LiveData<SubjectsResponse> = mSubjects
+
+    private val mClasses = MutableLiveData<ClassNameResponse>()
+    val classes: LiveData<ClassNameResponse> = mClasses
+
+    private val mRoom = MutableLiveData<RoomResponse>()
+    val room: LiveData<RoomResponse> = mRoom
+
+    private val mEditDataResponse = MutableLiveData<EditDataResponse>()
+    val editDataResponse: LiveData<EditDataResponse> = mEditDataResponse
+
+    private val mAddLessonsResponse = MutableLiveData<AddLessonsResponse>()
+    val addLessonsResponse: LiveData<AddLessonsResponse> = mAddLessonsResponse
+
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -105,25 +129,15 @@ class MainViewModel(
         mLoginData.postValue(LoginResponse("", "", "", listOf()))
     }
 
-    fun getStudentInfo(userId: String) = viewModelScope.launch {
-        val studentInfoResponse = repository.getStudentInfo(userId)
-        studentInfoResponse?.let { mStudentInfo.postValue(it) }
-    }
-
-    fun getTeacherInfo(userId: String) = viewModelScope.launch {
-        val teacherInfoResponse = repository.getTeacherInfo(userId)
-        teacherInfoResponse?.let { mTeacherInfo.postValue(it) }
+    fun getUserInfo(userId: String) = viewModelScope.launch {
+        val studentInfoResponse = repository.getUserInfo(userId)
+        studentInfoResponse?.let { mUserInfo.postValue(it) }
     }
 
     fun createUser(
-        fio: String,
-        login: String,
-        password: String,
-        email: String,
-        role: String,
-        className: String
+        fio: String, login: String, password: String, email: String, role: String, className: String
     ) {
-        val nameClass = if (className == "Класс") null else className
+        val nameClass = if (role != "Студент") null else className
 
         viewModelScope.launch {
             val roles = listOf(role)
@@ -156,9 +170,75 @@ class MainViewModel(
         }
     }
 
+    fun getAllSubjects() = viewModelScope.launch {
+        val subjects = repository.getAllSubjects()
+        subjects?.let { mSubjects.postValue(it) }
+    }
+
+    fun getAllClasses() = viewModelScope.launch {
+        val classes = repository.getAllClasses()
+        classes?.let { mClasses.postValue(it) }
+    }
+
     fun getScheduleForZavuch(className: String) = viewModelScope.launch {
         val scheduleResponse =
             repository.getScheduleForZavuch(className, weekNumber.value.toString())
         scheduleResponse?.let { mScheduleData.postValue(it) }
     }
+
+    fun getAllRooms() = viewModelScope.launch {
+        val rooms = repository.getAllRoom()
+        rooms?.let { mRoom.postValue(it) }
+    }
+
+    fun updateUserInfo(
+        userId: String,
+        fio: String,
+        login: String,
+        password: String,
+        email: String,
+        className: String?
+    ) {
+        val nameClass = if (className == "null") null else className
+        viewModelScope.launch {
+            val userData = EditData(
+                name = fio, login = login, password = password, email = email, className = nameClass
+            )
+            val editDataResponse = repository.updateUserInfo(userId, userData)
+            mEditDataResponse.postValue(editDataResponse)
+            Handler(Looper.getMainLooper()).postDelayed({
+                mEditDataResponse.postValue(EditDataResponse(""))
+            }, 2000)
+        }
+    }
+
+    fun addLesson(
+        weekDayId: Int,
+        lessonOrder: Int,
+        subjectName: String,
+        teacherName: String,
+        startTime: String,
+        endTime: String,
+        room: String
+    ) = viewModelScope.launch {
+        val lessonsList = listOf(
+            LessonsForAdding(
+                weekDayId,
+                lessonOrder,
+                subjectName,
+                teacherName,
+                startTime,
+                endTime,
+                room
+            )
+        )
+        val addLessons = AddLessons(classNameForAdding, dayForDetails, lessonsList)
+        val addLessonResponse = repository.addLesson(addLessons)
+        mAddLessonsResponse.postValue(addLessonResponse)
+        Handler(Looper.getMainLooper()).postDelayed({
+            mAddLessonsResponse.postValue(AddLessonsResponse(""))
+        }, 2000)
+    }
 }
+
+

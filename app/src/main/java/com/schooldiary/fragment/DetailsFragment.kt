@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.schooldiary.R
 import com.schooldiary.activity.MainActivity
 import com.schooldiary.adapter.LessonAdapter
 import com.schooldiary.databinding.FragmentDetailsBinding
@@ -44,12 +46,15 @@ class DetailsFragment : Fragment() {
         lessonAdapter = LessonAdapter(
             item?.schedule?.get(viewModel.dayForDetails)?.lessons,
             viewModel.userRole == UserRole.TEACHER,
-            parentFragmentManager
-        ) { lessonId, homework ->
-            viewModel.lessonIdForUpdateHomework = lessonId
-            viewModel.currentHomeworkForEdit = homework
-        }
-
+            parentFragmentManager,
+            onLessonClick = { lessonId, homework ->
+                viewModel.lessonIdForUpdateHomework = lessonId
+                viewModel.currentHomeworkForEdit = homework
+            },
+            onTeacheHomework = {lessonId ->
+                findNavController().navigate(R.id.action_detailsFragment_to_teacherJournalFragment)
+            }
+        )
         binding.rvLessons.apply {
             adapter = lessonAdapter
             layoutManager = LinearLayoutManager(context)

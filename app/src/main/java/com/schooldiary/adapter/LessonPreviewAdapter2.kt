@@ -13,7 +13,6 @@ class LessonPreviewAdapter2(
 ) : RecyclerView.Adapter<LessonPreviewAdapter2.LessonPreviewViewHolder2>() {
     class LessonPreviewViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lessonTitle: TextView = itemView.findViewById(R.id.lesson_title2)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonPreviewViewHolder2 {
@@ -25,7 +24,7 @@ class LessonPreviewAdapter2(
 
     override fun onBindViewHolder(holder: LessonPreviewViewHolder2, position: Int) {
         val item = items[position]
-        holder.lessonTitle.text = item.subjectName
+        holder.lessonTitle.text="${item.lessonOrder} - ${item.subjectName}"
     }
 
     override fun getItemCount() = items.size
