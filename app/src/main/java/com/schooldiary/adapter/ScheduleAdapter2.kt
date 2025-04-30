@@ -42,6 +42,7 @@ class ScheduleAdapter2(
             holder.addButton.setOnClickListener {
                 val bottomSheet = BottomSheetFragment3()
                 bottomSheet.show(fragmentManager, bottomSheet.tag)
+                onClick?.let { it(position) }
             }
         }
     }
