@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.editdata.EditData
+import com.schooldiary.data.editdata.EditDataResponse
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
@@ -75,6 +77,9 @@ class MainViewModel(
 
     private val mRoom = MutableLiveData<RoomResponse>()
     val room: LiveData<RoomResponse> = mRoom
+
+    private val mEditDataResponse = MutableLiveData<EditDataResponse>()
+    val editDataResponse: LiveData<EditDataResponse> = mEditDataResponse
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -176,7 +181,7 @@ class MainViewModel(
     fun getAllClasses() =
         viewModelScope.launch {
             val classes = repository.getAllClasses()
-               classes ?.let { mClasses.postValue(it) }
+            classes?.let { mClasses.postValue(it) }
         }
 
     fun getScheduleForZavuch(className: String) = viewModelScope.launch {
@@ -184,11 +189,37 @@ class MainViewModel(
             repository.getScheduleForZavuch(className, weekNumber.value.toString())
         scheduleResponse?.let { mScheduleData.postValue(it) }
     }
+
     fun getAllRooms() =
         viewModelScope.launch {
             val rooms = repository.getAllRoom()
-            rooms ?.let { mRoom.postValue(it) }
+            rooms?.let { mRoom.postValue(it) }
         }
+
+    fun updateUserInfo(
+        userId: String,
+        fio: String,
+        login: String,
+        password: String,
+        email: String,
+        className: String
+    ) {
+
+        viewModelScope.launch {
+            val userData = EditData(
+                name = fio,
+                login = login,
+                password = password,
+                email = email,
+                className = className
+            )
+            val editDataResponse = repository.updateUserInfo(userId, userData)
+            mEditDataResponse.postValue(editDataResponse)
+            Handler(Looper.getMainLooper()).postDelayed({
+                mEditDataResponse.postValue(EditDataResponse(""))
+            }, 2000)
+        }
+    }
 }
 
 

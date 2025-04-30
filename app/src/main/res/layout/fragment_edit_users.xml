@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/Add_account"
+        android:text="@string/Edit_account"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/BackgroundBloc"
@@ -81,7 +81,7 @@
 
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editemail"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
@@ -97,41 +97,28 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/edit_class_name"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:entries="@array/roles"
         android:background="@drawable/edit_add_account"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/edit_add_account"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/edit_user"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:text="@string/Button_save"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_class_name" />
 
     <TextView
         android:id="@+id/textView1"
@@ -183,22 +170,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="@string/RRole"
+        android:text="@string/CCLass"
         android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/editemail" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/CClass"
-        android:textSize="18dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

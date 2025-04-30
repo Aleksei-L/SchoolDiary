@@ -67,14 +67,17 @@ class ZavuchAddAccountFragment : Fragment() {
             ) {
                 if (position == 2) {
                     binding.spinner2.visibility = View.VISIBLE
+                    binding.textView6.visibility = View.VISIBLE
                 } else {
                     binding.spinner2.visibility = View.GONE
                     binding.spinner2.setSelection(0)
+                    binding.textView6.visibility = View.GONE
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 binding.spinner2.visibility = View.GONE
+                binding.textView6.visibility = View.GONE
             }
         }
         return binding.root

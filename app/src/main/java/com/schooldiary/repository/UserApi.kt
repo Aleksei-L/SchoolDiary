@@ -3,6 +3,8 @@ package com.schooldiary.repository
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.editdata.EditData
+import com.schooldiary.data.editdata.EditDataResponse
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
@@ -20,6 +22,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface UserApi {
@@ -89,4 +92,10 @@ interface UserApi {
 
     @GET("Lesson/Room")
     suspend fun getAllRoom(): RoomResponse
+
+    @PUT("Users/UpdateUser/{userId}")
+    suspend fun updateUserInfo(
+        @Path("userId") userId: String,
+        @Body data: EditData
+    ): Response<EditDataResponse>
 }

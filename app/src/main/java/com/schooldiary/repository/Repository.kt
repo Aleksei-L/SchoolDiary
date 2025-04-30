@@ -4,6 +4,8 @@ import android.util.Log
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.editdata.EditData
+import com.schooldiary.data.editdata.EditDataResponse
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
@@ -217,4 +219,27 @@ class Repository(
             null
         }
     }
+
+    suspend fun updateUserInfo(userId: String, editData: EditData): EditDataResponse =
+        withContext(Dispatchers.IO) {
+            return@withContext try {
+                val response = api.updateUserInfo(userId, editData)
+                Log.i(this@Repository.javaClass.name, "Response from server: $response")
+                if (response.isSuccessful) {
+                    response.body()?:EditDataResponse("")
+                } else {
+                    when (response.code()) {
+                        400 -> {
+                            val errorBodyText = response.errorBody()?.string()
+                            val cleanError = errorBodyText?.substringAfter("""message":"""")
+                                ?.substringBefore(""""}""")
+                            EditDataResponse("${cleanError}")
+                        }
+                        else -> EditDataResponse("Ошибка сервера: ${response.code()}")
+                    }
+                }
+            } catch (e: Exception) {
+                EditDataResponse("Ошибка связи с сервером")
+            }
+        }
 }
