@@ -7,14 +7,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
+import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.users.UserResponse
 import com.schooldiary.repository.Repository
@@ -63,6 +66,15 @@ class MainViewModel(
 
     private val mDataCreatedResponse = MutableLiveData<DataCreatedResponse>()
     val dataCreatedResponse: LiveData<DataCreatedResponse> = mDataCreatedResponse
+
+    private val mSubjects = MutableLiveData<SubjectsResponse>()
+    val subjects: LiveData<SubjectsResponse> = mSubjects
+
+    private val mClasses = MutableLiveData<ClassNameResponse>()
+    val classes: LiveData<ClassNameResponse> = mClasses
+
+    private val mRoom = MutableLiveData<RoomResponse>()
+    val room: LiveData<RoomResponse> = mRoom
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -123,7 +135,7 @@ class MainViewModel(
         role: String,
         className: String
     ) {
-        val nameClass = if (className == "Класс") null else className
+        val nameClass = if (role != "Студент") null else className
 
         viewModelScope.launch {
             val roles = listOf(role)
@@ -156,9 +168,27 @@ class MainViewModel(
         }
     }
 
+    fun getAllSubjects() = viewModelScope.launch {
+        val subjects = repository.getAllSubjects()
+        subjects?.let { mSubjects.postValue(it) }
+    }
+
+    fun getAllClasses() =
+        viewModelScope.launch {
+            val classes = repository.getAllClasses()
+               classes ?.let { mClasses.postValue(it) }
+        }
+
     fun getScheduleForZavuch(className: String) = viewModelScope.launch {
         val scheduleResponse =
             repository.getScheduleForZavuch(className, weekNumber.value.toString())
         scheduleResponse?.let { mScheduleData.postValue(it) }
     }
+    fun getAllRooms() =
+        viewModelScope.launch {
+            val rooms = repository.getAllRoom()
+            rooms ?.let { mRoom.postValue(it) }
+        }
 }
+
+

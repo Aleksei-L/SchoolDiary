@@ -1,14 +1,17 @@
 package com.schooldiary.repository
 
 import android.util.Log
+import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
+import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.users.UserResponse
 import kotlinx.coroutines.Dispatchers
@@ -132,6 +135,7 @@ class Repository(
                             ?.substringBefore(""""}""")
                         DataCreatedResponse("${cleanError}")
                     }
+
                     else -> DataCreatedResponse("Ошибка сервера: ${response.code()}")
                 }
             }
@@ -162,6 +166,30 @@ class Repository(
         }
     }
 
+    suspend fun getAllSubjects(): SubjectsResponse? = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val response = api.getAllSubjects()
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+            response
+        } catch (e: Exception) {
+            Log.e(this@Repository.javaClass.name, "Can't load list of subjects")
+            Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+            null
+        }
+    }
+
+    suspend fun getAllClasses(): ClassNameResponse? = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val response = api.getAllClass()
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+            response
+        } catch (e: Exception) {
+            Log.e(this@Repository.javaClass.name, "Can't load list of classes")
+            Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+            null
+        }
+    }
+
     suspend fun getScheduleForZavuch(className: String, weekId: String): ScheduleResponse? =
         withContext(Dispatchers.IO) {
             try {
@@ -177,4 +205,16 @@ class Repository(
                 return@withContext null
             }
         }
+
+    suspend fun getAllRoom(): RoomResponse? = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val response = api.getAllRoom()
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+            response
+        } catch (e: Exception) {
+            Log.e(this@Repository.javaClass.name, "Can't load list of rooms")
+            Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+            null
+        }
+    }
 }

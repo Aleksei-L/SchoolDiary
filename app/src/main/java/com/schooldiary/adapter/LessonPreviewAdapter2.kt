@@ -13,7 +13,6 @@ class LessonPreviewAdapter2(
 ) : RecyclerView.Adapter<LessonPreviewAdapter2.LessonPreviewViewHolder2>() {
     class LessonPreviewViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lessonTitle: TextView = itemView.findViewById(R.id.lesson_title2)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonPreviewViewHolder2 {
