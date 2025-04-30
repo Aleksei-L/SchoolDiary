@@ -1,5 +1,7 @@
 package com.schooldiary.repository
 
+import com.schooldiary.data.addinglessons.AddLessons
+import com.schooldiary.data.addinglessons.AddLessonsResponse
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
@@ -11,9 +13,8 @@ import com.schooldiary.data.login.User
 import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
-import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.studentinfo.UserInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
-import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.translate.TranslateUserToStudentResponse
 import com.schooldiary.data.users.UserResponse
 import retrofit2.Response
@@ -56,15 +57,10 @@ interface UserApi {
         @Body homeworkData: UpdateHomework
     )
 
-    @GET("Student/GeneralInfo/{id}")
-    suspend fun getStudentInfo(
-        @Path("id") studentId: String
-    ): StudentInfoResponse
-
-    @GET("Teacher/GeneralInfo/{userId}")
-    suspend fun getTeacherInfo(
-        @Path("userId") userId: String
-    ): TeacherInfoResponse
+    @GET("Users/GeneralInfo/{userId}")
+    suspend fun getUserInfo(
+        @Path("userId") studentId: String
+    ): UserInfoResponse
 
     @POST("Users/CreateNewUser")
     suspend fun createNewUser(
@@ -95,7 +91,11 @@ interface UserApi {
 
     @PUT("Users/UpdateUser/{userId}")
     suspend fun updateUserInfo(
-        @Path("userId") userId: String,
-        @Body data: EditData
+        @Path("userId") userId: String, @Body data: EditData
     ): Response<EditDataResponse>
+
+    @POST("Schedules/WithNewLessons")
+    suspend fun addLesson(
+        @Body data:AddLessons
+    ):Response<AddLessonsResponse>
 }
