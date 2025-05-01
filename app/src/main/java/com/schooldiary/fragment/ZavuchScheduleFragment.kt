@@ -10,9 +10,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.schooldiary.R
 import com.schooldiary.activity.MainActivity
 import com.schooldiary.adapter.ScheduleAdapter2
 import com.schooldiary.data.classname.ClassNameResponseItem
+import com.schooldiary.data.schedule.Schedule
 import com.schooldiary.databinding.FragmentZavuchScheduleBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
@@ -56,16 +58,23 @@ class ZavuchScheduleFragment : Fragment() {
         }
 
 
-        viewModel.scheduleData.observe(viewLifecycleOwner) {
-            val item = it[0]
-            val scheduleAdapter = ScheduleAdapter2(item.schedule, parentFragmentManager,requireContext())
+        viewModel.scheduleData.observe(viewLifecycleOwner) { response ->
+            val weekDays = resources.getStringArray(R.array.week_days).toList()
+            val currentSchedule = response.firstOrNull()?.schedule ?: emptyList()
+            val fullWeekSchedule = weekDays.map { day ->
+                currentSchedule.find { it.weekDayName == day } ?: Schedule(emptyList(), day)
+            }
+            val scheduleAdapter =
+                ScheduleAdapter2(fullWeekSchedule, parentFragmentManager, requireContext())
             scheduleAdapter.setOnClickListener { position ->
-                viewModel.dayForDetails = position+1}
+                viewModel.dayForDetails = position + 1
+            }
             binding.rvSchedule2.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = scheduleAdapter
             }
         }
+
         viewModel.addLessonsResponse.observe(viewLifecycleOwner) {
             if (it.message != "") Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
         }

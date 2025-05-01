@@ -24,6 +24,7 @@ import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
+import com.schooldiary.data.schedule.ScheduleResponseItem
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.student.AllStudentsResponse
 import com.schooldiary.data.studentinfo.UserInfoResponse
@@ -218,9 +219,38 @@ class MainViewModel(
     }
 
     fun getScheduleForZavuch(className: String) = viewModelScope.launch {
-        val scheduleResponse =
-            repository.getScheduleForZavuch(className, weekNumber.value.toString())
-        scheduleResponse?.let { mScheduleData.postValue(it) }
+        try {
+            val scheduleResponse =
+                repository.getScheduleForZavuch(className, weekNumber.value.toString())
+            if (scheduleResponse != null) {
+                scheduleResponse.let { mScheduleData.postValue(it) }
+            } else {
+                val emptyResponse = ScheduleResponse().apply {
+                    add(
+                        ScheduleResponseItem(
+                            endDate = "",
+                            schedule = emptyList(),
+                            startDate = "",
+                            weekId = weekNumber.value ?: 1
+                        )
+                    )
+                }
+                mScheduleData.postValue(emptyResponse)
+
+            }
+        } catch (e: Exception) {
+            val emptyResponse = ScheduleResponse().apply {
+                add(
+                    ScheduleResponseItem(
+                        endDate = "",
+                        schedule = emptyList(),
+                        startDate = "",
+                        weekId = weekNumber.value ?: 1
+                    )
+                )
+            }
+            mScheduleData.postValue(emptyResponse)
+        }
     }
 
     fun getAllRooms() = viewModelScope.launch {
