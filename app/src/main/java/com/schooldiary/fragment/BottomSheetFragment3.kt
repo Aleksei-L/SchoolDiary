@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.schooldiary.activity.MainActivity
@@ -77,7 +76,8 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
         viewModel.getAllSubjects()
         viewModel.getAllRooms()
         binding.addLesson.setOnClickListener {
-            val lessonNumber = binding.lessonNumber.toString().toInt()
+            val selectedItem = binding.lessonNumber.selectedItem.toString()
+            val lessonNumber=selectedItem.toInt()
             val startTime = when (lessonNumber) {
                 1 -> "8:00"
                 2 -> "8:50"
@@ -101,9 +101,6 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
             val lessonName=binding.lessonsName.selectedItem.toString()
             viewModel.addLesson(viewModel.dayForDetails,lessonNumber,lessonName,teacherName,startTime,endTime,room)
             dismiss()
-        }
-        viewModel.addLessonsResponse.observe(viewLifecycleOwner){
-            if (it.message != "") Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
         }
         return binding.root
     }

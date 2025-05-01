@@ -58,6 +58,10 @@
             android:name="com.schooldiary.fragment.TeacherJournalFragment"
             android:label="Журнал"
             tools:layout="@layout/fragment_teacher_journal" />
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.schooldiary.fragment.ProfileFragment"
+            android:label="ProfileFragment" />
     </navigation>
     <navigation
         android:id="@+id/zavuchFlow"

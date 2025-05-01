@@ -1,5 +1,6 @@
 package com.schooldiary.repository
 
+import android.provider.ContactsContract.Data
 import android.util.Log
 import com.schooldiary.data.addinglessons.AddLessons
 import com.schooldiary.data.addinglessons.AddLessonsResponse
@@ -144,16 +145,29 @@ class Repository(
         }
     }
 
-    suspend fun deleteUser(userId: String) {
-        withContext(Dispatchers.IO) {
-            try {
-                api.deleteUser(userId)
-            } catch (e: Exception) {
-                Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+    suspend fun deleteUser(userId: String):DataCreatedResponse = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val response = api.deleteUser(userId)
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+            if (response.isSuccessful)
+            {
+               response.body()?:DataCreatedResponse("")
+            } else {
+                when (response.code()) {
+                    400,500 -> {
+                        val errorBodyText = response.errorBody()?.string()
+                        val cleanError = errorBodyText?.substringAfter("""message":"""")
+                            ?.substringBefore(""""""")
+                        DataCreatedResponse("${cleanError}")
+
+                    }
+                    else -> DataCreatedResponse("Ошибка сервера: ${response.code()}")
+                }
             }
+            }catch (e: Exception) {
+                DataCreatedResponse("Ошибка связи с сервером")
         }
     }
-
     suspend fun getAllSubjects(): SubjectsResponse? = withContext(Dispatchers.IO) {
         return@withContext try {
             val response = api.getAllSubjects()
@@ -233,6 +247,7 @@ class Repository(
     suspend fun addLesson(lesson: AddLessons): AddLessonsResponse = withContext(Dispatchers.IO) {
         return@withContext try {
             val response = api.addLesson(lesson)
+            Log.i(this@Repository.javaClass.name, "Response from server: $response , ${lesson}")
             if (response.isSuccessful) {
                 response.body() ?: AddLessonsResponse("")
             } else {

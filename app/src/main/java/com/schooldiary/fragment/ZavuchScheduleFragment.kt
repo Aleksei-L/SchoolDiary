@@ -1,19 +1,18 @@
 package com.schooldiary.fragment
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.schooldiary.activity.MainActivity
 import com.schooldiary.adapter.ScheduleAdapter2
 import com.schooldiary.data.classname.ClassNameResponseItem
-import com.schooldiary.data.room.RoomResponseItem
 import com.schooldiary.databinding.FragmentZavuchScheduleBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
@@ -36,9 +35,9 @@ class ZavuchScheduleFragment : Fragment() {
             val subjectsNames = subjects.map { it.name }.sorted()
 
             ArrayAdapter(
-                requireContext(), R.layout.simple_spinner_item, subjectsNames
+                requireContext(), android.R.layout.simple_spinner_item, subjectsNames
             ).also { adapter ->
-                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.mySpinner.adapter = adapter
             }
             binding.mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -48,7 +47,8 @@ class ZavuchScheduleFragment : Fragment() {
                     viewModel.getScheduleForZavuch(
                         className.find { it.name == binding.mySpinner.selectedItem }?.name ?: ""
                     )
-                   viewModel.classNameForAdding= className.find { it.name == binding.mySpinner.selectedItem }?.name ?: ""
+                    viewModel.classNameForAdding =
+                        className.find { it.name == binding.mySpinner.selectedItem }?.name ?: ""
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -58,14 +58,16 @@ class ZavuchScheduleFragment : Fragment() {
 
         viewModel.scheduleData.observe(viewLifecycleOwner) {
             val item = it[0]
-            val scheduleAdapter = ScheduleAdapter2(item.schedule, parentFragmentManager)
+            val scheduleAdapter = ScheduleAdapter2(item.schedule, parentFragmentManager,requireContext())
             scheduleAdapter.setOnClickListener { position ->
-                viewModel.dayForDetails = position}
+                viewModel.dayForDetails = position+1}
             binding.rvSchedule2.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = scheduleAdapter
             }
-
+        }
+        viewModel.addLessonsResponse.observe(viewLifecycleOwner) {
+            if (it.message != "") Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
         }
         viewModel.getAllClasses()
         return binding.root

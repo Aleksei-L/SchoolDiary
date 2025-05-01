@@ -1,5 +1,6 @@
 package com.schooldiary.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +15,14 @@ import com.schooldiary.fragment.BottomSheetFragment3
 
 class ScheduleAdapter2(
     private val items: List<Schedule>,
-    private val fragmentManager: FragmentManager
+    private val fragmentManager: FragmentManager,
+    private val context: Context
 ) : RecyclerView.Adapter<ScheduleAdapter2.ScheduleViewHolder2>() {
     private var onClick: ((Int) -> Unit)? = null
-
+    val weekDays = context.resources.getStringArray(R.array.week_days).toList()
+    private val fullWeekItems: List<Schedule> = weekDays.map { day ->
+        items.find { it.weekDayName == day } ?: Schedule(emptyList(), day)
+    }
     class ScheduleViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.header_title2)
         val lessons: RecyclerView = itemView.findViewById(R.id.rv_preview_lessons2)
@@ -31,7 +36,7 @@ class ScheduleAdapter2(
     }
 
     override fun onBindViewHolder(holder: ScheduleViewHolder2, position: Int) {
-        val item = items[position]
+        val item = fullWeekItems[position]
 
         holder.title.text = item.weekDayName
         holder.lessons.apply {
@@ -47,7 +52,7 @@ class ScheduleAdapter2(
         }
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = fullWeekItems.size
 
     fun setOnClickListener(action: (Int) -> Unit) {
         onClick = action

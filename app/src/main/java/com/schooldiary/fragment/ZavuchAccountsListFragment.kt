@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -24,36 +25,47 @@ class ZavuchAccountsListFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels {
         MainViewModelFactory((activity as MainActivity).repository)
     }
+    private lateinit var usersAdapter: UsersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         nullableBinding = FragmentZavuchAccountslistBinding.inflate(inflater, container, false)
+
+
+        usersAdapter = UsersAdapter(emptyList(), parentFragmentManager)
+
         binding.addAccount.setOnClickListener {
             addAccount()
         }
-        viewModel.getAllUsers()
 
-        viewModel.userData.observe(viewLifecycleOwner){
 
-           val usersAdapter=UsersAdapter(it,parentFragmentManager)
-            usersAdapter.setOnclickListener { position->
-                viewModel.userForDetails=position
-            }
-            binding.rvAccountslist.apply {
-                layoutManager=LinearLayoutManager(context)
-                adapter=usersAdapter
-            }
-            binding.searchName.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    usersAdapter.filterByName(s.toString())
-                }
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            })
+        binding.rvAccountslist.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = usersAdapter
         }
 
+
+        binding.searchName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                usersAdapter.filterByName(s.toString())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        viewModel.getAllUsers()
+
+        viewModel.userData.observe(viewLifecycleOwner) { users ->
+            usersAdapter.updateItems(users)
+            usersAdapter.setOnclickListener { position ->
+                viewModel.userForDetails = position
+            }
+        }
+        viewModel.deleteResponse.observe(viewLifecycleOwner){
+            if (it.message != "") Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+        }
         return binding.root
     }
 

@@ -30,7 +30,7 @@ class UsersAdapter(
     }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        val item = items[position]
+        val item = filteredItems[position]
         holder.userName.text = item.name
         holder.userRole.text = item.roles[0]
         holder.itemView.setOnClickListener {
