@@ -78,7 +78,6 @@ class AddMarkBottomSheetFragment : BottomSheetDialogFragment() {
                 R.id.grade_4 -> newMark = newMark.copy(value = 4)
                 R.id.grade_3 -> newMark = newMark.copy(value = 3)
                 R.id.grade_2 -> newMark = newMark.copy(value = 2)
-                //TODO R.id.grade_neutral -> newMark = newMark.copy(value = null)
             }
         }
 

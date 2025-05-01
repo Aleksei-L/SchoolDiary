@@ -47,13 +47,13 @@
             android:id="@+id/grade_5"
             style="@style/GradeRadioButton"
             android:text="5"
-            android:textColor="@color/mark_dark_green" />
+            android:textColor="@color/mark_green" />
 
         <RadioButton
             android:id="@+id/grade_4"
             style="@style/GradeRadioButton"
             android:text="4"
-            android:textColor="@color/mark_green" />
+            android:textColor="@color/mark_dark_green" />
 
         <RadioButton
             android:id="@+id/grade_3"
@@ -67,11 +67,6 @@
             android:text="2"
             android:textColor="@color/mark_red" />
 
-        <RadioButton
-            android:id="@+id/grade_neutral"
-            style="@style/GradeRadioButton"
-            android:text="Н"
-            android:textColor="@color/mark_neutral" />
     </RadioGroup>
 
     <Button

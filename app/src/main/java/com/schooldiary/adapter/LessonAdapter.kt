@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
 import com.schooldiary.data.schedule.Lesson
-import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.fragment.BottomSheetFragment
 
 class LessonAdapter(
@@ -17,7 +16,7 @@ class LessonAdapter(
     private val isUserTeacher: Boolean,
     private val fragmentManager: FragmentManager,
     private val onLessonClick: (String, String) -> Unit,
-    private val onTeacheHomework: (String)->Unit
+    private val onTeacheHomework: (String) -> Unit
 ) : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
     class LessonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lessonTitle: TextView = itemView.findViewById(R.id.details_lesson_title)
@@ -26,7 +25,7 @@ class LessonAdapter(
         val roomNumber: TextView = itemView.findViewById(R.id.room_number)
         val homework: TextView = itemView.findViewById(R.id.details_homework)
         val teacherHomework: ImageView = itemView.findViewById(R.id.teacher_homework_button)
-        val lessonsDetail:TextView=itemView.findViewById(R.id.details_homework)
+        val lessonsDetail: TextView = itemView.findViewById(R.id.details_homework)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
@@ -51,7 +50,7 @@ class LessonAdapter(
                 val bottomSheet = BottomSheetFragment()
                 bottomSheet.show(fragmentManager, bottomSheet.tag)
             }
-            holder.teacherHomework.setOnClickListener{
+            holder.teacherHomework.setOnClickListener {
                 onTeacheHomework(item.lessonId)
             }
         }
