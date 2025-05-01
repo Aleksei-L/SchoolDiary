@@ -11,6 +11,7 @@ import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.student.AllStudentsResponse
 import com.schooldiary.data.studentinfo.StudentInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
@@ -190,6 +191,18 @@ class Repository(
         } catch (e: Exception) {
             Log.e(this@Repository.javaClass.name, "Can't create new mark")
             Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+        }
+    }
+
+    suspend fun getAllStudents(): AllStudentsResponse? = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val response = api.getAllStudents()
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+            response
+        } catch (e: Exception) {
+            Log.e(this@Repository.javaClass.name, "Can't load all students")
+            Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+            null
         }
     }
 }

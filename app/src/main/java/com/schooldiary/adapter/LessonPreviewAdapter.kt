@@ -30,7 +30,7 @@ class LessonPreviewAdapter(
         val item = items[position]
         holder.lessonTitle.text = item.subjectName
         holder.homeworkMarker.visibility =
-            if (item.homework.isNotEmpty()) View.VISIBLE else View.INVISIBLE
+            if (item.homework != null && item.homework.isNotEmpty()) View.VISIBLE else View.INVISIBLE
         holder.lessonTime.text = "${item.startTime.dropLast(3)} - ${item.endTime.dropLast(3)}"
         holder.itemView.setOnClickListener { onClick(parentPosition) }
     }

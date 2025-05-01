@@ -18,6 +18,7 @@ import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.student.AllStudentsResponse
 import com.schooldiary.data.studentinfo.StudentInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
@@ -80,6 +81,9 @@ class MainViewModel(
     var studentNameForTeacherNewMark = ""
 
     var subjectNameForTeacherNewMark = ""
+
+    private val mAllStudents = MutableLiveData<AllStudentsResponse>()
+    val allStudents: LiveData<AllStudentsResponse> = mAllStudents
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -186,5 +190,10 @@ class MainViewModel(
 
     fun createNewGrade(data: CreateGradeByTeacher) = viewModelScope.launch {
         repository.createGradeByTeacher(data)
+    }
+
+    fun getAllStudents() = viewModelScope.launch {
+        val response = repository.getAllStudents()
+        response?.let { mAllStudents.postValue(it) }
     }
 }

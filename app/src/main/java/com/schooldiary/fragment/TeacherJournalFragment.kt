@@ -70,7 +70,7 @@ class TeacherJournalFragment : Fragment() {
             binding.rvTeacherGrades.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = ReportForTeacherAdapter(
-                    it.groupBy { it.student },
+                    it.groupBy { it.student }.toMutableMap(),
                     childFragmentManager,
                     viewModel
                 )
@@ -78,8 +78,16 @@ class TeacherJournalFragment : Fragment() {
         }
 
         viewModel.getAllSubjects()
+        viewModel.getAllStudents()
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.allStudents.observe(viewLifecycleOwner) {
+            (binding.rvTeacherGrades.adapter as ReportForTeacherAdapter).addMoreStudents(it)
+        }
     }
 
     override fun onDestroyView() {

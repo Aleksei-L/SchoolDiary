@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
 import com.schooldiary.data.grade.Grade
 import com.schooldiary.data.grade.Student
+import com.schooldiary.data.student.AllStudentsResponseItem
 import com.schooldiary.viewmodel.MainViewModel
 
 class ReportForTeacherAdapter(
-    private val items: Map<Student, List<Grade>>,
+    private val items: MutableMap<Student, List<Grade>>,
     private val fragmentManager: FragmentManager,
     private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<ReportForTeacherAdapter.ReportViewHolder>() {
@@ -39,7 +40,7 @@ class ReportForTeacherAdapter(
         holder.marks.apply {
             layoutManager = GridLayoutManager(context, 5)
             adapter = ReportCardAdapter(
-                item.second,
+                item.second.sortedBy { it.data },
                 true,
                 fragmentManager,
                 viewModel,
@@ -58,5 +59,11 @@ class ReportForTeacherAdapter(
             counter++
         }
         throw Exception("getItemByPosition")
+    }
+
+    fun addMoreStudents(students: List<AllStudentsResponseItem>) {
+        students.forEach {
+            items.plus(Pair(Student(it.user.name, it.studentId), listOf()))
+        }
     }
 }

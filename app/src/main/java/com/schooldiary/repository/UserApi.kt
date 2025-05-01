@@ -10,6 +10,7 @@ import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.student.AllStudentsResponse
 import com.schooldiary.data.studentinfo.StudentInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.teacherInfo.TeacherInfoResponse
@@ -89,4 +90,7 @@ interface UserApi {
     suspend fun createNewGrade(
         @Body createGradeByTeacher: CreateGradeByTeacher
     )
+
+    @GET("Student")
+    suspend fun getAllStudents(): AllStudentsResponse
 }
