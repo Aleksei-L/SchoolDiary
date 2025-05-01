@@ -1,6 +1,5 @@
 package com.schooldiary.fragment
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,10 +36,10 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
 
             ArrayAdapter(
                 requireContext(),
-                R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_item,
                 subjectsNames
             ).also { adapter ->
-                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.lessonsName.adapter = adapter
             }
         }
@@ -50,10 +49,10 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
 
             ArrayAdapter(
                 requireContext(),
-                R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_item,
                 rooms
             ).also { adapter ->
-                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.rooms.adapter = adapter
             }
         }
@@ -65,10 +64,10 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
 
             ArrayAdapter(
                 requireContext(),
-                R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_item,
                 subjectsNames
             ).also { adapter ->
-                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.teachersName.adapter = adapter
             }
         }
@@ -77,7 +76,7 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
         viewModel.getAllRooms()
         binding.addLesson.setOnClickListener {
             val selectedItem = binding.lessonNumber.selectedItem.toString()
-            val lessonNumber=selectedItem.toInt()
+            val lessonNumber = selectedItem.toInt()
             val startTime = when (lessonNumber) {
                 1 -> "8:00"
                 2 -> "8:50"
@@ -94,12 +93,20 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
                 4 -> "11:10"
                 5 -> "12:00"
                 6 -> "12:50"
-                else->""
+                else -> ""
             }
-            val room=binding.rooms.selectedItem.toString()
-            val teacherName=binding.teachersName.selectedItem.toString()
-            val lessonName=binding.lessonsName.selectedItem.toString()
-            viewModel.addLesson(viewModel.dayForDetails,lessonNumber,lessonName,teacherName,startTime,endTime,room)
+            val room = binding.rooms.selectedItem.toString()
+            val teacherName = binding.teachersName.selectedItem.toString()
+            val lessonName = binding.lessonsName.selectedItem.toString()
+            viewModel.addLesson(
+                viewModel.dayForDetails,
+                lessonNumber,
+                lessonName,
+                teacherName,
+                startTime,
+                endTime,
+                room
+            )
             dismiss()
         }
         return binding.root

@@ -14,10 +14,10 @@ import com.schooldiary.data.addinglessons.LessonsForAdding
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
-import com.schooldiary.data.grade.ClassAndSubject
-import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.editdata.EditData
 import com.schooldiary.data.editdata.EditDataResponse
+import com.schooldiary.data.grade.ClassAndSubject
+import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
@@ -26,9 +26,6 @@ import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.student.AllStudentsResponse
-import com.schooldiary.data.studentinfo.StudentInfoResponse
-import com.schooldiary.data.subject.SubjectsResponse
-import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.studentinfo.UserInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.users.UserResponse
@@ -186,7 +183,7 @@ class MainViewModel(
 
     fun deleteUser(userId: String) {
         viewModelScope.launch {
-           val deleteResponse= repository.deleteUser(userId)
+            val deleteResponse = repository.deleteUser(userId)
             getAllUsers()
             mDeleteResponse.postValue(deleteResponse)
             Handler(Looper.getMainLooper()).postDelayed({
@@ -213,6 +210,7 @@ class MainViewModel(
     fun getAllStudents() = viewModelScope.launch {
         val response = repository.getAllStudents()
         response?.let { mAllStudents.postValue(it) }
+    }
 
     fun getAllClasses() = viewModelScope.launch {
         val classes = repository.getAllClasses()
@@ -241,7 +239,11 @@ class MainViewModel(
         val nameClass = if (className == "null") null else className
         viewModelScope.launch {
             val userData = EditData(
-                name = fio, login = login, password = password, email = email, className = nameClass
+                name = fio,
+                login = login,
+                password = password,
+                email = email,
+                className = nameClass
             )
             val editDataResponse = repository.updateUserInfo(userId, userData)
             mEditDataResponse.postValue(editDataResponse)
