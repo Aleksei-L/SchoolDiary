@@ -5,14 +5,21 @@ import com.schooldiary.data.addinglessons.AddLessonsResponse
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.grade.ClassAndSubject
+import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.editdata.EditData
 import com.schooldiary.data.editdata.EditDataResponse
 import com.schooldiary.data.grade.GradeResponse
+import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.student.AllStudentsResponse
+import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.subject.SubjectsResponse
+import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.studentinfo.UserInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.translate.TranslateUserToStudentResponse
@@ -82,6 +89,19 @@ interface UserApi {
 
     @GET("Subjects")
     suspend fun getAllSubjects(): SubjectsResponse
+
+    @POST("Grade/GradeAllStudentByClassSubject")
+    suspend fun getGradesByClassAndSubject(
+        @Body classAndSubject: ClassAndSubject
+    ): GradesForTeacherResponse
+
+    @POST("Grade")
+    suspend fun createNewGrade(
+        @Body createGradeByTeacher: CreateGradeByTeacher
+    )
+
+    @GET("Student")
+    suspend fun getAllStudents(): AllStudentsResponse
 
     @GET("Class")
     suspend fun getAllClass(): ClassNameResponse

@@ -3,6 +3,7 @@ package com.schooldiary.viewmodel
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,14 +14,21 @@ import com.schooldiary.data.addinglessons.LessonsForAdding
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
+import com.schooldiary.data.grade.ClassAndSubject
+import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.editdata.EditData
 import com.schooldiary.data.editdata.EditDataResponse
 import com.schooldiary.data.grade.GradeResponse
+import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
 import com.schooldiary.data.login.User
 import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
+import com.schooldiary.data.student.AllStudentsResponse
+import com.schooldiary.data.studentinfo.StudentInfoResponse
+import com.schooldiary.data.subject.SubjectsResponse
+import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.studentinfo.UserInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.users.UserResponse
@@ -72,11 +80,23 @@ class MainViewModel(
     private val mDataCreatedResponse = MutableLiveData<DataCreatedResponse>()
     val dataCreatedResponse: LiveData<DataCreatedResponse> = mDataCreatedResponse
 
-    private val mDeleteResponse = MutableLiveData<DataCreatedResponse>()
-    val deleteResponse: LiveData<DataCreatedResponse> = mDeleteResponse
-
     private val mSubjects = MutableLiveData<SubjectsResponse>()
     val subjects: LiveData<SubjectsResponse> = mSubjects
+
+    private val mGradesForTeacher = MutableLiveData<GradesForTeacherResponse>()
+    val gradesForTeacher: LiveData<GradesForTeacherResponse> = mGradesForTeacher
+
+    var fragmentManagerForDatePicker: FragmentManager? = null
+
+    var studentNameForTeacherNewMark = ""
+
+    var subjectNameForTeacherNewMark = ""
+
+    private val mAllStudents = MutableLiveData<AllStudentsResponse>()
+    val allStudents: LiveData<AllStudentsResponse> = mAllStudents
+
+    private val mDeleteResponse = MutableLiveData<DataCreatedResponse>()
+    val deleteResponse: LiveData<DataCreatedResponse> = mDeleteResponse
 
     private val mClasses = MutableLiveData<ClassNameResponse>()
     val classes: LiveData<ClassNameResponse> = mClasses
@@ -159,7 +179,6 @@ class MainViewModel(
         }
     }
 
-
     fun getAllUsers() = viewModelScope.launch {
         val usersResponse = repository.getAllUsers()
         usersResponse?.let { mUsersData.postValue(it) }
@@ -180,6 +199,20 @@ class MainViewModel(
         val subjects = repository.getAllSubjects()
         subjects?.let { mSubjects.postValue(it) }
     }
+
+    fun getGradesForTeacher(classId: String, subjectId: String) = viewModelScope.launch {
+        val classAndSubject = ClassAndSubject(classId, subjectId)
+        val response = repository.getGradesForTeacher(classAndSubject)
+        response?.let { mGradesForTeacher.postValue(it) }
+    }
+
+    fun createNewGrade(data: CreateGradeByTeacher) = viewModelScope.launch {
+        repository.createGradeByTeacher(data)
+    }
+
+    fun getAllStudents() = viewModelScope.launch {
+        val response = repository.getAllStudents()
+        response?.let { mAllStudents.postValue(it) }
 
     fun getAllClasses() = viewModelScope.launch {
         val classes = repository.getAllClasses()

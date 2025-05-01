@@ -33,5 +33,13 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/add_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_plus"
+        android:visibility="gone"
+        app:tint="@color/black" />
 
 </androidx.cardview.widget.CardView>

@@ -32,7 +32,7 @@ class ReportAdapter2(
 
 
         holder.marks.apply {
-            layoutManager = GridLayoutManager(context, 5) //TODO
+            layoutManager = GridLayoutManager(context, 5)
         }
     }
     private fun TextView.prepareForShowMark(mark: Double) {
