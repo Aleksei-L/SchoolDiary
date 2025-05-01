@@ -91,11 +91,12 @@ interface UserApi {
 
     @PUT("Users/UpdateUser/{userId}")
     suspend fun updateUserInfo(
-        @Path("userId") userId: String, @Body data: EditData
+        @Path("userId") userId: String,
+        @Body data: EditData
     ): Response<EditDataResponse>
 
     @POST("Schedules/WithNewLessons")
     suspend fun addLesson(
-        @Body data:AddLessons
+        @Body data: AddLessons
     ):Response<AddLessonsResponse>
 }

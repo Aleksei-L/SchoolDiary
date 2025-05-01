@@ -53,7 +53,6 @@
         android:background="#F8F8F8"
         android:clickable="true"
         android:focusable="true"
-
         android:src="@drawable/settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/whiteBloc" />

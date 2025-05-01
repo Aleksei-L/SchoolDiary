@@ -87,7 +87,6 @@ class MainViewModel(
     private val mAddLessonsResponse = MutableLiveData<AddLessonsResponse>()
     val addLessonsResponse: LiveData<AddLessonsResponse> = mAddLessonsResponse
 
-
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
         val loginResponse = repository.loginUser(userData)
@@ -240,5 +239,3 @@ class MainViewModel(
         }, 2000)
     }
 }
-
-

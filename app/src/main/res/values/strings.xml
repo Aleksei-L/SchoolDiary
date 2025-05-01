@@ -24,7 +24,6 @@
     <string name="item2">8Б</string>
     <string name="item3">10А</string>
 
-
     <string name="Lesson_Schedule_Z">1. Русский язык</string>
     <string name="Time_Schudule_Z">8:00-8:45</string>
     <string name="Name_Schudule_Z">Смирнова Татья Игоревна</string>
@@ -40,11 +39,29 @@
     <string name="Class_Statistic1">4Б</string>
     <string name="Class_Statistic2">4Б</string>
 
-    <!-- Profile Fragment -->
+    <!-- Bottom_sheet2 -->
+    <string name="Account_name">Владислав Эгегей Эгейвич</string>
+    <string name="Account_role">Учитель</string>
+    <string name="Account_login">uchilka228</string>
+    <string name="Account_password">****</string>
+    <string name="Account_email">uchilka@mail.ru</string>
+
+    <!-- edit and add account -->
+    <string name="Add_account">Добавление аккаута</string>
+    <string name="Edit_account">Изменение аккаута</string>
+    <string name="FIO">Фамилия Имя Отчество</string>
+    <string name="CClass">Класс</string>
+    <string name="Button_save">Сохранить</string>
+
+    <!-- Profile Fragment так-же используются в edit and add account -->
     <string name="Info">Информация</string>
     <string name="RRole">Роль:</string>
     <string name="EEmail">E-mail:</string>
     <string name="CCLass">Класс:</string>
+
+    <!-- Name for Bottom_sheet2 -->
+    <string name="PPasword">Пароль:</string>
+    <string name="LLogin">Логин:</string>
 
     <!-- Profile Fragment Изменяемые поля -->
     <string name="UserName"> </string>
