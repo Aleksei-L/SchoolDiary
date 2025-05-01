@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="my_items">
-        <item>@string/Class_C</item>
-        <item>@string/item1</item>
-        <item>@string/item2</item>
-        <item>@string/item3</item>
-    </string-array>
+
     <string-array name="roles">
         <item>Роль</item>
         <item>Учитель</item>
         <item>Студент</item>
+    </string-array>
+    <string-array name="lessons">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="week_days">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
     </string-array>
 </resources>

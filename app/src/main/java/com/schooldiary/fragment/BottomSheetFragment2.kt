@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.schooldiary.R
 import com.schooldiary.activity.MainActivity
 import com.schooldiary.databinding.BottomSheet2Binding
 import com.schooldiary.viewmodel.MainViewModel
@@ -30,8 +32,18 @@ class BottomSheetFragment2 : BottomSheetDialogFragment() {
             binding.emailEditable.text = item.email
             binding.passwordEditable.text = item.password
             binding.loginEditable.text = item.login
+            if (binding.roleEditable.text == "Завуч") {
+                binding.deleteUser.visibility = View.GONE
+            } else {
+                binding.deleteUser.visibility = View.VISIBLE
+            }
             binding.deleteUser.setOnClickListener {
                 viewModel.deleteUser(item.userId)
+                dismiss()
+            }
+            binding.editUser.setOnClickListener {
+                viewModel.userIdForDetails = item.userId
+                findNavController().navigate(R.id.action_zavuchAccountListFragment_to_editUsersFragment)
                 dismiss()
             }
         }

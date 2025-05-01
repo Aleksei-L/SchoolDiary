@@ -28,10 +28,6 @@
         android:id="@+id/mainFlow"
         app:startDestination="@id/scheduleFragment">
         <fragment
-            android:id="@+id/profileFragment"
-            android:name="com.schooldiary.fragment.ProfileFragment"
-            android:label="Профиль" />
-        <fragment
             android:id="@+id/scheduleFragment"
             android:name="com.schooldiary.fragment.ScheduleFragment"
             android:label="Расписание"
@@ -39,9 +35,6 @@
             <action
                 android:id="@+id/action_scheduleFragment_to_detailsFragment"
                 app:destination="@id/detailsFragment" />
-            <action
-                android:id="@+id/action_scheduleFragment_to_profileFragment3"
-                app:destination="@id/profileFragment" />
         </fragment>
         <fragment
             android:id="@+id/statisticsFragment"
@@ -52,7 +45,11 @@
             android:id="@+id/detailsFragment"
             android:name="com.schooldiary.fragment.DetailsFragment"
             android:label="Подробности"
-            tools:layout="@layout/fragment_details" />
+            tools:layout="@layout/fragment_details" >
+            <action
+                android:id="@+id/action_detailsFragment_to_teacherJournalFragment"
+                app:destination="@id/teacherJournalFragment" />
+        </fragment>
         <action
             android:id="@+id/action_global_auth_flow"
             app:destination="@id/auth_flow" />
@@ -61,6 +58,10 @@
             android:name="com.schooldiary.fragment.TeacherJournalFragment"
             android:label="Журнал"
             tools:layout="@layout/fragment_teacher_journal" />
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.schooldiary.fragment.ProfileFragment"
+            android:label="ProfileFragment" />
     </navigation>
     <navigation
         android:id="@+id/zavuchFlow"
@@ -80,7 +81,7 @@
         <fragment
             android:id="@+id/zavuchAddAccountFragment"
             android:name="com.schooldiary.fragment.ZavuchAddAccountFragment"
-            android:label="Добавление/Редактирование аккаунта"
+            android:label="Добавление аккаунта"
             tools:layout="@layout/fragment_zavuch_add_account" />
         <fragment
             android:id="@+id/zavuchProfileFragment"
@@ -95,6 +96,13 @@
             <action
                 android:id="@+id/action_zavuchAccountListFragment_to_zavuchAddAccountFragment"
                 app:destination="@id/zavuchAddAccountFragment" />
+            <action
+                android:id="@+id/action_zavuchAccountListFragment_to_editUsersFragment"
+                app:destination="@id/editUsersFragment" />
         </fragment>
+        <fragment
+            android:id="@+id/editUsersFragment"
+            android:name="com.schooldiary.fragment.EditUsersFragment"
+            android:label="EditUsersFragment" />
     </navigation>
 </navigation>

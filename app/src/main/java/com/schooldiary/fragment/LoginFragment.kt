@@ -58,8 +58,8 @@ class LoginFragment : Fragment() {
                     putString(getString(R.string.sp_user_role), viewModel.userRole.name)
                 }
                 loginUser()
-            } else if (it.message == "Логин или пароль некорректен") {
-                Toast.makeText(context, "Логин или пароль некорректен", Toast.LENGTH_SHORT).show()
+            } else if (it.message == "Логин или пароль некорректны") {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
         }
 

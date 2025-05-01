@@ -28,12 +28,12 @@
     <style name="MyButtonStyle" parent="Widget.Material3.Button">
         <item name="backgroundTint">@color/md3_primary</item>
         <item name="android:textColor">@color/white</item>
-        <item name="cornerRadius">100dp</item>
+        <item name="cornerRadius">10dp</item>
     </style>
     <style name="MyDeleteButtonStyle" parent="Widget.Material3.Button">
         <item name="backgroundTint">@color/mark_red</item>
         <item name="android:textColor">@color/white</item>
-        <item name="cornerRadius">100dp</item>
+        <item name="cornerRadius">10dp</item>
     </style>
 
     <!-- Стиль TabLayout -->

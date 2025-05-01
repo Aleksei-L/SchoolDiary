@@ -8,45 +8,71 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.schooldiary.R
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.schooldiary.activity.MainActivity
+import com.schooldiary.adapter.ScheduleAdapter2
+import com.schooldiary.data.classname.ClassNameResponseItem
 import com.schooldiary.databinding.FragmentZavuchScheduleBinding
+import com.schooldiary.viewmodel.MainViewModel
+import com.schooldiary.viewmodel.MainViewModelFactory
 
 class ZavuchScheduleFragment : Fragment() {
     private var nullableBinding: FragmentZavuchScheduleBinding? = null
     private val binding
         get() = nullableBinding!!
+    private val viewModel: MainViewModel by activityViewModels {
+        MainViewModelFactory((activity as MainActivity).repository)
+    }
+    private lateinit var className: List<ClassNameResponseItem>
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         nullableBinding = FragmentZavuchScheduleBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        viewModel.classes.observe(viewLifecycleOwner) { subjects ->
+            className = subjects
+            val subjectsNames = subjects.map { it.name }.sorted()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val spinner = binding.mySpinner
-
-        ArrayAdapter.createFromResource(requireContext(), R.array.my_items, android.R.layout.simple_spinner_item)
-            .also { adapter ->
+            ArrayAdapter(
+                requireContext(), android.R.layout.simple_spinner_item, subjectsNames
+            ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinner.adapter = adapter
+                binding.mySpinner.adapter = adapter
             }
+            binding.mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    viewModel.getScheduleForZavuch(
+                        className.find { it.name == binding.mySpinner.selectedItem }?.name ?: ""
+                    )
+                    viewModel.classNameForAdding =
+                        className.find { it.name == binding.mySpinner.selectedItem }?.name ?: ""
+                }
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = parent?.getItemAtPosition(position).toString()
-                Toast.makeText(requireContext(), "Выбрано: $selectedItem", Toast.LENGTH_SHORT).show()
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
 
+        viewModel.scheduleData.observe(viewLifecycleOwner) {
+            val item = it[0]
+            val scheduleAdapter = ScheduleAdapter2(item.schedule, parentFragmentManager,requireContext())
+            scheduleAdapter.setOnClickListener { position ->
+                viewModel.dayForDetails = position+1}
+            binding.rvSchedule2.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = scheduleAdapter
+            }
+        }
+        viewModel.addLessonsResponse.observe(viewLifecycleOwner) {
+            if (it.message != "") Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+        }
+        viewModel.getAllClasses()
+        return binding.root
     }
+
     override fun onDestroyView() {
         nullableBinding = null
         super.onDestroyView()

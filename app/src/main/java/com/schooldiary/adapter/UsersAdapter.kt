@@ -11,11 +11,11 @@ import com.schooldiary.data.users.User
 import com.schooldiary.fragment.BottomSheetFragment2
 
 class UsersAdapter(
-    private val items: List<User>,
+    private var items: List<User>,
     private val fragmentManager: FragmentManager
 ) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
     private var onClick: ((Int) -> Unit)? = null
-
+    private var filteredItems: List<User> = items
     class UsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userName: TextView = itemView.findViewById(R.id.user_name)
         val userRole: TextView = itemView.findViewById(R.id.user_role)
@@ -28,7 +28,7 @@ class UsersAdapter(
     }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
-        val item = items[position]
+        val item = filteredItems[position]
         holder.userName.text = item.name
         holder.userRole.text = item.roles[0]
         holder.itemView.setOnClickListener {
@@ -38,9 +38,26 @@ class UsersAdapter(
         }
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount() = filteredItems.size
+  
+    fun setOnclickListener(action:(Int)->Unit){
+        onClick=action
+    }
+    
+    fun filterByName(query: String) {
+        filteredItems = if (query.isEmpty()) {
+            items
+        } else {
+            items.filter { user ->
+                user.name.contains(query, ignoreCase = true)
+            }
+        }
+        notifyDataSetChanged()
+    }
 
-    fun setOnclickListener(action: (Int) -> Unit) {
-        onClick = action
+    fun updateItems(newItems: List<User>) {
+        items = newItems
+        filteredItems = newItems
+        notifyDataSetChanged()
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2C6FB9"
@@ -39,9 +38,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:background="#F8F8F8"
-        android:src="@drawable/logout"
         android:clickable="true"
         android:focusable="true"
+        android:src="@drawable/logout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/whiteBloc" />
 
@@ -54,7 +53,6 @@
         android:background="#F8F8F8"
         android:clickable="true"
         android:focusable="true"
-
         android:src="@drawable/settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/whiteBloc" />
@@ -64,9 +62,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="24sp"
-        android:textColor="#000000"
         android:text="@string/UserName"
+        android:textColor="#000000"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,9 +88,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textSize="24sp"
-        android:textColor="#2C6FB9"
         android:text="@string/Info"
+        android:textColor="#2C6FB9"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -105,9 +103,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="22dp"
-        android:textSize="16sp"
-        android:textColor="#000000"
         android:text="@string/RRole"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
@@ -118,9 +116,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="58dp"
-        android:textSize="16sp"
-        android:textColor="#000000"
         android:text="@string/EEmail"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
@@ -131,13 +129,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="94dp"
-        android:textSize="16sp"
-        android:textColor="#000000"
         android:text="@string/CCLass"
+        android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
-
 
 
     <TextView
@@ -175,7 +173,6 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/Class"
         app:layout_constraintTop_toBottomOf="@+id/Information" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
