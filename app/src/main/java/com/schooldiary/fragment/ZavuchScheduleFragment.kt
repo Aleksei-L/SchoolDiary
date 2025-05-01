@@ -48,6 +48,7 @@ class ZavuchScheduleFragment : Fragment() {
                     viewModel.getScheduleForZavuch(
                         className.find { it.name == binding.mySpinner.selectedItem }?.name ?: ""
                     )
+                   viewModel.classNameForAdding= className.find { it.name == binding.mySpinner.selectedItem }?.name ?: ""
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -58,6 +59,8 @@ class ZavuchScheduleFragment : Fragment() {
         viewModel.scheduleData.observe(viewLifecycleOwner) {
             val item = it[0]
             val scheduleAdapter = ScheduleAdapter2(item.schedule, parentFragmentManager)
+            scheduleAdapter.setOnClickListener { position ->
+                viewModel.dayForDetails = position}
             binding.rvSchedule2.apply {
                 layoutManager = LinearLayoutManager(context)
                 adapter = scheduleAdapter

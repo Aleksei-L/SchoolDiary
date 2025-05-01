@@ -24,7 +24,7 @@ class LessonPreviewAdapter2(
 
     override fun onBindViewHolder(holder: LessonPreviewViewHolder2, position: Int) {
         val item = items[position]
-        holder.lessonTitle.text = item.subjectName
+        holder.lessonTitle.text="${item.lessonOrder} - ${item.subjectName}"
     }
 
     override fun getItemCount() = items.size
