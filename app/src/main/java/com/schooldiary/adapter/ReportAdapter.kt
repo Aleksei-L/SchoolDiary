@@ -31,8 +31,8 @@ class ReportAdapter(
         holder.reportAverage.text = "СР ${"%.1f".format(average)}"
 
         holder.marks.apply {
-            adapter = ReportCardAdapter(item.grade)
-            layoutManager = GridLayoutManager(context, 5) //TODO
+            adapter = ReportCardAdapter(item.grade, false)
+            layoutManager = GridLayoutManager(context, 5)
         }
     }
 

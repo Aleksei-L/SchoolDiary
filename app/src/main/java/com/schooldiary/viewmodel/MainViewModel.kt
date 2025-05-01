@@ -3,6 +3,7 @@ package com.schooldiary.viewmodel
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.ClassAndSubject
+import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
@@ -72,6 +74,12 @@ class MainViewModel(
 
     private val mGradesForTeacher = MutableLiveData<GradesForTeacherResponse>()
     val gradesForTeacher: LiveData<GradesForTeacherResponse> = mGradesForTeacher
+
+    var fragmentManagerForDatePicker: FragmentManager? = null
+
+    var studentNameForTeacherNewMark = ""
+
+    var subjectNameForTeacherNewMark = ""
 
     fun login(login: String, password: String) = viewModelScope.launch {
         val userData = User(login, password)
@@ -174,5 +182,9 @@ class MainViewModel(
         val classAndSubject = ClassAndSubject(classId, subjectId)
         val response = repository.getGradesForTeacher(classAndSubject)
         response?.let { mGradesForTeacher.postValue(it) }
+    }
+
+    fun createNewGrade(data: CreateGradeByTeacher) = viewModelScope.launch {
+        repository.createGradeByTeacher(data)
     }
 }

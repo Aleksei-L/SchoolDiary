@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
 import com.schooldiary.data.users.User
@@ -18,7 +17,6 @@ class UsersAdapter(
     private var onClick: ((Int) -> Unit)? = null
 
     class UsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val userName: TextView = itemView.findViewById(R.id.user_name)
         val userRole: TextView = itemView.findViewById(R.id.user_role)
         val className: TextView = itemView.findViewById(R.id.class_name)
@@ -34,14 +32,15 @@ class UsersAdapter(
         holder.userName.text = item.name
         holder.userRole.text = item.roles[0]
         holder.itemView.setOnClickListener {
-            onClick?.let{it(position)}
+            onClick?.let { it(position) }
             val bottomSheet = BottomSheetFragment2()
             bottomSheet.show(fragmentManager, bottomSheet.tag)
         }
     }
 
     override fun getItemCount() = items.size
-    fun setOnclickListener(action:(Int)->Unit){
-        onClick=action
+
+    fun setOnclickListener(action: (Int) -> Unit) {
+        onClick = action
     }
 }

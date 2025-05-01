@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Добавить оценку"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:id="@+id/date_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/typing_bloc"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:text="15.04.2025" />
+
+    <RadioGroup
+        android:id="@+id/gradeRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/grade_5"
+            style="@style/GradeRadioButton"
+            android:text="5"
+            android:textColor="@color/mark_dark_green" />
+
+        <RadioButton
+            android:id="@+id/grade_4"
+            style="@style/GradeRadioButton"
+            android:text="4"
+            android:textColor="@color/mark_green" />
+
+        <RadioButton
+            android:id="@+id/grade_3"
+            style="@style/GradeRadioButton"
+            android:text="3"
+            android:textColor="@color/mark_yellow" />
+
+        <RadioButton
+            android:id="@+id/grade_2"
+            style="@style/GradeRadioButton"
+            android:text="2"
+            android:textColor="@color/mark_red" />
+
+        <RadioButton
+            android:id="@+id/grade_neutral"
+            style="@style/GradeRadioButton"
+            android:text="Н"
+            android:textColor="@color/mark_neutral" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/update_mark"
+        style="@style/MyButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:minWidth="240dp"
+        android:text="Сохранить"
+        android:textSize="20sp" />
+
+</LinearLayout>

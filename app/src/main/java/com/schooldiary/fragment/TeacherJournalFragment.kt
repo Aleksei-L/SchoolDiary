@@ -51,6 +51,8 @@ class TeacherJournalFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
+                        viewModel.subjectNameForTeacherNewMark =
+                            binding.subjectsSelector.selectedItem as String
                         viewModel.getGradesForTeacher(
                             "D3F4C623-C1D2-4AF6-BCDC-779C5CD3427A", //TODO
                             subjectsList.find { it.name == binding.subjectsSelector.selectedItem }?.subjectId
@@ -62,10 +64,16 @@ class TeacherJournalFragment : Fragment() {
                 }
         }
 
+        viewModel.fragmentManagerForDatePicker = childFragmentManager
+
         viewModel.gradesForTeacher.observe(viewLifecycleOwner) {
             binding.rvTeacherGrades.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = ReportForTeacherAdapter(it)
+                adapter = ReportForTeacherAdapter(
+                    it.groupBy { it.student },
+                    childFragmentManager,
+                    viewModel
+                )
             }
         }
 

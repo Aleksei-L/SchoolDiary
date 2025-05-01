@@ -4,6 +4,7 @@ import android.util.Log
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.ClassAndSubject
+import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
@@ -181,4 +182,14 @@ class Repository(
                 null
             }
         }
+
+    suspend fun createGradeByTeacher(data: CreateGradeByTeacher) = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val response = api.createNewGrade(data)
+            Log.i(this@Repository.javaClass.name, "Response from server: $response")
+        } catch (e: Exception) {
+            Log.e(this@Repository.javaClass.name, "Can't create new mark")
+            Log.e(this@Repository.javaClass.name, e.stackTraceToString())
+        }
+    }
 }

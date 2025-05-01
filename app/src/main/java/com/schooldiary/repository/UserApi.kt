@@ -3,6 +3,7 @@ package com.schooldiary.repository
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
 import com.schooldiary.data.grade.ClassAndSubject
+import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
@@ -83,4 +84,9 @@ interface UserApi {
     suspend fun getGradesByClassAndSubject(
         @Body classAndSubject: ClassAndSubject
     ): GradesForTeacherResponse
+
+    @POST("Grade")
+    suspend fun createNewGrade(
+        @Body createGradeByTeacher: CreateGradeByTeacher
+    )
 }

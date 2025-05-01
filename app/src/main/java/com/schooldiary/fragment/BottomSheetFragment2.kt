@@ -20,7 +20,7 @@ class BottomSheetFragment2 : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val position = viewModel.userForDetails
         nullableBinding = BottomSheet2Binding.inflate(inflater, container, false)
         viewModel.userData.observe(viewLifecycleOwner) {

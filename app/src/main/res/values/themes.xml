@@ -46,4 +46,14 @@
         <item name="textAllCaps">false</item>
         <item name="android:textSize">14sp</item> <!-- Уменьшенный размер для Material 3 -->
     </style>
+
+    <style name="GradeRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/grade_button_background</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>
