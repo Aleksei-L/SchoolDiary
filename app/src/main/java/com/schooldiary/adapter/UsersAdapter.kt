@@ -32,6 +32,7 @@ class UsersAdapter(
         val item = filteredItems[position]
         holder.userName.text = item.name
         holder.userRole.text = item.roles[0]
+        holder.className.text=item.className
         holder.itemView.setOnClickListener {
             onClick?.let { it(position) }
             val bottomSheet = BottomSheetFragment2()

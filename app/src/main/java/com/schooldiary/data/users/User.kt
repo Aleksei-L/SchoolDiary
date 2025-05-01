@@ -7,5 +7,6 @@ data class User(
     val name: String,
     val login:String,
     val inActive:Boolean,
-    val roles:List<String>
+    val roles:List<String>,
+    val className:String
 )

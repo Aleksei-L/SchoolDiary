@@ -35,12 +35,12 @@
         </LinearLayout>
 
         <Button
+            style="@style/MyButtonStyle"
             android:id="@+id/New_Lesson"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="75dp"
-            android:layout_marginBottom="0dp"
             android:background="@drawable/typing_bloc"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:text="@string/Plus"
             android:textAlignment="center"
             android:textColor="@color/black"
