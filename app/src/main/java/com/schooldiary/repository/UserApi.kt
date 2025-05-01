@@ -5,10 +5,10 @@ import com.schooldiary.data.addinglessons.AddLessonsResponse
 import com.schooldiary.data.classname.ClassNameResponse
 import com.schooldiary.data.createdata.DataCreatedResponse
 import com.schooldiary.data.createdata.DataForCreate
-import com.schooldiary.data.grade.ClassAndSubject
-import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.editdata.EditData
 import com.schooldiary.data.editdata.EditDataResponse
+import com.schooldiary.data.grade.ClassAndSubject
+import com.schooldiary.data.grade.CreateGradeByTeacher
 import com.schooldiary.data.grade.GradeResponse
 import com.schooldiary.data.grade.GradesForTeacherResponse
 import com.schooldiary.data.login.LoginResponse
@@ -17,9 +17,6 @@ import com.schooldiary.data.room.RoomResponse
 import com.schooldiary.data.schedule.ScheduleResponse
 import com.schooldiary.data.schedule.UpdateHomework
 import com.schooldiary.data.student.AllStudentsResponse
-import com.schooldiary.data.studentinfo.StudentInfoResponse
-import com.schooldiary.data.subject.SubjectsResponse
-import com.schooldiary.data.teacherInfo.TeacherInfoResponse
 import com.schooldiary.data.studentinfo.UserInfoResponse
 import com.schooldiary.data.subject.SubjectsResponse
 import com.schooldiary.data.translate.TranslateUserToStudentResponse
@@ -80,7 +77,7 @@ interface UserApi {
     @DELETE("Users/DeleteUser/{userId}")
     suspend fun deleteUser(
         @Path("userId") userId: String
-    ):Response<DataCreatedResponse>
+    ): Response<DataCreatedResponse>
 
     @GET("Schedules/ByClassName/Correct/{className}/{weekId}")
     suspend fun getSchedulesForZavuch(
@@ -118,5 +115,5 @@ interface UserApi {
     @POST("Schedules/WithNewLessons")
     suspend fun addLesson(
         @Body data: AddLessons
-    ):Response<AddLessonsResponse>
+    ): Response<AddLessonsResponse>
 }

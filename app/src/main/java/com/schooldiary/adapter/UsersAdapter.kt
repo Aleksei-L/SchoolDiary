@@ -16,6 +16,7 @@ class UsersAdapter(
 ) : RecyclerView.Adapter<UsersAdapter.UsersViewHolder>() {
     private var onClick: ((Int) -> Unit)? = null
     private var filteredItems: List<User> = items
+
     class UsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val userName: TextView = itemView.findViewById(R.id.user_name)
         val userRole: TextView = itemView.findViewById(R.id.user_role)
@@ -39,11 +40,11 @@ class UsersAdapter(
     }
 
     override fun getItemCount() = filteredItems.size
-  
-    fun setOnclickListener(action:(Int)->Unit){
-        onClick=action
+
+    fun setOnclickListener(action: (Int) -> Unit) {
+        onClick = action
     }
-    
+
     fun filterByName(query: String) {
         filteredItems = if (query.isEmpty()) {
             items
