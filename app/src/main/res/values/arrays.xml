@@ -14,4 +14,11 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+    <string-array name="week_days">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+    </string-array>
 </resources>

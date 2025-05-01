@@ -57,7 +57,7 @@ class MainViewModel(
     var classNameForAdding = ""
 
     private val mWeekNumber = MutableLiveData(
-        LocalDate.now().get(WeekFields.of(Locale.UK).weekOfYear()) + 17
+        LocalDate.now().get(WeekFields.of(Locale.UK).weekOfYear()) + 16
     )
     val weekNumber: LiveData<Int> = mWeekNumber
 
@@ -71,6 +71,9 @@ class MainViewModel(
 
     private val mDataCreatedResponse = MutableLiveData<DataCreatedResponse>()
     val dataCreatedResponse: LiveData<DataCreatedResponse> = mDataCreatedResponse
+
+    private val mDeleteResponse = MutableLiveData<DataCreatedResponse>()
+    val deleteResponse: LiveData<DataCreatedResponse> = mDeleteResponse
 
     private val mSubjects = MutableLiveData<SubjectsResponse>()
     val subjects: LiveData<SubjectsResponse> = mSubjects
@@ -164,8 +167,12 @@ class MainViewModel(
 
     fun deleteUser(userId: String) {
         viewModelScope.launch {
-            repository.deleteUser(userId)
+           val deleteResponse= repository.deleteUser(userId)
             getAllUsers()
+            mDeleteResponse.postValue(deleteResponse)
+            Handler(Looper.getMainLooper()).postDelayed({
+                mDeleteResponse.postValue(DataCreatedResponse(""))
+            }, 2000)
         }
     }
 
@@ -231,11 +238,12 @@ class MainViewModel(
                 room
             )
         )
-        val addLessons = AddLessons(classNameForAdding, dayForDetails, lessonsList)
+        val addLessons = AddLessons(classNameForAdding, lessonsList)
         val addLessonResponse = repository.addLesson(addLessons)
         mAddLessonsResponse.postValue(addLessonResponse)
         Handler(Looper.getMainLooper()).postDelayed({
             mAddLessonsResponse.postValue(AddLessonsResponse(""))
         }, 2000)
+        getScheduleForZavuch(classNameForAdding)
     }
 }

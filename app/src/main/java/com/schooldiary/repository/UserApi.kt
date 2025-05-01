@@ -73,7 +73,7 @@ interface UserApi {
     @DELETE("Users/DeleteUser/{userId}")
     suspend fun deleteUser(
         @Path("userId") userId: String
-    )
+    ):Response<DataCreatedResponse>
 
     @GET("Schedules/ByClassName/Correct/{className}/{weekId}")
     suspend fun getSchedulesForZavuch(
