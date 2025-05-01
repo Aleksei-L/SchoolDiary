@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.schooldiary.R
 import com.schooldiary.activity.MainActivity
 import com.schooldiary.adapter.ReportForTeacherAdapter
 import com.schooldiary.data.subject.SubjectsResponseItem
@@ -36,7 +37,7 @@ class TeacherJournalFragment : Fragment() {
 
             ArrayAdapter(
                 requireContext(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_text,
                 subjectsNames
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -86,7 +87,7 @@ class TeacherJournalFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.allStudents.observe(viewLifecycleOwner) {
-            (binding.rvTeacherGrades.adapter as ReportForTeacherAdapter).addMoreStudents(it)
+            (binding.rvTeacherGrades.adapter as? ReportForTeacherAdapter)?.addMoreStudents(it)
         }
     }
 
