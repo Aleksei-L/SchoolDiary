@@ -17,6 +17,11 @@ import com.schooldiary.adapter.UsersAdapter
 import com.schooldiary.databinding.FragmentZavuchAccountslistBinding
 import com.schooldiary.viewmodel.MainViewModel
 import com.schooldiary.viewmodel.MainViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ZavuchAccountsListFragment : Fragment() {
 
@@ -26,7 +31,7 @@ class ZavuchAccountsListFragment : Fragment() {
         MainViewModelFactory((activity as MainActivity).repository)
     }
     private lateinit var usersAdapter: UsersAdapter
-
+    private var searchJob: Job? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,8 +54,13 @@ class ZavuchAccountsListFragment : Fragment() {
 
         binding.searchName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                usersAdapter.filterByName(s.toString())
+                searchJob?.cancel()
+                searchJob = CoroutineScope(Dispatchers.Main).launch {
+                    delay(500)
+                    usersAdapter.filterByName(s?.toString() ?: "")
+                }
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
