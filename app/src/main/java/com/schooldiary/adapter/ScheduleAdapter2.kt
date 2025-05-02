@@ -1,6 +1,6 @@
 package com.schooldiary.adapter
 
-import android.content.Context
+import BottomSheetFragment3
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,15 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.schooldiary.R
 import com.schooldiary.data.schedule.Schedule
-import com.schooldiary.fragment.BottomSheetFragment3
+
 
 class ScheduleAdapter2(
     private var items: List<Schedule>,
     private val fragmentManager: FragmentManager,
-    private val context: Context
 ) : RecyclerView.Adapter<ScheduleAdapter2.ScheduleViewHolder2>() {
     private var onClick: ((Int) -> Unit)? = null
-    val weekDays = context.resources.getStringArray(R.array.week_days).toList()
 
     class ScheduleViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.header_title2)
@@ -50,14 +48,8 @@ class ScheduleAdapter2(
         }
     }
 
-    override fun getItemCount() =items.size
+    override fun getItemCount() = items.size
 
-    fun updateData(newItems: List<Schedule>) {
-        items = weekDays.map { day ->
-            newItems.find { it.weekDayName == day } ?: Schedule(emptyList(), day)
-        }
-        notifyDataSetChanged()
-    }
 
     fun setOnClickListener(action: (Int) -> Unit) {
         onClick = action

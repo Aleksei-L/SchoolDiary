@@ -65,7 +65,7 @@ class ZavuchScheduleFragment : Fragment() {
                 currentSchedule.find { it.weekDayName == day } ?: Schedule(emptyList(), day)
             }
             val scheduleAdapter =
-                ScheduleAdapter2(fullWeekSchedule, parentFragmentManager, requireContext())
+                ScheduleAdapter2(fullWeekSchedule, parentFragmentManager)
             scheduleAdapter.setOnClickListener { position ->
                 viewModel.dayForDetails = position + 1
             }
