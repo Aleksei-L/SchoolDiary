@@ -65,7 +65,7 @@ class ZavuchProfileFragment : Fragment() {
                     putBoolean(getString(R.string.sp_login_state), false)
                 }
                 viewModel.clearMessage()
-                val navOptions = NavOptions.Builder().setPopUpTo(R.id.mainFlow, true).build()
+                val navOptions = NavOptions.Builder().setPopUpTo(R.id.zavuchScheduleFragment, true).build()
                 binding.root.findNavController().navigate(
                     R.id.action_global_auth_flow2, null, navOptions
                 )
