@@ -51,7 +51,7 @@ class DetailsFragment : Fragment() {
                 viewModel.lessonIdForUpdateHomework = lessonId
                 viewModel.currentHomeworkForEdit = homework
             },
-            onTeacheHomework = {lessonId ->
+            onTeacherHomework = {lessonId ->
                 findNavController().navigate(R.id.action_detailsFragment_to_teacherJournalFragment)
             }
         )

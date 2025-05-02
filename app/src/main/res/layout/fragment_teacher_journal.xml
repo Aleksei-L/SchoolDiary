@@ -31,6 +31,32 @@
             android:backgroundTint="@color/white"
             android:gravity="center"
             android:popupBackground="@drawable/spinner_background" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_blue"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="30dp"
+            android:text="Класс:"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+        <Spinner
+            android:id="@+id/class_selector"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:popupBackground="@drawable/spinner_background" />
 
     </LinearLayout>
 

@@ -63,7 +63,7 @@ class ReportForTeacherAdapter(
 
     fun addMoreStudents(students: List<AllStudentsResponseItem>) {
         students.forEach {
-            items.plus(Pair(Student(it.user.name, it.studentId), listOf()))
+            items.plus(Pair(Student(it.user?.name?:"Неизвестный", it.studentId), listOf()))
         }
     }
 }

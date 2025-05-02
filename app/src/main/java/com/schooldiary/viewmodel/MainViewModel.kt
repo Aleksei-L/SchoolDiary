@@ -90,6 +90,10 @@ class MainViewModel(
 
     var subjectNameForTeacherNewMark = ""
 
+    var subjectIdForGrades=""
+
+    var classIdForTeacherNewMark=""
+
     private val mAllStudents = MutableLiveData<AllStudentsResponse>()
     val allStudents: LiveData<AllStudentsResponse> = mAllStudents
 
@@ -206,10 +210,12 @@ class MainViewModel(
 
     fun createNewGrade(data: CreateGradeByTeacher) = viewModelScope.launch {
         repository.createGradeByTeacher(data)
+        getGradesForTeacher(classIdForTeacherNewMark,subjectIdForGrades)
+        getAllStudents(classNameForAdding)
     }
 
-    fun getAllStudents() = viewModelScope.launch {
-        val response = repository.getAllStudents()
+    fun getAllStudents(className: String) = viewModelScope.launch {
+        val response = repository.getAllStudents(className)
         response?.let { mAllStudents.postValue(it) }
     }
 
