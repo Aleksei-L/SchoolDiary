@@ -297,9 +297,9 @@ class Repository(
         }
     }
 
-    suspend fun getAllStudents(): AllStudentsResponse? = withContext(Dispatchers.IO) {
+    suspend fun getAllStudents(className: String): AllStudentsResponse? = withContext(Dispatchers.IO) {
         return@withContext try {
-            val response = api.getAllStudents()
+            val response = api.getAllStudents(className)
             Log.i(this@Repository.javaClass.name, "Response from server: $response")
             response
         } catch (e: Exception) {

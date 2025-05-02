@@ -2,6 +2,6 @@ package com.schooldiary.data.room
 
 data class RoomResponseItem(
 
-    val room: String
+    val name: String
 )
 class RoomResponse : ArrayList<RoomResponseItem>()

@@ -16,7 +16,7 @@ class LessonAdapter(
     private val isUserTeacher: Boolean,
     private val fragmentManager: FragmentManager,
     private val onLessonClick: (String, String) -> Unit,
-    private val onTeacheHomework: (String) -> Unit
+    private val onTeacherHomework: (String) -> Unit
 ) : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
     class LessonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lessonTitle: TextView = itemView.findViewById(R.id.details_lesson_title)
@@ -39,19 +39,19 @@ class LessonAdapter(
         holder.lessonTitle.text = item.subjectName
         holder.lessonTime.text = "${item.startTime.dropLast(3)} - ${item.endTime.dropLast(3)}"
         holder.teacherName.text = item.teacherName
-        holder.roomNumber.text = item.room
+        holder.roomNumber.text = item.roomName
         holder.homework.text = item.homework
 
         if (isUserTeacher) {
             holder.teacherHomework.visibility = View.VISIBLE
             if (holder.homework.text.isEmpty()) holder.homework.text = "Домашнее задание не задано"
             holder.lessonsDetail.setOnClickListener {
-                onLessonClick(item.lessonId, item.homework)
+                onLessonClick(item.lessonId, item.homework?:"Домашнее задание не задано")
                 val bottomSheet = BottomSheetFragment()
                 bottomSheet.show(fragmentManager, bottomSheet.tag)
             }
             holder.teacherHomework.setOnClickListener {
-                onTeacheHomework(item.lessonId)
+                onTeacherHomework(item.lessonId)
             }
         }
     }

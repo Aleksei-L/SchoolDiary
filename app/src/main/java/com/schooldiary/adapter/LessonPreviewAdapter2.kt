@@ -29,7 +29,7 @@ class LessonPreviewAdapter2(
         val item = items[position]
         holder.lessonTitle.text = "${item.lessonOrder}. ${item.subjectName}"
         holder.teacherName.text = item.teacherName
-        holder.roomName.text = item.room
+        holder.roomName.text = item.roomName
         holder.lessonTime.text = "${item.startTime.dropLast(3)} - ${item.endTime.dropLast(3)}"
     }
 

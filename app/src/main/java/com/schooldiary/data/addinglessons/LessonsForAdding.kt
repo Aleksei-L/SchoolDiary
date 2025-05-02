@@ -7,5 +7,5 @@ data class LessonsForAdding(
     val teacherName: String,
     val startTime: String,
     val endTime: String,
-    val room: String
+    val roomName: String
 )

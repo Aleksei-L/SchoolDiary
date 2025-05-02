@@ -97,13 +97,15 @@ interface UserApi {
         @Body createGradeByTeacher: CreateGradeByTeacher
     )
 
-    @GET("Student")
-    suspend fun getAllStudents(): AllStudentsResponse
+    @GET("Student/ClassName/{className}")
+    suspend fun getAllStudents(
+        @Path("className") className:String
+    ): AllStudentsResponse
 
     @GET("Class")
     suspend fun getAllClass(): ClassNameResponse
 
-    @GET("Lesson/Room")
+    @GET("Room/Room")
     suspend fun getAllRoom(): RoomResponse
 
     @PUT("Users/UpdateUser/{userId}")

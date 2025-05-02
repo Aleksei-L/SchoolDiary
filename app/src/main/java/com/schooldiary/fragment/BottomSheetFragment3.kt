@@ -1,5 +1,3 @@
-package com.schooldiary.fragment
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +43,7 @@ class BottomSheetFragment3 : BottomSheetDialogFragment() {
         }
         viewModel.room.observe(viewLifecycleOwner) { room ->
             roomList = room
-            val rooms = room.map { it.room }.sorted()
+            val rooms = room.map { it.name }.sorted()
 
             ArrayAdapter(
                 requireContext(),
