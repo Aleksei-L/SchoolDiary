@@ -35,10 +35,12 @@ class EditUsersFragment : Fragment() {
             binding.editemail.setText(item.email)
 
             if (item.className != null) {
+                binding.textView5.visibility=View.VISIBLE
                 binding.editClassName.visibility = View.VISIBLE
                 loadClassesAndSelectClass(item.className)
             } else {
                 binding.editClassName.visibility = View.GONE
+                binding.textView5.visibility=View.GONE
             }
         }
         viewModel.getUserInfo(viewModel.userIdForDetails)
@@ -81,17 +83,19 @@ class EditUsersFragment : Fragment() {
     private fun loadClassesAndSelectClass(selectedClass: String) {
         viewModel.classes.observe(viewLifecycleOwner) { classList ->
             val className = classList.map { it.name }.sorted()
-            ArrayAdapter(
+            val adapter = ArrayAdapter(
                 requireContext(),
                 R.layout.simple_spinner_item,
                 className
-            ).also { adapter ->
-                adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                binding.editClassName.adapter
-                val position = className.indexOf(selectedClass)
-                if (position != -1) {
-                    binding.editClassName.setSelection(position)
-                }
+            ).apply {
+                setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+            }
+
+            binding.editClassName.adapter = adapter
+
+            val position = className.indexOf(selectedClass)
+            if (position != -1) {
+                binding.editClassName.setSelection(position)
             }
         }
     }
